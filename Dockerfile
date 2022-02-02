@@ -1,5 +1,5 @@
 # base image
-FROM node:16.10.0 as build
+FROM node:16.13.2 as build
 
 # set working directory
 WORKDIR /app
@@ -17,6 +17,7 @@ COPY . /app
 
 # generate build
 RUN npm run build-production --output-path=dist
+RUN ng build --configuration development
 
 ############
 ### prod ###
