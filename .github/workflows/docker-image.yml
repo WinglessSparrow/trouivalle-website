@@ -9,7 +9,7 @@ on:
       - v*
 
 env:
-  IMAGE_NAME:  winglesssparrow/trouivalle-website
+  IMAGE_NAME:  winglesssparrow/trouvaille-website
 
 
 
