@@ -27,7 +27,7 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["./src/shared/styles/global-style.scss"],
+            "styles": ["./src/app/shared/styles/global-style.scss"],
             "scripts": []
           },
           "configurations": {
@@ -90,12 +90,21 @@
             "karmaConfig": "karma.conf.js",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["./src/shared/styles/global-style.scss"],
+            "styles": ["./src/app/shared/styles/global-style.scss"],
             "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }
     }
   },
-  "defaultProject": "trouivalle-website"
+  "defaultProject": "trouivalle-website",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }
