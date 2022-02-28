@@ -27,7 +27,11 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["./src/app/shared/styles/global-style.scss"],
+            "styles": [
+              "./src/styles.css",
+              "./src/app/shared/styles/global-style.scss",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
+            ],
             "scripts": []
           },
           "configurations": {
