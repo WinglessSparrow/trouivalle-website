@@ -1,0 +1,16 @@
+html {
+  background-color: mediumpurple !important;
+  overflow-x: hidden;
+}
+
+.fs-50 {
+  font-size: 50px;
+}
+
+.h-200 {
+  height: 200px;
+}
+
+.h-400 {
+  height: 400px;
+}

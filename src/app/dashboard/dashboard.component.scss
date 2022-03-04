@@ -1,0 +1,37 @@
+.map-container {
+  background-image: url("../../assets/map_small.png");
+}
+
+.background {
+  background-color: #5c35ab;
+}
+
+.picture {
+  background-image: url("../../assets/pexels-yan-krukov-6818150_small.jpg");
+  -o-background-size: 100% 100%;
+}
+
+@media only screen and (min-width: 1030px) {
+  .trapezoid {
+    height: 0;
+    border-bottom: 150px solid #5c35ab;
+    border-left: 30px solid transparent;
+    border-right: 30px solid transparent;
+    transform: rotate(180deg) scaleX(-1);
+    .upside {
+      transform: rotate(180deg) scaleX(-1);
+    }
+  }
+
+  .trapezoid_small {
+    height: 0;
+    border-bottom: 50px solid #5c35ab;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    transform: rotate(180deg) scaleX(-1);
+    .upside {
+      transform: rotate(180deg) scaleX(-1);
+    }
+  }
+
+}

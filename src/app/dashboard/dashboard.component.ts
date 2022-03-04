@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { faCubes, faLocationDot, faTruckRampBox, faTruckFast } from "@fortawesome/free-solid-svg-icons";
+import { FooterComponent} from "../footer/footer.component";
+import { faBoxesStacked, faLocationDot, faTruckRampBox, faTruckFast, faBox } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'dashboard',
@@ -8,10 +9,11 @@ import { faCubes, faLocationDot, faTruckRampBox, faTruckFast } from "@fortawesom
 })
 export class DashboardComponent implements OnInit {
 
-  faCubes = faCubes;
+  faBoxesStacked = faBoxesStacked;
   faLocationDot = faLocationDot;
   faTruckRampBox = faTruckRampBox;
   faTruckFast = faTruckFast;
+  faBox = faBox;
 
   constructor() { }
 
