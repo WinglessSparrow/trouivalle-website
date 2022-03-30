@@ -14,3 +14,9 @@ html {
 .h-400 {
   height: 400px;
 }
+
+.w-30 {
+    width: 30%;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

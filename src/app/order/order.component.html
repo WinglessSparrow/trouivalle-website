@@ -1,0 +1,175 @@
+<div class="container">
+    <h1>Bestellung aufgeben</h1>
+    <mat-stepper>
+        <mat-step>
+            <ng-template matStepLabel>Kundendaten</ng-template>
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-6">
+                    <div>
+                        <h3>Versender</h3>
+                        <form [formGroup]="sender" style="font-size: 12px;">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Vorname:</mat-label>
+                                <input matInput type="text" formControlName="firstName">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Nachname:</mat-label>
+                                <input matInput type="text" formControlName="lastName">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Email:</mat-label>
+                                <input matInput type="text" formControlName="email">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>Ort:</mat-label>
+                                <input matInput type="text" formControlName="city">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>PLZ:</mat-label>
+                                <input matInput type="text" formControlName="postalCode">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>Straße: </mat-label>
+                                <input matInput type="text" formControlName="street">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>Hausnummer:</mat-label>
+                                <input matInput type="text" formControlName="houseNumber">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Land:</mat-label>
+                                <input matInput type="text" formControlName="country">
+                            </mat-form-field>
+                        </form>
+                    </div>
+
+                    <div class="mt-4">
+                        <h3>Empfänger</h3>
+                        <form [formGroup]="receiver" style="font-size: 12px;">
+                            <mat-form-field appearance="fill" class="w-100" style="font-size: 12px;">
+                                <mat-label>Vorname:</mat-label>
+                                <input matInput type="text" formControlName="firstName">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Nachname:</mat-label>
+                                <input matInput type="text" formControlName="lastName">
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Email:</mat-label>
+                                <input matInput type="text" formControlName="email">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>Ort:</mat-label>
+                                <input matInput type="text" formControlName="city">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>PLZ:</mat-label>
+                                <input matInput type="text" formControlName="postalCode">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>Straße:</mat-label>
+                                <input matInput type="text" formControlName="street">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="w-50">
+                                <mat-label>Hausnummer:</mat-label>
+                                <input matInput type="text" formControlName="houseNumber">
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Land:</mat-label>
+                                <input matInput type="text" formControlName="country">
+                            </mat-form-field>
+                        </form>
+                    </div>
+
+                    <button class="mt-4" mat-raised-button matStepperNext color="primary">Weiter zu den Paketdaten</button>
+                </div>
+            </div>
+        </mat-step>
+        <mat-step>
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-6">
+                    <ng-template matStepLabel>Paketdaten</ng-template>
+                    <h3>Dimensionen</h3>
+
+                    <form [formGroup]="dimensions">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Höhe (in cm)</mat-label>
+                            <input matInput type="text" formControlName="height">
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Breite (in cm)</mat-label>
+                            <input matInput type="text" formControlName="width">
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Tiefe (in cm)</mat-label>
+                            <input matInput type="text" formControlName="depth">
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Gewicht (in kg)</mat-label>
+                            <input matInput type="text" formControlName="weight">
+                        </mat-form-field>
+                    </form>
+
+                    <h3>Information</h3>
+                    <div class="d-flex justify-content-between text-center">
+                        <mat-card class="w-30">
+                            <mat-card-header class="d-block">
+                                <p>Briefe</p>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div>
+                                    <fa-icon [icon]="faEnvelope" size="4x"></fa-icon>
+                                    <p class="mt-2">0,85€ - 2.75€</p>
+                                    <p>bis 1kg</p>
+                                    <p>bis 35,5 x 25 x 5 cm</p>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                        <mat-card class="w-30">
+                            <mat-card-header class="d-block">
+                                <p>Paket klein</p>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <fa-icon [icon]="faBox" size="4x"></fa-icon>
+                                <p class="mt-2">4,99€ - 8,49€</p>
+                                <p>2kg - 10kg</p>
+                                <p>bis 120 x 60 x 60 cm</p>
+                            </mat-card-content>
+                        </mat-card>
+                        <mat-card class="w-30">
+                            <mat-card-header class="d-block">
+                                <p>Paket groß</p>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <fa-icon [icon]="faBoxesStacked" size="4x"></fa-icon>
+                                <p class="mt-2">16,49€</p>
+                                <p>bis 31,5kg</p>
+                                <p>bis 120 x 60 x 60 cm</p>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+
+                    <div class="mt-3">
+                        <h3>Abgabe / Abholung</h3>
+                        <mat-radio-group>
+                            <div class="flex-column">
+                                <mat-radio-button class="w-100" value="1">Sendung bei der Filiale abgeben</mat-radio-button>
+                                <mat-radio-button class="mt-2" value="2">Abholung zuhause (+ 5,00€)</mat-radio-button>
+                            </div>
+                        </mat-radio-group>
+                    </div>
+
+
+                    <button class="mt-4" mat-raised-button color="primary" matStepperNext>Weiter zur Bezahlung</button>
+                </div>
+            </div>
+
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Bezahlung</ng-template>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Checkout</ng-template>
+        </mat-step>
+    </mat-stepper>
+</div>

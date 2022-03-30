@@ -10,19 +10,39 @@ import { environment } from 'src/environments/environment';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { FooterComponent } from './footer/footer.component';
+import { OrderComponent } from './order/order.component';
+import {MatStepperModule} from "@angular/material/stepper";
+import {ReactiveFormsModule} from "@angular/forms";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatButtonModule} from "@angular/material/button";
+import {MatCardModule} from "@angular/material/card";
+import {MatDividerModule} from "@angular/material/divider";
+import {MatRadioModule} from "@angular/material/radio";
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, FooterComponent],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FontAwesomeModule,
-    NgxsModule.forRoot([], {
-      developmentMode: !environment.production,
-    }),
-    NgxsSelectSnapshotModule,
-    NgxsLoggerPluginModule.forRoot(),
-  ],
+  declarations: [AppComponent, DashboardComponent, FooterComponent, OrderComponent],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FontAwesomeModule,
+        MatFormFieldModule,
+        MatInputModule,
+        NgxsModule.forRoot([], {
+            developmentMode: !environment.production,
+        }),
+        NgxsSelectSnapshotModule,
+        NgxsLoggerPluginModule.forRoot(),
+        MatStepperModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatCardModule,
+        MatDividerModule,
+        MatRadioModule,
+    ],
   providers: environment.IOC,
   bootstrap: [AppComponent],
 })
