@@ -1,0 +1,23 @@
+::ng-deep{
+    .mat-form-field-appearance-fill .mat-form-field-flex {
+        background-color: white !important;
+        opacity: 1;
+        border-radius: 0px !important;
+    }
+}
+
+::ng-deep {
+    .mat-step-text-label {
+        color: white !important;
+        font-size: 20px !important;
+    }
+}
+
+.plr-30 {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.container-color {
+    background-color: #6043F6;
+}

@@ -1,5 +1,5 @@
-html {
-  background-color: mediumpurple !important;
+html, body {
+    background-image: linear-gradient(120deg, #9480f9 25%, #836bfc 25%, #836bfc 50%, #9480f9 50%, #9480f9 75%, #836bfc 75%, #836bfc 100%);
   overflow-x: hidden;
 }
 
@@ -18,5 +18,6 @@ html {
 .w-30 {
     width: 30%;
 }
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
