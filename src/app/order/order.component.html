@@ -6,7 +6,7 @@
             <div class="d-flex justify-content-center">
                 <div class="col-lg-6 plr-30 container-color">
                     <div>
-                        <h2 class="text-white">Versender</h2>
+                        <h2 class="text-white mt-3">Versender</h2>
                         <form [formGroup]="sender">
                             <mat-form-field appearance="fill" class="w-100">
                                 <mat-label>Vorname:</mat-label>
@@ -20,23 +20,35 @@
                                 <mat-label>Email:</mat-label>
                                 <input matInput type="text" formControlName="email">
                             </mat-form-field>
-                            <mat-form-field appearance="fill" class="w-50">
-                                <mat-label>Ort:</mat-label>
-                                <input matInput type="text" formControlName="city">
-                            </mat-form-field>
-                            <mat-form-field appearance="fill" class="w-50">
-                                <mat-label>PLZ:</mat-label>
-                                <input matInput type="text" formControlName="postalCode">
-                            </mat-form-field>
-                            <mat-form-field appearance="fill" class="w-50">
-                                <mat-label>Straße: </mat-label>
-                                <input matInput type="text" formControlName="street">
-                                <mat-error>hau mal ab</mat-error>
-                            </mat-form-field>
-                            <mat-form-field appearance="fill" class="w-50">
-                                <mat-label>Hausnummer:</mat-label>
-                                <input matInput type="text" formControlName="houseNumber">
-                            </mat-form-field>
+                            <div class="d-flex">
+                                <div class="w-50">
+                                    <mat-form-field appearance="fill" class="w-95">
+                                        <mat-label>Ort:</mat-label>
+                                        <input matInput type="text" formControlName="city">
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-50">
+                                    <mat-form-field appearance="fill" class="w-100">
+                                        <mat-label>PLZ:</mat-label>
+                                        <input matInput type="text" formControlName="postalCode">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="w-50">
+                                    <mat-form-field appearance="fill" class="w-95">
+                                        <mat-label>Straße:</mat-label>
+                                        <input matInput type="text" formControlName="street">
+                                        <mat-error>hau mal ab</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-50">
+                                    <mat-form-field appearance="fill" class="w-100">
+                                        <mat-label>Hausnummer:</mat-label>
+                                        <input matInput type="text" formControlName="houseNumber">
+                                    </mat-form-field>
+                                </div>
+                            </div>
                             <mat-form-field appearance="fill" class="w-100">
                                 <mat-label>Land:</mat-label>
                                 <input matInput type="text" formControlName="country">
@@ -59,22 +71,34 @@
                                 <mat-label>Email:</mat-label>
                                 <input matInput type="text" formControlName="email">
                             </mat-form-field>
-                            <mat-form-field appearance="fill" class="w-50">
-                                <mat-label>Ort:</mat-label>
-                                <input matInput type="text" formControlName="city">
-                            </mat-form-field>
-                            <mat-form-field appearance="fill" class="w-50">
-                                <mat-label>PLZ:</mat-label>
-                                <input matInput type="text" formControlName="postalCode">
-                            </mat-form-field>
-                            <mat-form-field appearance="fill" class="w-50">
-                                <mat-label>Straße:</mat-label>
-                                <input matInput type="text" formControlName="street">
-                            </mat-form-field>
-                            <mat-form-field appearance="fill" class="w-50">
-                                <mat-label>Hausnummer:</mat-label>
-                                <input matInput type="text" formControlName="houseNumber">
-                            </mat-form-field>
+                            <div class="d-flex">
+                                <div class="w-50">
+                                    <mat-form-field appearance="fill" class="w-95">
+                                        <mat-label>Ort:</mat-label>
+                                        <input matInput type="text" formControlName="city">
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-50">
+                                    <mat-form-field appearance="fill" class="w-100">
+                                        <mat-label>PLZ:</mat-label>
+                                        <input matInput type="text" formControlName="postalCode">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="d-flex">
+                                <div class="w-50">
+                                    <mat-form-field appearance="fill" class="w-95">
+                                        <mat-label>Straße:</mat-label>
+                                        <input matInput type="text" formControlName="street">
+                                    </mat-form-field>
+                                </div>
+                                <div class="w-50">
+                                    <mat-form-field appearance="fill" class="w-100">
+                                        <mat-label>Hausnummer:</mat-label>
+                                        <input matInput type="text" formControlName="houseNumber">
+                                    </mat-form-field>
+                                </div>
+                            </div>
                             <mat-form-field appearance="fill" class="w-100">
                                 <mat-label>Land:</mat-label>
                                 <input matInput type="text" formControlName="country">
@@ -83,13 +107,18 @@
                     </div>
                 </div>
             </div>
-            <button class="mt-4" mat-raised-button matStepperNext color="primary">Weiter zu den Paketdaten</button>
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-6">
+                    <button class="mt-4" mat-raised-button matStepperNext color="primary">Weiter zu den Paketdaten
+                    </button>
+                </div>
+            </div>
         </mat-step>
         <mat-step>
             <div class="d-flex justify-content-center">
-                <div class="col-lg-6">
+                <div class="col-lg-6 plr-30 container-color">
                     <ng-template matStepLabel>Paketdaten</ng-template>
-                    <h3>Dimensionen</h3>
+                    <h2 class="text-white mt-3">Dimensionen</h2>
 
                     <form [formGroup]="dimensions">
                         <mat-form-field appearance="fill" class="w-100">
@@ -110,7 +139,7 @@
                         </mat-form-field>
                     </form>
 
-                    <h3>Information</h3>
+                    <h2 class="text-white">Information</h2>
                     <div class="d-flex justify-content-between text-center">
                         <mat-card class="w-30">
                             <mat-card-header class="d-block">
@@ -149,17 +178,21 @@
                         </mat-card>
                     </div>
 
-                    <div class="mt-3">
-                        <h3>Abgabe / Abholung</h3>
-                        <mat-radio-group>
+                    <div class="mt-3 mb-4">
+                        <h2 class="text-white">Abgabe / Abholung</h2>
+                        <mat-radio-group [formControl]="pickup">
                             <div class="flex-column">
-                                <mat-radio-button class="w-100" value="1">Sendung bei der Filiale abgeben</mat-radio-button>
-                                <mat-radio-button class="mt-2" value="2">Abholung zuhause (+ 5,00€)</mat-radio-button>
+                                <mat-radio-button class="w-100 text-white" value="deliver">Sendung bei der Filiale abgeben
+                                </mat-radio-button>
+                                <mat-radio-button class="mt-2 text-white" value="pickup">Abholung zuhause (+ 5,00€)
+                                </mat-radio-button>
                             </div>
                         </mat-radio-group>
                     </div>
-
-
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-6">
                     <button class="mt-4" mat-raised-button color="primary" matStepperNext>Weiter zur Bezahlung</button>
                 </div>
             </div>
@@ -167,9 +200,95 @@
         </mat-step>
         <mat-step>
             <ng-template matStepLabel>Bezahlung</ng-template>
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-6 container-color">
+                    <mat-radio-group [formControl]="payment">
+                        <div class="flex-column plr-30 mb-4 mt-3">
+                            <h2 class="text-white">Bezahloptionen</h2>
+                            <mat-radio-button class="w-100 text-white" value="bankTransfer">Banküberweisung</mat-radio-button>
+                            <mat-radio-button class="mt-2 text-white" value="paypal">Paypal</mat-radio-button>
+                        </div>
+                    </mat-radio-group>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-6">
+                    <button class="mt-4" mat-raised-button color="primary" matStepperNext>Weiter zur Bestellübersicht</button>
+                </div>
+            </div>
         </mat-step>
         <mat-step>
             <ng-template matStepLabel>Checkout</ng-template>
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-6 container-color plr-30">
+                    <h2 class="text-white mt-3">Bestellübersicht:</h2>
+                    <div class="overview-container mb-4">
+                        <div class="d-flex mb-3">
+                            <mat-card class="w-50 mr-10">
+                                <mat-card-header >
+                                    <p>An</p>
+                                </mat-card-header>
+                                <mat-card-content>
+
+                                </mat-card-content>
+                            </mat-card>
+                            <mat-card class="w-50 ml-10">
+                                <mat-card-header >
+                                    <p>Von</p>
+                                </mat-card-header>
+                                <mat-card-content>
+
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                        <div class="d-flex">
+                            <div class="w-75">
+                                <div class="d-flex mb-3">
+                                    <mat-card class="w-50 mr-10">
+                                        <mat-card-header>
+                                            <p>Dimensionen</p>
+                                        </mat-card-header>
+                                        <mat-card-content>
+
+                                        </mat-card-content>
+                                    </mat-card>
+                                    <mat-card class="w-50 ml-10">
+                                        <mat-card-header >
+                                            <p>Abholung</p>
+                                        </mat-card-header>
+                                        <mat-card-content>
+
+                                        </mat-card-content>
+                                    </mat-card>
+                                </div>
+                                <mat-card class="w-100 mr-10">
+                                    <mat-card-header>
+                                        <p>Bezahlung mit: </p>
+                                    </mat-card-header>
+                                    <mat-card-content>
+
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                            <div class="w-25 mr-20">
+                                <mat-card class="w-100 h-100 ml-20">
+                                    <mat-card-header >
+                                        <p>Kosten</p>
+                                    </mat-card-header>
+                                    <mat-card-content>
+
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <div class="col-lg-6">
+                    <button mat-raised-button color="primary">Kostenpflichtig Bestellen</button>
+                </div>
+            </div>
         </mat-step>
     </mat-stepper>
 </div>

@@ -46,6 +46,9 @@ export class OrderComponent implements OnInit {
         // todo validation mit unseren Maßen festlegen
     });
 
+    payment = new FormControl({});
+    pickup = new FormControl({});
+
     constructor() {
     }
 
