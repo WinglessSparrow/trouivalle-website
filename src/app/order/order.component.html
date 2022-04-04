@@ -124,7 +124,7 @@
             </div>
             <div class="d-flex justify-content-center">
                 <div class="col-lg-6">
-                    <button class="mt-4" [disabled]="!sender.valid && !receiver.valid"
+                    <button class="mt-4" [disabled]="!sender.valid && !receiver.valid" (click)="setAddresses()"
                             mat-raised-button matStepperNext color="primary">Weiter zu den Paketdaten
                     </button>
                 </div>
@@ -136,7 +136,7 @@
                     <ng-template matStepLabel>Paketdaten</ng-template>
                     <h2 class="text-white mt-3">Dimensionen</h2>
 
-                    <form [formGroup]="dimensions">
+                    <form [formGroup]="packageForm">
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Höhe (in cm)</mat-label>
                             <input matInput type="text" formControlName="height">
