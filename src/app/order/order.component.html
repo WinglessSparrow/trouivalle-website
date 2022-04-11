@@ -65,7 +65,7 @@
 
                     <div class="mt-4">
                         <h2 class="text-white">Empfänger</h2>
-                        <form [formGroup]="receiver">
+                        <form [formGroup]="receiverGroup">
                             <mat-form-field appearance="fill" class="w-100">
                                 <mat-label>Vorname:</mat-label>
                                 <input matInput type="text" formControlName="firstName">
@@ -124,7 +124,7 @@
             </div>
             <div class="d-flex justify-content-center">
                 <div class="col-lg-6">
-                    <button class="mt-4" [disabled]="!sender.valid && !receiver.valid" (click)="setAddresses()"
+                    <button class="mt-4" [disabled]="!sender.valid && !receiverGroup.valid" (click)="setAddresses()"
                             mat-raised-button matStepperNext color="primary">Weiter zu den Paketdaten
                     </button>
                 </div>
@@ -209,7 +209,7 @@
             </div>
             <div class="d-flex justify-content-center">
                 <div class="col-lg-6">
-                    <button class="mt-4" mat-raised-button color="primary" matStepperNext>Weiter zur Bezahlung</button>
+                    <button class="mt-4" mat-raised-button color="primary" (click)="setPackage()" matStepperNext>Weiter zur Bezahlung</button>
                 </div>
             </div>
 
@@ -242,18 +242,24 @@
                         <div class="d-flex mb-3">
                             <mat-card class="w-50 mr-10">
                                 <mat-card-header >
-                                    <p>An</p>
+                                    <p class="orange">An</p>
                                 </mat-card-header>
                                 <mat-card-content>
-
+                                    <p>{{receiver.firstName}} {{receiver.lastName}}</p>
+                                    <p>{{receiverAddress.streetName}} {{receiverAddress.streetNumber}}</p>
+                                    <p>{{receiverAddress.zipCode}} {{receiverAddress.city}}</p>
+                                    <p>{{receiverAddress.country}}</p>
                                 </mat-card-content>
                             </mat-card>
                             <mat-card class="w-50 ml-10">
                                 <mat-card-header >
-                                    <p>Von</p>
+                                    <p class="orange">Von</p>
                                 </mat-card-header>
                                 <mat-card-content>
-
+                                    <p>{{customer.firstName}} {{customer.lastName}}</p>
+                                    <p>{{senderAddress.streetName}} {{senderAddress.streetNumber}}</p>
+                                    <p>{{senderAddress.zipCode}} {{senderAddress.city}}</p>
+                                    <p>{{senderAddress.country}}</p>
                                 </mat-card-content>
                             </mat-card>
                         </div>
@@ -262,37 +268,46 @@
                                 <div class="d-flex mb-3">
                                     <mat-card class="w-50 mr-10">
                                         <mat-card-header>
-                                            <p>Dimensionen</p>
+                                            <p class="orange">Dimensionen</p>
                                         </mat-card-header>
                                         <mat-card-content>
-
+                                            <p>Breite: {{package.width}} cm</p>
+                                            <p>Höhe: {{package.height}} cm</p>
+                                            <p>Tiefe: {{package.depth}} cm</p>
+                                            <p>Gewicht: {{package.weight}} kg</p>
                                         </mat-card-content>
                                     </mat-card>
                                     <mat-card class="w-50 ml-10">
-                                        <mat-card-header >
-                                            <p>Abholung</p>
+                                        <mat-card-header>
+                                            <p class="orange">Abholung</p>
                                         </mat-card-header>
                                         <mat-card-content>
-
+                                            <p>{{pickup.value}}</p>
+                                            <fa-icon class="fs-50" [icon]="faTruckRampBox"></fa-icon>
                                         </mat-card-content>
                                     </mat-card>
                                 </div>
                                 <mat-card class="w-100 mr-10">
                                     <mat-card-header>
-                                        <p>Bezahlung mit: </p>
+                                        <p class="orange">Bezahlung mit: </p>
                                     </mat-card-header>
                                     <mat-card-content>
-
+                                        <p>{{payment.value}}</p>
                                     </mat-card-content>
                                 </mat-card>
                             </div>
                             <div class="w-25 mr-20">
                                 <mat-card class="w-100 h-100 ml-20">
-                                    <mat-card-header >
-                                        <p>Kosten</p>
+                                    <!--todo korrekte Farbe herausfinden-->
+                                    <mat-card-header>
+                                        <p class="orange">Kosten</p>
                                     </mat-card-header>
                                     <mat-card-content>
-
+                                        <p>Paketgröße: </p>
+                                        <p>Lieferung: </p>
+                                        <br>
+                                        <p>Gesamt: </p>
+                                        noch keine Kosten
                                     </mat-card-content>
                                 </mat-card>
                             </div>

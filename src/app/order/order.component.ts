@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validator, Validators} from "@angular/forms";
 import {MatFormField} from "@angular/material/form-field";
-import {faEnvelope, faBox, faBoxesStacked} from "@fortawesome/free-solid-svg-icons";
+import {faEnvelope, faBox, faBoxesStacked, faTruckRampBox} from "@fortawesome/free-solid-svg-icons";
 import {Address} from "../models/Address";
 import {Customer} from "../models/Customer";
 import {Package} from "../models/Package";
@@ -14,14 +14,16 @@ import {Package} from "../models/Package";
 })
 export class OrderComponent implements OnInit {
 
-    private senderAddress: Address;
-    private receiverAddress: Address;
-    private customer: Customer;
-    private package: Package;
+    public senderAddress: Address;
+    public receiverAddress: Address;
+    public customer: Customer;
+    public receiver: Customer;
+    public package: Package;
 
     faEnvelope = faEnvelope;
     faBox = faBox;
     faBoxesStacked = faBoxesStacked;
+    faTruckRampBox = faTruckRampBox;
 
     sender = new FormGroup({
         firstName: new FormControl("", [
@@ -72,7 +74,7 @@ export class OrderComponent implements OnInit {
         ])
     });
 
-    receiver = new FormGroup({
+    receiverGroup = new FormGroup({
         firstName: new FormControl("", [
             Validators.required,
             Validators.minLength(2),
@@ -129,26 +131,47 @@ export class OrderComponent implements OnInit {
         // todo validation mit unseren Maßen festlegen
     });
 
-    payment = new FormControl({});
+    payment = new FormControl("", Validators.required);
     pickup = new FormControl("", Validators.required);
 
     constructor() {
         this.senderAddress = new Address();
         this.receiverAddress = new Address();
         this.customer = new Customer();
+        this.receiver = new Customer();
         this.package = new Package();
     }
 
     ngOnInit(): void {
+
+        //Testweise
+        this.sender.get("firstName")?.setValue("Tom");
+        this.sender.get("lastName")?.setValue("Maier");
+        this.sender.get("email")?.setValue("sadfaf@gmail.com");
+        this.sender.get("postalCode")?.setValue("77665");
+        this.sender.get("city")?.setValue("Offenburg");
+        this.sender.get("country")?.setValue("Deutschland");
+        this.sender.get("houseNumber")?.setValue("15");
+        this.sender.get("street")?.setValue("Hauptstraße");
+
+        this.receiverGroup.get("firstName")?.setValue("Tim");
+        this.receiverGroup.get("lastName")?.setValue("Mayer");
+        this.receiverGroup.get("email")?.setValue("ssaf@gmail.com");
+        this.receiverGroup.get("postalCode")?.setValue("77668");
+        this.receiverGroup.get("city")?.setValue("Offenburg");
+        this.receiverGroup.get("country")?.setValue("Deutschland");
+        this.receiverGroup.get("houseNumber")?.setValue("20");
+        this.receiverGroup.get("street")?.setValue("Nebenstraße");
+
     }
 
     public setAddresses(): void {
 
-        this.receiverAddress.zipCode = this.receiver.get("postalCode")?.value;
-        this.receiverAddress.city = this.receiver.get("city")?.value;
-        this.receiverAddress.streetName = this.receiver.get("street")?.value;
-        this.receiverAddress.streetNumber = this.receiver.get("houseNumber")?.value;
-        this.receiverAddress.country = this.receiver.get("country")?.value;
+        this.receiverAddress.zipCode = this.receiverGroup.get("postalCode")?.value;
+        this.receiverAddress.city = this.receiverGroup.get("city")?.value;
+        this.receiverAddress.streetName = this.receiverGroup.get("street")?.value;
+        this.receiverAddress.streetNumber = this.receiverGroup.get("houseNumber")?.value;
+        this.receiverAddress.country = this.receiverGroup.get("country")?.value;
 
         this.senderAddress.zipCode = this.sender.get("postalCode")?.value;
         this.senderAddress.city = this.sender.get("city")?.value;
@@ -167,15 +190,22 @@ export class OrderComponent implements OnInit {
         this.customer.firstName = this.sender.get("firstName")?.value;
         this.customer.lastName = this.sender.get("lastName")?.value;
         this.customer.email = this.sender.get("email")?.value;
-        this.customer.idaddress = this.senderAddress.idAddress;
+        this.customer.idaddress = this.senderAddress.idAddress
+
+        this.receiver.firstName = this.receiverGroup.get("firstName")?.value;
+        this.receiver.lastName = this.receiverGroup.get("lastName")?.value;
+        this.receiver.email = this.receiverGroup.get("email")?.value;
+        this.receiver.idaddress = this.receiverAddress.idAddress;
+
 
         // todo in DB speichern
         console.log(this.customer);
-        this.setPackage();
+        console.log(this.receiver);
+        // this.setPackage();
     }
 
     public setPackage(): void {
-
+        debugger;
         this.package.weight = this.packageForm.get("weight")?.value;
         this.package.height = this.packageForm.get("height")?.value;
         this.package.width = this.packageForm.get("width")?.value;
