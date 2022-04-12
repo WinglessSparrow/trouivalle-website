@@ -138,19 +138,19 @@
 
                     <form [formGroup]="packageForm">
                         <mat-form-field appearance="fill" class="w-100">
-                            <mat-label>Höhe (in cm)</mat-label>
-                            <input matInput type="text" formControlName="height">
+                            <mat-label>Länge (in cm)</mat-label>
+                            <input matInput type="text" formControlName="length">
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Breite (in cm)</mat-label>
                             <input matInput type="text" formControlName="width">
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="w-100">
-                            <mat-label>Tiefe (in cm)</mat-label>
-                            <input matInput type="text" formControlName="depth">
+                            <mat-label>Höhe (in cm)</mat-label>
+                            <input matInput type="text" formControlName="height">
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="w-100">
-                            <mat-label>Gewicht (in kg)</mat-label>
+                            <mat-label>Gewicht (in g)</mat-label>
                             <input matInput type="text" formControlName="weight">
                         </mat-form-field>
                     </form>
@@ -241,9 +241,9 @@
                     <div class="overview-container mb-4">
                         <div class="d-flex mb-3">
                             <mat-card class="w-50 mr-10">
-                                <mat-card-header >
-                                    <p class="orange">An</p>
-                                </mat-card-header>
+                                <mat-card-title class="orange">
+                                    An
+                                </mat-card-title>
                                 <mat-card-content>
                                     <p>{{receiver.firstName}} {{receiver.lastName}}</p>
                                     <p>{{receiverAddress.streetName}} {{receiverAddress.streetNumber}}</p>
@@ -252,9 +252,9 @@
                                 </mat-card-content>
                             </mat-card>
                             <mat-card class="w-50 ml-10">
-                                <mat-card-header >
-                                    <p class="orange">Von</p>
-                                </mat-card-header>
+                                <mat-card-title class="orange">
+                                    Von
+                                </mat-card-title>
                                 <mat-card-content>
                                     <p>{{customer.firstName}} {{customer.lastName}}</p>
                                     <p>{{senderAddress.streetName}} {{senderAddress.streetNumber}}</p>
@@ -267,41 +267,45 @@
                             <div class="w-75">
                                 <div class="d-flex mb-3">
                                     <mat-card class="w-50 mr-10">
-                                        <mat-card-header>
-                                            <p class="orange">Dimensionen</p>
-                                        </mat-card-header>
+                                        <mat-card-title class="orange">
+                                            Dimensionen
+                                        </mat-card-title>
                                         <mat-card-content>
+                                            <p>Länge: {{package.length}} cm</p>
                                             <p>Breite: {{package.width}} cm</p>
                                             <p>Höhe: {{package.height}} cm</p>
-                                            <p>Tiefe: {{package.depth}} cm</p>
                                             <p>Gewicht: {{package.weight}} kg</p>
                                         </mat-card-content>
                                     </mat-card>
                                     <mat-card class="w-50 ml-10">
-                                        <mat-card-header>
-                                            <p class="orange">Abholung</p>
-                                        </mat-card-header>
+                                        <mat-card-title class="orange">
+                                            Abholung
+                                        </mat-card-title>
                                         <mat-card-content>
-                                            <p>{{pickup.value}}</p>
-                                            <fa-icon class="fs-50" [icon]="faTruckRampBox"></fa-icon>
+                                            <p *ngIf="pickup.value === 'deliver'">Ablieferung bei der Filiale</p>
+                                            <p *ngIf="pickup.value === 'pickup'">Abholung bei Ihnen Zuhause</p>
+                                            <div class="d-flex justify-content-center">
+                                                <fa-icon class="fs-50" [icon]="faTruckRampBox"></fa-icon>
+                                            </div>
                                         </mat-card-content>
                                     </mat-card>
                                 </div>
                                 <mat-card class="w-100 mr-10">
-                                    <mat-card-header>
-                                        <p class="orange">Bezahlung mit: </p>
-                                    </mat-card-header>
+                                    <mat-card-title class="orange">
+                                        Bezahlung mit:
+                                    </mat-card-title>
                                     <mat-card-content>
-                                        <p>{{payment.value}}</p>
+                                        <p *ngIf="payment.value === 'bankTransfer'" >Banküberweisung</p>
+                                        <p *ngIf="payment.value === 'paypal'">Paypal</p>
                                     </mat-card-content>
                                 </mat-card>
                             </div>
                             <div class="w-25 mr-20">
                                 <mat-card class="w-100 h-100 ml-20">
                                     <!--todo korrekte Farbe herausfinden-->
-                                    <mat-card-header>
-                                        <p class="orange">Kosten</p>
-                                    </mat-card-header>
+                                    <mat-card-title class="orange">
+                                        Kosten
+                                    </mat-card-title>
                                     <mat-card-content>
                                         <p>Paketgröße: </p>
                                         <p>Lieferung: </p>

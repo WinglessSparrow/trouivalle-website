@@ -19,5 +19,10 @@ html, body {
     width: 30%;
 }
 
+.orange {
+    color: #FFA41D;
+    font-size: 20px;
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

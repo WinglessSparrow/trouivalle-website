@@ -124,10 +124,22 @@ export class OrderComponent implements OnInit {
     });
 
     public packageForm = new FormGroup({
-        height: new FormControl(),
-        width: new FormControl(),
-        depth: new FormControl(),
-        weight: new FormControl()
+        height: new FormControl("", [
+            Validators.min(0.1),
+            Validators.max(60)
+        ]),
+        width: new FormControl("", [
+            Validators.min(7),
+            Validators.max(60)
+        ]),
+        length: new FormControl("", [
+            Validators.min(10),
+            Validators.max(120)
+        ]),
+        weight: new FormControl("", [
+            Validators.min(0.1),
+            Validators.max(31500)
+        ])
         // todo validation mit unseren Maßen festlegen
     });
 
@@ -209,13 +221,59 @@ export class OrderComponent implements OnInit {
         this.package.weight = this.packageForm.get("weight")?.value;
         this.package.height = this.packageForm.get("height")?.value;
         this.package.width = this.packageForm.get("width")?.value;
-        this.package.depth = this.packageForm.get("depth")?.value;
+        this.package.length = this.packageForm.get("length")?.value;
 
         this.package.sourceAddressId = this.senderAddress.idAddress;
         this.package.destinationAddressId = this.receiverAddress.idAddress;
 
         console.log(this.package);
         // todo abholung / bringen
+    }
+
+
+    /*      *** Briefe ***
+        1) Standard 0,85€  Länge: 14-23,5cm; Breite: 9-12,5cm; Höhe: bis 0,5cm      Gewicht: bis 20g
+        2) Kompakt 1,00€   Länge: 10-23,5cm  Breite: 7-12,5cm; Höhe: bis 1cm        Gewicht: bis 50g
+        3) Groß    1,60€   Länge: 10-35,3cm  Breite: 7-25cm    Höhe: bis 2cm        Gewicht: bis 500g
+        4) Maxi    2,75€   Länge: 10-35,3cm  Breite: 7-25cm    Höhe: bis 5cm        Gewicht: bis 1kg
+
+            *** Päckchen ***
+        1) Päckchen S 3,79€  Länge: min 15, max 35cm  Breite: min 11, max 25cm   Höhe: min 1, max 10cm   Gewicht: bis 2kg
+        2) Päckchen M 4,39€  Länge: min 15, max 60cm  Breite: min 11, max 30cm   Höhe: min 1, max 15cm   Gewicht: bis 2kg
+
+            *** Pakete ***
+        1) Paket 2kg 4,99€  Länge: bis 60cm  Breite: bis 30cm,  Höhe: bis 15cm  Gewicht: bis 2kg
+        2) Paket 5kg 5,99€  Länge: bis 120cm  Breite: bis 60cm, Höhe: bis 60cm, Gewicht: bis 5kg
+        3) Paket 10kg 8,49€ Länge: bis 120cm  Breite: bis 60cm  Höhe: bis 60cm  Gewicht: bis 10kg
+        4) Paket 31,5kg 16,49€  Länge: bis 120cm  Breite: bis 60cm  Höhe: bis 60cm  Gewicht: bis 31,5kg
+    */
+
+    public calculateCosts(packet: Package) {
+
+        if (packet.weight > 0 && packet.weight <= 20) {
+
+        }
+        else if (packet.weight > 20 && packet.weight <= 50) {
+
+        }
+        else if (packet.weight > 50 && packet.weight <= 500) {
+
+        }
+        else if (packet.weight > 500 && packet.weight <= 1000) {
+
+        }
+        else if (packet.weight > 1000 && packet.weight <= 2000) {
+            // päckchen oder paket bis 2kg
+        }
+        else if (packet.weight > 2000 && packet.weight <= 5000) {
+
+        }
+        else if (packet.weight > 5000 && packet.weight <= 10000) {
+
+        }
+        else if (packet.weight > 10000 && packet.weight <= 31500) {
+
+        }
     }
 
 }

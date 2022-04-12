@@ -20,9 +20,10 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatCardModule} from "@angular/material/card";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatRadioModule} from "@angular/material/radio";
+import { AboutUsComponent } from './about-us/about-us.component';
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, FooterComponent, OrderComponent],
+  declarations: [AppComponent, DashboardComponent, FooterComponent, OrderComponent, AboutUsComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,

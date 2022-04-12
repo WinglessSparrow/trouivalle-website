@@ -8,7 +8,7 @@ export class Package {
     private _idNode!: number;
     private _idReturn!: number;
     private _width!: number;
-    private _depth!: number;
+    private _length!: number;
 
     private _sourceAddressId!: number
     private _destinationAddressId!: number;
@@ -35,12 +35,12 @@ export class Package {
         this._priority = value;
     }
 
-    get depth(): number {
-        return this._depth;
+    get length(): number {
+        return this._length;
     }
 
-    set depth(value: number) {
-        this._depth = value;
+    set length(value: number) {
+        this._length = value;
     }
 
     get width(): number {
