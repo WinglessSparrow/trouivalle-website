@@ -5,6 +5,7 @@ import {faEnvelope, faBox, faBoxesStacked, faTruckRampBox} from "@fortawesome/fr
 import {Address} from "../models/Address";
 import {Customer} from "../models/Customer";
 import {Package} from "../models/Package";
+import {F} from "@angular/cdk/keycodes";
 
 
 @Component({
@@ -19,6 +20,10 @@ export class OrderComponent implements OnInit {
     public customer: Customer;
     public receiver: Customer;
     public package: Package;
+
+    public shippingCosts = 0;
+    public packageCosts = 0;
+    public sumCosts = 0;
 
     faEnvelope = faEnvelope;
     faBox = faBox;
@@ -125,18 +130,22 @@ export class OrderComponent implements OnInit {
 
     public packageForm = new FormGroup({
         height: new FormControl("", [
+            Validators.required,
             Validators.min(0.1),
             Validators.max(60)
         ]),
         width: new FormControl("", [
+            Validators.required,
             Validators.min(7),
             Validators.max(60)
         ]),
         length: new FormControl("", [
+            Validators.required,
             Validators.min(10),
             Validators.max(120)
         ]),
         weight: new FormControl("", [
+            Validators.required,
             Validators.min(0.1),
             Validators.max(31500)
         ])
@@ -145,6 +154,9 @@ export class OrderComponent implements OnInit {
 
     payment = new FormControl("", Validators.required);
     pickup = new FormControl("", Validators.required);
+
+    pickupDate = new FormControl("", Validators.required);
+    pickupTime = new FormControl("", Validators.required);
 
     constructor() {
         this.senderAddress = new Address();
@@ -217,7 +229,7 @@ export class OrderComponent implements OnInit {
     }
 
     public setPackage(): void {
-        debugger;
+
         this.package.weight = this.packageForm.get("weight")?.value;
         this.package.height = this.packageForm.get("height")?.value;
         this.package.width = this.packageForm.get("width")?.value;
@@ -228,6 +240,9 @@ export class OrderComponent implements OnInit {
 
         console.log(this.package);
         // todo abholung / bringen
+
+
+        this.calculateCosts();
     }
 
 
@@ -248,32 +263,37 @@ export class OrderComponent implements OnInit {
         4) Paket 31,5kg 16,49€  Länge: bis 120cm  Breite: bis 60cm  Höhe: bis 60cm  Gewicht: bis 31,5kg
     */
 
-    public calculateCosts(packet: Package) {
+    public calculateCosts() {
 
-        if (packet.weight > 0 && packet.weight <= 20) {
+        if (this.package.weight > 0 && this.package.weight <= 20) {
+            this.packageCosts = 0.85;
+        }
+        else if (this.package.weight > 20 && this.package.weight <= 50) {
+            this.packageCosts = 1.00;
+        }
+        else if (this.package.weight > 50 && this.package.weight <= 500) {
+            this.packageCosts = 1.60;
+        }
+        else if (this.package.weight > 500 && this.package.weight <= 1000) {
+            this.packageCosts = 2.75;
+        }
+        else if (this.package.weight > 1000 && this.package.weight <= 2000) {
+            // päckchen oder paket bis 2kg#
+            this.packageCosts = 3.79;
+        }
+        else if (this.package.weight > 2000 && this.package.weight <= 5000) {
+            this.packageCosts = 5.99;
+        }
+        else if (this.package.weight > 5000 && this.package.weight <= 10000) {
+            this.packageCosts = 8.49;
+        }
+        else if (this.package.weight > 10000 && this.package.weight <= 31500) {
+            this.packageCosts = 16.49;
+        }
 
-        }
-        else if (packet.weight > 20 && packet.weight <= 50) {
+        this.shippingCosts = (this.pickup.value === 'pickup') ? 5 : 0;
 
-        }
-        else if (packet.weight > 50 && packet.weight <= 500) {
-
-        }
-        else if (packet.weight > 500 && packet.weight <= 1000) {
-
-        }
-        else if (packet.weight > 1000 && packet.weight <= 2000) {
-            // päckchen oder paket bis 2kg
-        }
-        else if (packet.weight > 2000 && packet.weight <= 5000) {
-
-        }
-        else if (packet.weight > 5000 && packet.weight <= 10000) {
-
-        }
-        else if (packet.weight > 10000 && packet.weight <= 31500) {
-
-        }
+        this.sumCosts = this.packageCosts + this.shippingCosts;
     }
 
 }

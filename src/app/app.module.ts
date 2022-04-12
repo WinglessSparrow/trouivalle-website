@@ -21,6 +21,8 @@ import {MatCardModule} from "@angular/material/card";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatRadioModule} from "@angular/material/radio";
 import { AboutUsComponent } from './about-us/about-us.component';
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 @NgModule({
   declarations: [AppComponent, DashboardComponent, FooterComponent, OrderComponent, AboutUsComponent],
@@ -43,6 +45,8 @@ import { AboutUsComponent } from './about-us/about-us.component';
         MatCardModule,
         MatDividerModule,
         MatRadioModule,
+        MatDatepickerModule,
+        MatNativeDateModule
     ],
   providers: environment.IOC,
   bootstrap: [AppComponent],
