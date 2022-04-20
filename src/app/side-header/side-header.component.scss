@@ -1,0 +1,15 @@
+.trapezoid {
+    position: absolute;
+    height: 0;
+    border-bottom: 150px solid #6043F6;
+    //border-left: 30px solid transparent;
+    border-right: 85px solid transparent;
+    transform: rotate(180deg) scaleX(-1);
+    .upside {
+        transform: rotate(180deg) scaleX(-1);
+    }
+}
+
+.w-20 {
+    width: 20%;
+}

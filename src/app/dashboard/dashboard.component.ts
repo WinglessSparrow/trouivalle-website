@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FooterComponent} from "../footer/footer.component";
 import { faBoxesStacked, faLocationDot, faTruckRampBox, faTruckFast, faBox } from "@fortawesome/free-solid-svg-icons";
+import {FormControl, Validators} from "@angular/forms";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'dashboard',
@@ -9,15 +11,32 @@ import { faBoxesStacked, faLocationDot, faTruckRampBox, faTruckFast, faBox } fro
 })
 export class DashboardComponent implements OnInit {
 
+
   faBoxesStacked = faBoxesStacked;
   faLocationDot = faLocationDot;
   faTruckRampBox = faTruckRampBox;
   faTruckFast = faTruckFast;
   faBox = faBox;
 
-  constructor() { }
+  public trackingId = 0;
+
+  trackingForm = new FormControl("", [
+      Validators.required,
+      Validators.pattern("[0-9]*")
+  ])
+
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
   }
+
+    public openShipmentTracking(): void {
+        this.router.navigate(['/shipment-tracking'], {
+            queryParams: {
+                trackingId: this.trackingId
+            }
+        });
+
+    }
 
 }

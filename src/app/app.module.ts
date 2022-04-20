@@ -23,9 +23,11 @@ import {MatRadioModule} from "@angular/material/radio";
 import { AboutUsComponent } from './about-us/about-us.component';
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
+import { ShipmentTrackingComponent } from './shipment-tracking/shipment-tracking.component';
+import { SideHeaderComponent } from './side-header/side-header.component';
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, FooterComponent, OrderComponent, AboutUsComponent],
+  declarations: [AppComponent, DashboardComponent, FooterComponent, OrderComponent, AboutUsComponent, ShipmentTrackingComponent, SideHeaderComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
