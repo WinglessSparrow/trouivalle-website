@@ -25,6 +25,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
 import { ShipmentTrackingComponent } from './shipment-tracking/shipment-tracking.component';
 import { SideHeaderComponent } from './side-header/side-header.component';
+import {NgxPayPalModule} from "ngx-paypal";
 
 @NgModule({
   declarations: [AppComponent, DashboardComponent, FooterComponent, OrderComponent, AboutUsComponent, ShipmentTrackingComponent, SideHeaderComponent],
@@ -48,7 +49,8 @@ import { SideHeaderComponent } from './side-header/side-header.component';
         MatDividerModule,
         MatRadioModule,
         MatDatepickerModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        NgxPayPalModule
     ],
   providers: environment.IOC,
   bootstrap: [AppComponent],

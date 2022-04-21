@@ -31,6 +31,7 @@ export class DashboardComponent implements OnInit {
   }
 
     public openShipmentTracking(): void {
+      this.trackingId = this.trackingForm.value;
         this.router.navigate(['/shipment-tracking'], {
             queryParams: {
                 trackingId: this.trackingId

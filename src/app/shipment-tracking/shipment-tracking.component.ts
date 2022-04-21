@@ -10,22 +10,23 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
 
-    private route: ActivatedRoute | undefined;
     private map: any;
 
-    trackingId = new FormControl("", [
+    public trackingId!: number;
+
+    trackingForm = new FormControl("", [
         Validators.required,
         Validators.pattern("[0-9]*")
     ])
 
-    constructor() {
+    constructor(public route: ActivatedRoute) {
     }
 
     ngOnInit(): void {
-        // @ts-ignore
+
         this.route.queryParams.subscribe(params => {
             console.log(params);
-            this.trackingId.setValue(params['trackingId']);
+            this.trackingId = params['trackingId'];
             this.getDeliveryStatus();
         })
     }
@@ -59,7 +60,7 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
 
     public getDeliveryStatus(): void {
 
-        let trackingId = this.trackingId.value;
+        let trackingId = this.trackingId;
         console.log("getDeliveryStatus mit trackingId: " + trackingId);
 
         this.getPackageLocation();

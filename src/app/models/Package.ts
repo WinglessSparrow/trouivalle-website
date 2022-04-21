@@ -1,7 +1,10 @@
+import {Pickup} from "./Pickup";
+import {Address} from "./Address";
+
 export class Package {
 
     private _idDelivery!: string;
-    private _idPickup!: number;
+    private _pickup!: Pickup;
     private _idOrder!: number;
     private _weight!: number;
     private _height!: number;
@@ -10,8 +13,8 @@ export class Package {
     private _width!: number;
     private _length!: number;
 
-    private _sourceAddressId!: number
-    private _destinationAddressId!: number;
+    private _sourceAddress!: Address;
+    private _destinationAddress!: Address;
 
     private _priority!: number;
     private _price!: number;
@@ -91,14 +94,6 @@ export class Package {
         this._idOrder = value;
     }
 
-    get idPickup(): number {
-        return this._idPickup;
-    }
-
-    set idPickup(value: number) {
-        this._idPickup = value;
-    }
-
     get idDelivery(): string {
         return this._idDelivery;
     }
@@ -107,19 +102,28 @@ export class Package {
         this._idDelivery = value;
     }
 
-    get destinationAddressId(): number {
-        return this._destinationAddressId;
+    get destinationAddress(): Address {
+        return this._destinationAddress;
     }
 
-    set destinationAddressId(value: number) {
-        this._destinationAddressId = value;
+    set destinationAddress(value: Address) {
+        this._destinationAddress = value;
     }
 
-    get sourceAddressId(): number {
-        return this._sourceAddressId;
+    get sourceAddress(): Address {
+        return this._sourceAddress;
     }
 
-    set sourceAddressId(value: number) {
-        this._sourceAddressId = value;
+    set sourceAddress(value: Address) {
+        this._sourceAddress = value;
     }
+
+    get pickup(): Pickup {
+        return this._pickup;
+    }
+
+    set pickup(value: Pickup) {
+        this._pickup = value;
+    }
+
 }

@@ -6,6 +6,9 @@ import {Address} from "../models/Address";
 import {Customer} from "../models/Customer";
 import {Package} from "../models/Package";
 import {F} from "@angular/cdk/keycodes";
+import {ICreateOrderRequest, IPayPalConfig} from "ngx-paypal";
+import {Order} from "../models/Order";
+import {Pickup} from "../models/Pickup";
 
 
 @Component({
@@ -15,11 +18,15 @@ import {F} from "@angular/cdk/keycodes";
 })
 export class OrderComponent implements OnInit {
 
+    public order: Order;
     public senderAddress: Address;
     public receiverAddress: Address;
     public customer: Customer;
     public receiver: Customer;
     public package: Package;
+    public pickup: Pickup;
+
+    public paypalConfig?: IPayPalConfig;
 
     public shippingCosts = 0;
     public packageCosts = 0;
@@ -153,7 +160,7 @@ export class OrderComponent implements OnInit {
     });
 
     payment = new FormControl("", Validators.required);
-    pickup = new FormControl("", Validators.required);
+    pickupForm = new FormControl("", Validators.required);
 
     pickupDate = new FormControl("", Validators.required);
     pickupTime = new FormControl("", Validators.required);
@@ -164,6 +171,8 @@ export class OrderComponent implements OnInit {
         this.customer = new Customer();
         this.receiver = new Customer();
         this.package = new Package();
+        this.order = new Order();
+        this.pickup = new Pickup();
     }
 
     ngOnInit(): void {
@@ -187,6 +196,75 @@ export class OrderComponent implements OnInit {
         this.receiverGroup.get("houseNumber")?.setValue("20");
         this.receiverGroup.get("street")?.setValue("Nebenstraße");
 
+        this.packageForm.get("height")?.setValue("20");
+        this.packageForm.get("width")?.setValue("20");
+        this.packageForm.get("length")?.setValue("20");
+        this.packageForm.get("weight")?.setValue("20000");
+
+
+    }
+
+    public initPaypalConfig(): void {
+        let disabledFundings: string = '';
+        switch (this.payment.value) {
+            case 'bankTransfer': {
+                disabledFundings = 'card,sepa,credit';
+                break;
+            }
+            case 'paypal': {
+                disabledFundings = 'card,sepa,giropay,sofort';
+            }
+        }
+
+        this.paypalConfig = {
+            currency: 'EUR',
+            clientId: 'AUh5JWBnqOKQZhgufnUNa5HvqYeA705b9s7eQOgyAYgJhSvq7nOPu7BWrThvNlJO_6PPb8LnJ0ipRAFC',
+
+            createOrderOnClient: (data) => <ICreateOrderRequest> {
+                intent: 'CAPTURE',
+                purchase_units: [
+                    {
+                        amount: {
+                            currency_code: 'EUR',
+                            value: this.sumCosts.toString(),
+                            breakdown: {
+                                item_total: {
+                                    currency_code: 'EUR',
+                                    value: this.sumCosts.toString()
+                                }
+                            }
+                        },
+                        items: [
+                            {
+                                name: 'Sendung',
+                                quantity: '1',
+                                unit_amount: {
+                                    currency_code: 'EUR',
+                                    value: this.sumCosts.toString()
+                                },
+                            }
+                        ]
+                    }
+                ]
+            },
+            advanced: {
+                commit: 'true',
+                extraQueryParams: [
+                    {
+                        name: 'disable-funding', value: disabledFundings
+                    }
+                ]
+            },
+            style: {
+                label: 'paypal',
+                layout: 'vertical'
+            },
+            onClientAuthorization: (data) => {
+                console.log('onClientAuthorization --> Server über getätigte Transaktion informieren');
+                this.createNewOrder();
+                //this.showSuccess = true;
+            }
+        }
     }
 
     public setAddresses(): void {
@@ -206,10 +284,10 @@ export class OrderComponent implements OnInit {
         // todo Adressen in der DB speichern und neu anfordern (um Adress-ID in setCustomer zu haben)
         console.log(this.senderAddress);
         console.log(this.receiverAddress);
-        this.setCustomer();
+        this.setCustomerAndReceiver();
     }
 
-    public setCustomer(): void {
+    public setCustomerAndReceiver(): void {
 
         this.customer.firstName = this.sender.get("firstName")?.value;
         this.customer.lastName = this.sender.get("lastName")?.value;
@@ -235,8 +313,8 @@ export class OrderComponent implements OnInit {
         this.package.width = this.packageForm.get("width")?.value;
         this.package.length = this.packageForm.get("length")?.value;
 
-        this.package.sourceAddressId = this.senderAddress.idAddress;
-        this.package.destinationAddressId = this.receiverAddress.idAddress;
+        this.package.sourceAddress = this.senderAddress;
+        this.package.destinationAddress = this.receiverAddress;
 
         console.log(this.package);
         // todo abholung / bringen
@@ -291,9 +369,25 @@ export class OrderComponent implements OnInit {
             this.packageCosts = 16.49;
         }
 
-        this.shippingCosts = (this.pickup.value === 'pickup') ? 5 : 0;
+        this.shippingCosts = (this.pickupForm.value === 'pickup') ? 5 : 0;
 
         this.sumCosts = this.packageCosts + this.shippingCosts;
+
+        this.pickup.desiredPickupDate = this.pickupDate.value;
+        this.pickup.desiredPickupDate.setHours(Number(this.pickupTime.value.slice(0,2)), Number(this.pickupTime.value.slice(3, 5)));
+        this.package.pickup = this.pickup;
+
+    }
+
+    public createNewOrder(): void {
+
+        this.order.customer = this.receiver;
+        this.order.package = this.package;
+        this.order.paymentMethod = this.payment.value;
+        console.log('Order ans backend schicken: ');
+        console.log(this.order)
+        // todo call an service Funktion (ans backend schicken)
+
     }
 
 }

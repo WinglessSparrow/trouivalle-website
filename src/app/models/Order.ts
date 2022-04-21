@@ -1,14 +1,14 @@
+import {Customer} from "./Customer";
+import {Package} from "./Package";
+
 export class Order {
 
-    private _idOrder: number;
-    private _paymentMethod: string;
-    private _customerId: number;
+    private _idOrder!: number;
+    private _paymentMethod!: string;
+    private _customer!: Customer;
+    private _package!: Package;
 
-    public constructor(orderID: number, paymentMethod: string, customerId: number) {
-
-        this._idOrder = orderID;
-        this._paymentMethod = paymentMethod;
-        this._customerId = customerId;
+    public constructor() {
     }
 
     get paymentMethod(): string {
@@ -27,11 +27,20 @@ export class Order {
         this._idOrder = value;
     }
 
-    get customerId(): number {
-        return this._customerId;
+    get customer(): Customer {
+        return this._customer;
     }
 
-    set customerId(value: number) {
-        this._customerId = value;
+    set customer(value: Customer) {
+        this._customer = value;
     }
+
+    get package(): Package {
+        return this._package;
+    }
+
+    set package(value: Package) {
+        this._package = value;
+    }
+
 }

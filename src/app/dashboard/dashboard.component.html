@@ -39,7 +39,7 @@
           <div class="input-group mt-5">
             <input class="form-control" type="text" placeholder="Lieferungs-ID" [formControl]="trackingForm">
             <div class="input-group-append">
-              <button class="btn btn-primary rounded-0" type="button" (click)="openShipmentTracking()">Verfolgen</button>
+              <button class="btn btn-primary rounded-0" type="button" [disabled]="!trackingForm.valid" (click)="openShipmentTracking()">Verfolgen</button>
             </div>
           </div>
         </div>

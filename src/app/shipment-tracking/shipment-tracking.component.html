@@ -15,12 +15,12 @@
                 <div class="input-group mt-5">
                     <mat-form-field class="id-input" appearance="fill">
                         <mat-label>Lieferungs-ID</mat-label>
-                        <input matInput type="text" [formControl]="trackingId">
+                        <input matInput type="text" [formControl]="trackingForm">
                         <mat-error>Nur Ziffern erlaubt</mat-error>
                     </mat-form-field>
                     <div class="">
                         <button class="tracking-button rounded-0" mat-raised-button color="primary"
-                                (click)="getDeliveryStatus()" [disabled]="!trackingId.valid">
+                                (click)="getDeliveryStatus()" [disabled]="!trackingForm.valid">
                             Verfolgen
                         </button>
                     </div>
@@ -30,7 +30,7 @@
 
         <div class="w-100 container-color plr-30 mt-4">
             <div class="mt-4">
-                <p class="text-white">Lieferungsnummer: </p>
+                <p class="text-white">Lieferungsnummer: {{trackingId}}</p>
                 <hr class="text-white">
                 <mat-card class="mt-2">
                     <h3>Liefer-Status</h3>
