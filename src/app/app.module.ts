@@ -26,15 +26,19 @@ import {MatNativeDateModule} from "@angular/material/core";
 import { ShipmentTrackingComponent } from './shipment-tracking/shipment-tracking.component';
 import { SideHeaderComponent } from './side-header/side-header.component';
 import {NgxPayPalModule} from "ngx-paypal";
+import { TrackingDialogComponent } from './tracking-dialog/tracking-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, FooterComponent, OrderComponent, AboutUsComponent, ShipmentTrackingComponent, SideHeaderComponent],
+  declarations: [AppComponent, DashboardComponent, FooterComponent, OrderComponent, AboutUsComponent, ShipmentTrackingComponent, SideHeaderComponent, TrackingDialogComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
         FontAwesomeModule,
         MatFormFieldModule,
         MatInputModule,
+        HttpClientModule,
         NgxsModule.forRoot([], {
             developmentMode: !environment.production,
         }),
@@ -50,7 +54,8 @@ import {NgxPayPalModule} from "ngx-paypal";
         MatRadioModule,
         MatDatepickerModule,
         MatNativeDateModule,
-        NgxPayPalModule
+        NgxPayPalModule,
+        MatDialogModule
     ],
   providers: environment.IOC,
   bootstrap: [AppComponent],
