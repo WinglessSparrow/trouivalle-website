@@ -13,11 +13,6 @@
     }
 }
 
-.plr-30 {
-    padding-left: 30px;
-    padding-right: 30px;
-}
-
 .w-95 {
     width: 95%;
 }
@@ -38,11 +33,40 @@
     margin-right: 20px;
 }
 
-.container-color {
-    background-color: #6043F6;
-}
-
 .orange {
     color: orange;
     font-size: 20px;
+}
+
+.flex {
+    display: flex;
+}
+
+.width-50 {
+    width: 50%;
+}
+
+.width-75 {
+    width: 75%;
+}
+
+.width-25 {
+    width: 25%;
+}
+
+@media  only screen and (max-width: 1000px) {
+    .flex {
+        display: block;
+    }
+    .width-50, .width-75, .width-25 {
+        width: 100%;
+        margin: 0;
+        margin-bottom: 10px;
+    }
+    .w-95 {
+        width: 100%;
+    }
+    .pb-20 {
+        padding-bottom: 20px;
+    }
 }

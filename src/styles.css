@@ -3,6 +3,14 @@ html, body {
   overflow-x: hidden;
 }
 
+.container-color {
+    background-color: #6043F6;
+}
+
+.flex {
+    display: flex;
+}
+
 .fs-50 {
   font-size: 50px;
 }
@@ -22,6 +30,11 @@ html, body {
 .orange {
     color: #FFA41D;
     font-size: 20px;
+}
+
+.plr-30 {
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 html, body { height: 100%; }

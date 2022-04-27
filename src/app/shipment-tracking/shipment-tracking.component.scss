@@ -32,10 +32,6 @@
     width: 1%;
 }
 
-.container-color {
-    background-color: #6043F6;
-}
-
 .square {
     height: 80px;
     width: 80px;
@@ -45,10 +41,11 @@
     margin-right: 20px;
 }
 
-.plr-30 {
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 1px;
+@media  only screen and (max-width: 1000px) {
+    .flex {
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 ::ng-deep{

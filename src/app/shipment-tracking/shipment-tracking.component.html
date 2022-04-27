@@ -2,76 +2,76 @@
     <side-header></side-header>
 </div>
 <div class="container">
-<div class="d-flex justify-content-center align-items-center">
-    <div class="col-lg-8">
-        <div class="d-flex justify-content-center">
-            <div class="row">
-                <h1 class="text-white mt-5">Lieferung verfolgen</h1>
+    <div class="row justify-content-center align-items-center">
+        <div class="col-lg-8">
+            <div class="d-flex justify-content-center">
+                <div class="row">
+                    <h1 class="text-white mt-5">Lieferung verfolgen</h1>
+                </div>
             </div>
-        </div>
 
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="input-group mt-5">
-                    <mat-form-field class="id-input" appearance="fill">
-                        <mat-label>Lieferungs-ID</mat-label>
-                        <input matInput type="text" [formControl]="trackingForm">
-                        <mat-error>Nur Ziffern erlaubt</mat-error>
-                    </mat-form-field>
-                    <div class="">
-                        <button class="tracking-button rounded-0" mat-raised-button color="primary"
-                                (click)="getDeliveryStatus()" [disabled]="!trackingForm.valid">
-                            Verfolgen
-                        </button>
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="input-group mt-5">
+                        <mat-form-field class="id-input" appearance="fill">
+                            <mat-label>Lieferungs-ID</mat-label>
+                            <input matInput type="text" [formControl]="trackingForm">
+                            <mat-error>Nur Ziffern erlaubt</mat-error>
+                        </mat-form-field>
+                        <div class="">
+                            <button class="tracking-button rounded-0" mat-raised-button color="primary"
+                                    (click)="getDeliveryStatus()" [disabled]="!trackingForm.valid">
+                                Verfolgen
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="w-100 container-color plr-30 mt-4 mb-5">
-            <div class="mt-4">
-                <p class="text-white">Lieferungsnummer: {{trackingId}}</p>
-                <hr class="text-white">
-                <mat-card class="mt-2">
-                    <h3>Liefer-Status</h3>
+            <div class="w-100 container-color plr-30 mt-4 mb-5">
+                <div class="mt-4">
+                    <p class="text-white">Lieferungsnummer: {{trackingId}}</p>
+                    <hr class="text-white">
+                    <mat-card class="mt-2">
+                        <h3>Liefer-Status</h3>
 
-                    <!-- Border color für die boxen: border: 2px solid #6043F6>-->
-                    <div class="d-flex">
-                        <div class="mr-20" style="width: 80px;">
-                            <div class="square" style="background-color: #FFF500"></div>
-                            <p class="text-center">Im System eingegangen</p>
+                        <!-- Border color für die boxen: border: 2px solid #6043F6>-->
+                        <div class="flex">
+                            <div class="mr-20" style="width: 80px;">
+                                <div class="square" style="background-color: #FFF500"></div>
+                                <p class="text-center">Im System eingegangen</p>
+                            </div>
+                            <div class="mr-20" style="width: 80px;">
+                                <div class="square" style="background-color: #2945D8"></div>
+                                <p class="text-center">In Filiale angekommen</p>
+                            </div>
+                            <div class="mr-20" style="width: 80px;">
+                                <div class="square" style="background-color: #00E0FF"></div>
+                                <p class="text-center">In Auslieferung</p>
+                            </div>
+                            <div class="mr-20" style="width: 80px;">
+                                <div class="square" style="background-color: #94CF8A"></div>
+                                <p class="text-center">Paket ausgeliefert</p>
+                            </div>
+                            <div class="mr-20" style="width: 80px;">
+                                <div class="square" style="background-color: #CD8484"></div>
+                                <p class="text-center">Lieferung abgebrochen</p>
+                            </div>
                         </div>
-                        <div class="mr-20" style="width: 80px;">
-                            <div class="square" style="background-color: #2945D8"></div>
-                            <p class="text-center">In Filiale angekommen</p>
-                        </div>
-                        <div class="mr-20" style="width: 80px;">
-                            <div class="square" style="background-color: #00E0FF"></div>
-                            <p class="text-center">In Auslieferung</p>
-                        </div>
-                        <div class="mr-20" style="width: 80px;">
-                            <div class="square" style="background-color: #94CF8A"></div>
-                            <p class="text-center">Paket ausgeliefert</p>
-                        </div>
-                        <div class="mr-20" style="width: 80px;">
-                            <div class="square" style="background-color: #CD8484"></div>
-                            <p class="text-center">Lieferung abgebrochen</p>
-                        </div>
-                    </div>
-                </mat-card>
-            </div>
+                    </mat-card>
+                </div>
 
-            <h2 class="text-white mt-4">Karte</h2>
+                <h2 class="text-white mt-4">Karte</h2>
 
-            <div class="mb-5">
-                <div class="map-container">
-                    <div class="map-frame">
-                        <div id="map">
+                <div class="mb-5">
+                    <div class="map-container">
+                        <div class="map-frame">
+                            <div id="map">
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>

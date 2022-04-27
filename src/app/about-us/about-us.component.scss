@@ -1,12 +1,3 @@
-.container-color {
-    background-color: #6043F6;
-}
-
-.plr-30 {
-    padding-left: 30px;
-    padding-right: 30px;
-}
-
 .h-28 {
     height: 28px;
 }
@@ -15,7 +6,7 @@
     width: 45%;
 }
 
-.responsive {
+.headquarter-map {
     width: 100%;
     height: auto;
 }
@@ -27,6 +18,31 @@
 .vertical-align {
     display: inline-flex;
     align-items: center;
+}
+
+.flex {
+    display: flex;
+}
+
+@media  only screen and (max-width: 1000px) {
+    .flex {
+        display: block;
+    }
+    .w-50 {
+        width: 100% !important;
+    }
+    .w-45 {
+        width: 100%;
+    }
+    span {
+        font-size: 13px;
+    }
+    .ml-15 {
+        margin-left: 0;
+    }
+    .headquarter-map {
+        margin-bottom: 15px;
+    }
 }
 
 ::ng-deep{

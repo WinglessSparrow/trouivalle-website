@@ -3,9 +3,9 @@
     <h1 class="text-white text-center mt-4">Bestellung aufgeben</h1>
     <mat-stepper style="background-color: transparent" linear>
         <mat-step>
-            <ng-template class="text-white" matStepLabel>Kundendaten</ng-template>
             <div class="d-flex justify-content-center">
                 <div class="col-lg-6 plr-30 container-color">
+                    <ng-template class="text-white" matStepLabel>Kundendaten</ng-template>
                     <div>
                         <h2 class="text-white mt-3">Versender</h2>
                         <form [formGroup]="sender">
@@ -24,15 +24,15 @@
                                 <input matInput type="email" formControlName="email">
                                 <mat-error>Keine gültige E-Mail Adresse</mat-error>
                             </mat-form-field>
-                            <div class="d-flex">
-                                <div class="w-50">
+                            <div class="flex">
+                                <div class="width-50">
                                     <mat-form-field appearance="fill" class="w-95">
                                         <mat-label>Ort:</mat-label>
                                         <input matInput type="text" formControlName="city">
                                         <mat-error>Kein gültiger Ort</mat-error>
                                     </mat-form-field>
                                 </div>
-                                <div class="w-50">
+                                <div class="width-50">
                                     <mat-form-field appearance="fill" class="w-100">
                                         <mat-label>PLZ:</mat-label>
                                         <input matInput type="text" formControlName="postalCode">
@@ -40,15 +40,15 @@
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <div class="d-flex">
-                                <div class="w-50">
+                            <div class="flex">
+                                <div class="width-50">
                                     <mat-form-field appearance="fill" class="w-95">
                                         <mat-label>Straße:</mat-label>
                                         <input matInput type="text" formControlName="street">
                                         <mat-error>Keine gültige Straße</mat-error>
                                     </mat-form-field>
                                 </div>
-                                <div class="w-50">
+                                <div class="width-50">
                                     <mat-form-field appearance="fill" class="w-100">
                                         <mat-label>Hausnummer:</mat-label>
                                         <input matInput type="text" formControlName="houseNumber">
@@ -82,15 +82,15 @@
                                 <input matInput type="email" formControlName="email">
                                 <mat-error>Keine gültige E-Mail Adresse</mat-error>
                             </mat-form-field>
-                            <div class="d-flex">
-                                <div class="w-50">
+                            <div class="flex">
+                                <div class="width-50">
                                     <mat-form-field appearance="fill" class="w-95">
                                         <mat-label>Ort:</mat-label>
                                         <input matInput type="text" formControlName="city">
                                         <mat-error>Kein gültiger Ort</mat-error>
                                     </mat-form-field>
                                 </div>
-                                <div class="w-50">
+                                <div class="width-50">
                                     <mat-form-field appearance="fill" class="w-100">
                                         <mat-label>PLZ:</mat-label>
                                         <input matInput type="text" formControlName="postalCode">
@@ -98,15 +98,15 @@
                                     </mat-form-field>
                                 </div>
                             </div>
-                            <div class="d-flex">
-                                <div class="w-50">
+                            <div class="flex">
+                                <div class="width-50">
                                     <mat-form-field appearance="fill" class="w-95">
                                         <mat-label>Straße:</mat-label>
                                         <input matInput type="text" formControlName="street">
                                         <mat-error>Keine gültige Straße</mat-error>
                                     </mat-form-field>
                                 </div>
-                                <div class="w-50">
+                                <div class="width-50">
                                     <mat-form-field appearance="fill" class="w-100">
                                         <mat-label>Hausnummer:</mat-label>
                                         <input matInput type="text" formControlName="houseNumber">
@@ -212,14 +212,14 @@
                     </div>
                     <div class="mt-3 mb-4" *ngIf="pickupForm.value === 'pickup'">
                         <h2 class="text-white">Abholungszeitpunkt festlegen</h2>
-                        <div class="d-flex ">
-                            <mat-form-field appearance="fill" class="w-50">
+                        <div class="flex">
+                            <mat-form-field appearance="fill" class="width-50">
                                 <mat-label>Datum auswählen</mat-label>
                                 <input matInput [matDatepicker]="picker" [formControl]="pickupDate">
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
                             </mat-form-field>
-                            <div class="w-50">
+                            <div class="width-50">
                                 <mat-form-field appearance="fill" class="float-end w-95">
                                     <mat-label>Zeit auswählen</mat-label>
                                     <input type="time" matInput [formControl]="pickupTime" name="week" min="09:00" max="18:00" >
@@ -260,12 +260,12 @@
         </mat-step>
         <mat-step>
             <ng-template matStepLabel>Checkout</ng-template>
-            <div class="d-flex justify-content-center">
+            <div class="flex justify-content-center">
                 <div class="col-lg-6 container-color plr-30">
                     <h2 class="text-white mt-3">Bestellübersicht:</h2>
                     <div class="overview-container mb-4">
-                        <div class="d-flex mb-3">
-                            <mat-card class="w-50 mr-10">
+                        <div class="flex mb-3">
+                            <mat-card class="width-50 mr-10">
                                 <mat-card-title class="orange">
                                     An
                                 </mat-card-title>
@@ -276,7 +276,7 @@
                                     <p>{{receiverAddress.country}}</p>
                                 </mat-card-content>
                             </mat-card>
-                            <mat-card class="w-50 ml-10">
+                            <mat-card class="width-50 ml-10">
                                 <mat-card-title class="orange">
                                     Von
                                 </mat-card-title>
@@ -288,10 +288,10 @@
                                 </mat-card-content>
                             </mat-card>
                         </div>
-                        <div class="d-flex">
-                            <div class="w-75">
-                                <div class="d-flex mb-3">
-                                    <mat-card class="w-50 mr-10">
+                        <div class="flex">
+                            <div class="width-75">
+                                <div class="flex mb-3">
+                                    <mat-card class="mr-10 width-50">
                                         <mat-card-title class="orange">
                                             Dimensionen
                                         </mat-card-title>
@@ -302,7 +302,7 @@
                                             <p>Gewicht: {{package.weight / 1000}} kg</p>
                                         </mat-card-content>
                                     </mat-card>
-                                    <mat-card class="w-50 ml-10">
+                                    <mat-card class="ml-10 width-50">
                                         <mat-card-title class="orange">
                                             Abholung
                                         </mat-card-title>
@@ -327,8 +327,8 @@
                                     </mat-card-content>
                                 </mat-card>
                             </div>
-                            <div class="w-25 mr-20">
-                                <mat-card class="w-100 h-100 ml-20">
+                            <div class="width-25 ml-20 pb-20">
+                                <mat-card class="w-100 h-100">
                                     <!--todo korrekte Farbe herausfinden-->
                                     <mat-card-title class="orange">
                                         Kosten
