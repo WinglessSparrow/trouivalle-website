@@ -1,11 +1,15 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
 import * as L from 'leaflet';
+import {icon, Marker} from 'leaflet';
 import {FormControl, Validators} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {TrackingDialogComponent} from "../tracking-dialog/tracking-dialog.component";
 import {TrackingServiceService} from "../../services/tracking-service.service";
 import {Coordinate} from "../models/Coordinate";
+import {PackageStateEnum} from "../models/PackageStateEnum";
+import {faCheck} from "@fortawesome/free-solid-svg-icons";
+
 declare var require: any;
 
 
@@ -16,11 +20,14 @@ declare var require: any;
 })
 export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
 
+    faCheck = faCheck;
+
     private map: any;
 
     public trackingId!: number;
     public headquarter!: Coordinate;
     public destination!: Coordinate;
+    public status!: PackageStateEnum;
 
     trackingForm = new FormControl("", [
         Validators.required,
@@ -49,6 +56,21 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
     }
 
     private initMap(): void {
+    let iconRetinaUrl = 'assets/marker-icon-2x.png';
+        let iconUrl = 'assets/marker-icon.png';
+        let shadowUrl = 'assets/marker-shadow.png';
+        const iconDefault = icon({
+            iconRetinaUrl,
+            iconUrl,
+            shadowUrl,
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            tooltipAnchor: [16, -28],
+            shadowSize: [41, 41]
+        });
+        Marker.prototype.options.icon = iconDefault;
+
         this.map = L.map('map', {
             center: [47.9990077, 7.8421043],
             zoom: 3
@@ -56,18 +78,19 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
 
         const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 18,
-            minZoom: 13,
+            minZoom: 8,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         });
+        this.map.setZoom(13);
         tiles.addTo(this.map);
 
     }
 
     public getDeliveryStatus(): void {
-
         let trackingId = this.trackingId;
         console.log("getDeliveryStatus mit trackingId: " + trackingId);
         this.openDialog();
+        this.status = PackageStateEnum.DELIVERED;
         this.getPackageLocation();
     }
 
