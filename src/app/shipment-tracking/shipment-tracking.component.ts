@@ -117,6 +117,11 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
 
     public openDialog(): void {
 
-        this.dialog.open(TrackingDialogComponent);
+        this.dialog.open(TrackingDialogComponent, {
+            data: {
+                title: 'Fehler bei der Sendungsverfolgung',
+                content: 'Die von Ihnen eingegebene Sendungsnummer wurde im System nicht gefunden'
+            }
+        })
     }
 }

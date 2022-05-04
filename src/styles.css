@@ -37,5 +37,11 @@ html, body {
     padding-right: 30px;
 }
 
-html, body { height: 100%; }
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+}
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

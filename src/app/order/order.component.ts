@@ -9,6 +9,10 @@ import {F} from "@angular/cdk/keycodes";
 import {ICreateOrderRequest, IPayPalConfig} from "ngx-paypal";
 import {Order} from "../models/Order";
 import {Pickup} from "../models/Pickup";
+import {AddressValidationService} from "../../services/address-validation.service";
+import {MatDialog} from "@angular/material/dialog";
+import {TrackingDialogComponent} from "../tracking-dialog/tracking-dialog.component";
+import {MatStepper} from "@angular/material/stepper";
 
 
 @Component({
@@ -25,6 +29,8 @@ export class OrderComponent implements OnInit {
     public receiver: Customer;
     public package: Package;
     public pickup: Pickup;
+    public showPickupConfig: boolean = false;
+    public freiburgPostalCodes: string[] = ['79098', '79100', '79102', '79104', '79106', '79108', '19110', '79112', '79114'];
 
     public paypalConfig?: IPayPalConfig;
 
@@ -165,7 +171,7 @@ export class OrderComponent implements OnInit {
     pickupDate = new FormControl("", Validators.required);
     pickupTime = new FormControl("", Validators.required);
 
-    constructor() {
+    constructor(public addressValidationService: AddressValidationService, public dialog: MatDialog) {
         this.senderAddress = new Address();
         this.receiverAddress = new Address();
         this.customer = new Customer();
@@ -175,13 +181,18 @@ export class OrderComponent implements OnInit {
         this.pickup = new Pickup();
     }
 
+    // Postleitzahlen Freiburg:
+    // 79098, 79100, 79102, 79104, 79106, 79108, 19110, 79111, 79112, 79114
+    // https://www.geoapify.com
+    // https://api.geoapify.com/v1/geocode/search?text=1000%2CBadstra%C3%9Fe%2C77652%2COffenburg%2CDeutschland&lang=de&filter=countrycode:de&apiKey=8923fefc90c24aa1bbe6bb22b302d39b
+
     ngOnInit(): void {
 
         //Testweise
         this.sender.get("firstName")?.setValue("Tom");
         this.sender.get("lastName")?.setValue("Maier");
         this.sender.get("email")?.setValue("sadfaf@gmail.com");
-        this.sender.get("postalCode")?.setValue("77665");
+        this.sender.get("postalCode")?.setValue("99999");
         this.sender.get("city")?.setValue("Offenburg");
         this.sender.get("country")?.setValue("Deutschland");
         this.sender.get("houseNumber")?.setValue("15");
@@ -190,7 +201,7 @@ export class OrderComponent implements OnInit {
         this.receiverGroup.get("firstName")?.setValue("Tim");
         this.receiverGroup.get("lastName")?.setValue("Mayer");
         this.receiverGroup.get("email")?.setValue("ssaf@gmail.com");
-        this.receiverGroup.get("postalCode")?.setValue("77668");
+        this.receiverGroup.get("postalCode")?.setValue("99999");
         this.receiverGroup.get("city")?.setValue("Offenburg");
         this.receiverGroup.get("country")?.setValue("Deutschland");
         this.receiverGroup.get("houseNumber")?.setValue("20");
@@ -220,7 +231,7 @@ export class OrderComponent implements OnInit {
             currency: 'EUR',
             clientId: 'AUh5JWBnqOKQZhgufnUNa5HvqYeA705b9s7eQOgyAYgJhSvq7nOPu7BWrThvNlJO_6PPb8LnJ0ipRAFC',
 
-            createOrderOnClient: (data) => <ICreateOrderRequest> {
+            createOrderOnClient: (data) => <ICreateOrderRequest>{
                 intent: 'CAPTURE',
                 purchase_units: [
                     {
@@ -345,27 +356,20 @@ export class OrderComponent implements OnInit {
 
         if (this.package.weight > 0 && this.package.weight <= 20) {
             this.packageCosts = 0.85;
-        }
-        else if (this.package.weight > 20 && this.package.weight <= 50) {
+        } else if (this.package.weight > 20 && this.package.weight <= 50) {
             this.packageCosts = 1.00;
-        }
-        else if (this.package.weight > 50 && this.package.weight <= 500) {
+        } else if (this.package.weight > 50 && this.package.weight <= 500) {
             this.packageCosts = 1.60;
-        }
-        else if (this.package.weight > 500 && this.package.weight <= 1000) {
+        } else if (this.package.weight > 500 && this.package.weight <= 1000) {
             this.packageCosts = 2.75;
-        }
-        else if (this.package.weight > 1000 && this.package.weight <= 2000) {
+        } else if (this.package.weight > 1000 && this.package.weight <= 2000) {
             // päckchen oder paket bis 2kg#
             this.packageCosts = 3.79;
-        }
-        else if (this.package.weight > 2000 && this.package.weight <= 5000) {
+        } else if (this.package.weight > 2000 && this.package.weight <= 5000) {
             this.packageCosts = 5.99;
-        }
-        else if (this.package.weight > 5000 && this.package.weight <= 10000) {
+        } else if (this.package.weight > 5000 && this.package.weight <= 10000) {
             this.packageCosts = 8.49;
-        }
-        else if (this.package.weight > 10000 && this.package.weight <= 31500) {
+        } else if (this.package.weight > 10000 && this.package.weight <= 31500) {
             this.packageCosts = 16.49;
         }
 
@@ -374,7 +378,7 @@ export class OrderComponent implements OnInit {
         this.sumCosts = this.packageCosts + this.shippingCosts;
 
         this.pickup.desiredPickupDate = this.pickupDate.value;
-        this.pickup.desiredPickupDate.setHours(Number(this.pickupTime.value.slice(0,2)), Number(this.pickupTime.value.slice(3, 5)));
+        this.pickup.desiredPickupDate.setHours(Number(this.pickupTime.value.slice(0, 2)), Number(this.pickupTime.value.slice(3, 5)));
         this.package.pickup = this.pickup;
 
     }
@@ -388,6 +392,50 @@ export class OrderComponent implements OnInit {
         console.log(this.order)
         // todo call an service Funktion (ans backend schicken)
 
+    }
+
+    public validateAddress(stepper: MatStepper): void {
+        this.setAddresses();
+        // todo: Absender-Adresse checken
+        this.addressValidationService.validateAddress(this.senderAddress.streetNumber, this.senderAddress.streetName,
+            this.senderAddress.zipCode, this.senderAddress.city, this.senderAddress.country).subscribe(response => {
+            response = JSON.parse(response);
+            console.log(response);
+            if (response.results[0].rank.confidence === 1 && response.results[0].rank.confidence_city_level === 1
+                && response.results[0].rank.confidence_street_level === 1
+                && response.results[0].city.includes(response.query.parsed.city)
+                && response.query.parsed.postcode === response.results[0].postcode) {
+
+                // Adresse in der Theorie gültig --> matStepNext
+                stepper.next();
+            } else {
+                // eingegebene Adresse nicht gültig
+                this.dialog.open(TrackingDialogComponent, {
+                    data: {
+                        title: 'Adresse ungültig',
+                        content: 'Die eingegebene Adresse konnte keiner realen Adresse zugeordnet werden. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut.'
+                    },
+                    width: '30%'
+                })
+            }
+        })
+    }
+
+    public checkPostalCodeForPickUp(): void {
+
+        if (this.freiburgPostalCodes.includes(this.senderAddress.zipCode)) {
+            this.showPickupConfig = true
+        } else {
+            this.showPickupConfig = false;
+            this.dialog.open(TrackingDialogComponent, {
+                data: {
+                    title: 'Abholung bei Ihnen zuhause nicht möglich',
+                    content: 'Die Möglichkeit zum Abholen von Paketen besteht nur im Zustellradius der Trouvaille Delivery GmbH,' +
+                        ' der die folgenden Postleitzahlen im Raum Freiburg beinhaltet: 79098, 79100, 79102, 79104, 79106, 79108, 19110, 79111, 79112, 79114.'
+                },
+                width: '30%'
+            })
+        }
     }
 
 }
