@@ -3,9 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  //here you declare mock services
-  IOC: [],
+    production: false,
+    baseUrl: 'http://localhost:8075',
+    //here you declare mock services
+    IOC: [],
 };
 
 /*

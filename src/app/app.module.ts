@@ -29,9 +29,10 @@ import {NgxPayPalModule} from "ngx-paypal";
 import { TrackingDialogComponent } from './tracking-dialog/tracking-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {HttpClientModule} from "@angular/common/http";
+import { CancellationComponent } from './cancellation/cancellation.component';
 
 @NgModule({
-  declarations: [AppComponent, DashboardComponent, FooterComponent, OrderComponent, AboutUsComponent, ShipmentTrackingComponent, SideHeaderComponent, TrackingDialogComponent],
+  declarations: [AppComponent, DashboardComponent, FooterComponent, OrderComponent, AboutUsComponent, ShipmentTrackingComponent, SideHeaderComponent, TrackingDialogComponent, CancellationComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,

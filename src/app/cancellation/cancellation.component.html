@@ -1,0 +1,28 @@
+<side-header></side-header>
+<div class="container">
+    <ng-container *ngIf="cancelled">
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="col-lg-6 cancel-container">
+                <div class="d-flex justify-content-center">
+                    <fa-icon class="FFA41D" [icon]="faCircleCheck" size="10x"></fa-icon>
+                </div>
+                <div class="d-flex justify-content-center text-center mt-5">
+                    <p class="text-white fs-35 lh-1">Ihr Paket wurde storniert!</p>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="!cancelled">
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="col-lg-6 cancel-container">
+                <div class="d-flex justify-content-center align-self-center">
+                    <fa-icon class="FFA41D" [icon]="faTriangleExclamation" size="10x"></fa-icon>
+                </div>
+                <div class="d-flex justify-content-center text-center mt-5">
+                    <p class="text-white fs-35 lh-1">Die Stornierung konnte nicht mehr durchgeführt werden!</p>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
