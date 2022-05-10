@@ -1,13 +1,24 @@
 export class Address {
 
-    private _idAddress!: number;
-    private _zipCode!: string;
-    private _streetName!: string;
-    private _streetNumber!: string;
+    private _idaddress!: number;
+    private _zipcode!: string;
+    private _streetname!: string;
+    private _streetnumber!: string;
     private _city!: string;
     private _country!: string;
 
     public constructor() {
+    }
+
+    public toJson() {
+        return {
+            idaddress: this.idAddress,
+            zipcode: this.zipCode,
+            streetname: this.streetName,
+            streetnumber: this.streetNumber,
+            city: this.city,
+            country: this.country
+        }
     }
 
     get country(): string {
@@ -27,34 +38,34 @@ export class Address {
     }
 
     get streetNumber(): string {
-        return this._streetNumber;
+        return this._streetnumber;
     }
 
     set streetNumber(value: string) {
-        this._streetNumber = value;
+        this._streetnumber = value;
     }
 
     get streetName(): string {
-        return this._streetName;
+        return this._streetname;
     }
 
     set streetName(value: string) {
-        this._streetName = value;
+        this._streetname = value;
     }
 
     get zipCode(): string {
-        return this._zipCode;
+        return this._zipcode;
     }
 
     set zipCode(value: string) {
-        this._zipCode = value;
+        this._zipcode = value;
     }
 
     get idAddress(): number {
-        return this._idAddress;
+        return this._idaddress;
     }
 
     set idAddress(value: number) {
-        this._idAddress = value;
+        this._idaddress = value;
     }
 }

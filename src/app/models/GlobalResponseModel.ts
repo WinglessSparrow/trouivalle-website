@@ -8,6 +8,10 @@ export class GlobalResponseModel {
     private _warnings!: string[];
     private _data!: any[];
 
+    public constructor(params?: GlobalResponseModel) {
+        Object.assign(this, params);
+    }
+
     get error(): ErrorObject {
         return this._error;
     }

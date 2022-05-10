@@ -140,7 +140,7 @@
                     <form [formGroup]="packageForm">
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Länge (in cm)</mat-label>
-                            <input matInput type="text" formControlName="length">
+                            <input matInput type="text" formControlName="depth">
                             <mat-error>Die eingegebene Länge liegt außerhalb der erlaubten Eingaben</mat-error>
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="w-100">
@@ -246,8 +246,8 @@
                     <mat-radio-group [formControl]="payment">
                         <div class="flex-column plr-30 mb-4 mt-3">
                             <h2 class="text-white">Bezahloptionen</h2>
-                            <mat-radio-button class="w-100 text-white" value="bankTransfer">Banküberweisung</mat-radio-button>
-                            <mat-radio-button class="mt-2 text-white" value="paypal">Paypal</mat-radio-button>
+                            <mat-radio-button class="w-100 text-white" value="DIRECT_DEBIT">Banküberweisung</mat-radio-button>
+                            <mat-radio-button class="mt-2 text-white" value="PAYPAL">Paypal</mat-radio-button>
                         </div>
                     </mat-radio-group>
                 </div>
@@ -296,7 +296,7 @@
                                             Dimensionen
                                         </mat-card-title>
                                         <mat-card-content>
-                                            <p>Länge: {{package.length}} cm</p>
+                                            <p>Länge: {{package.depth}} cm</p>
                                             <p>Breite: {{package.width}} cm</p>
                                             <p>Höhe: {{package.height}} cm</p>
                                             <p>Gewicht: {{package.weight / 1000}} kg</p>
@@ -322,8 +322,8 @@
                                         Bezahlung mit:
                                     </mat-card-title>
                                     <mat-card-content>
-                                        <p *ngIf="payment.value === 'bankTransfer'" >Banküberweisung</p>
-                                        <p *ngIf="payment.value === 'paypal'">Paypal</p>
+                                        <p *ngIf="payment.value === 'DIRECT_DEBIT'" >Banküberweisung</p>
+                                        <p *ngIf="payment.value === 'PAYPAL'">Paypal</p>
                                     </mat-card-content>
                                 </mat-card>
                             </div>
@@ -352,7 +352,7 @@
             </div>
             <div class="d-flex justify-content-center mt-3">
                 <div class="col-lg-6">
-                    <button mat-raised-button color="primary">Kostenpflichtig Bestellen</button>
+                    <button mat-raised-button color="primary" (click)="createNewOrder()">Kostenpflichtig Bestellen</button>
                 </div>
             </div>
         </mat-step>

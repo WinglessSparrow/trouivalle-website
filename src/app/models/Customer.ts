@@ -2,13 +2,24 @@ import {Address} from "./Address";
 
 export class Customer {
 
-    private _idCustomer!: number;
-    private _firstName!: string;
-    private _lastName!: string;
+    private _idcustomer!: number;
+    private _firstname!: string;
+    private _lastname!: string;
     private _email!: string;
     private _idaddress!: number;
 
     public constructor() {
+    }
+
+
+    public toJson() {
+        return {
+            idcustomer: this.idaddress,
+            firstname: this.firstName,
+            lastname: this.lastName,
+            email: this.email,
+            idaddress: this.idaddress
+        }
     }
 
     get email(): string {
@@ -20,19 +31,19 @@ export class Customer {
     }
 
     get lastName(): string {
-        return this._lastName;
+        return this._lastname;
     }
 
     set lastName(value: string) {
-        this._lastName = value;
+        this._lastname = value;
     }
 
     get firstName(): string {
-        return this._firstName;
+        return this._firstname;
     }
 
     set firstName(value: string) {
-        this._firstName = value;
+        this._firstname = value;
     }
 
     get idaddress(): number {
@@ -44,10 +55,10 @@ export class Customer {
     }
 
     get idCustomer(): number {
-        return this._idCustomer;
+        return this._idcustomer;
     }
 
     set idCustomer(value: number) {
-        this._idCustomer = value;
+        this._idcustomer = value;
     }
 }

@@ -5,11 +5,30 @@ import {Address} from "./Address";
 
 export class OrderDto {
 
-    private _order!: Order;
     private _customer!: Customer;
     private _pack!: Package;
     private _destAddress!: Address;
     private _srcAddress!: Address;
+
+    private _paymentMethod!: string;
+
+    private _isPickup!: boolean;
+    private _pickupDate!: Date;
+
+    public constructor() {
+    }
+
+    public toJson() {
+        return {
+            customer: this.customer.toJson(),
+            pack: this.pack.toJson(),
+            destAddress: this.destAddress.toJson(),
+            srcAddress: this.srcAddress.toJson(),
+            paymentMethod: this.paymentMethod,
+            isPickup: this.isPickup,
+            pickupDate: this.pickupDate
+        }
+    }
 
     get srcAddress(): Address {
         return this._srcAddress;
@@ -39,11 +58,29 @@ export class OrderDto {
     set customer(value: Customer) {
         this._customer = value;
     }
-    get order(): Order {
-        return this._order;
+
+    get pickupDate(): Date {
+        return this._pickupDate;
     }
 
-    set order(value: Order) {
-        this._order = value;
+    set pickupDate(value: Date) {
+        this._pickupDate = value;
     }
+
+    get isPickup(): boolean {
+        return this._isPickup;
+    }
+
+    set isPickup(value: boolean) {
+        this._isPickup = value;
+    }
+
+    get paymentMethod(): string {
+        return this._paymentMethod;
+    }
+
+    set paymentMethod(value: string) {
+        this._paymentMethod = value;
+    }
+
 }

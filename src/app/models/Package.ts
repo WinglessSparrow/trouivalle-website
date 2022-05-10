@@ -3,23 +3,45 @@ import {Address} from "./Address";
 
 export class Package {
 
-    private _idDelivery!: string;
-    private _pickup!: Pickup;
-    private _idOrder!: number;
+    private _packageid!: number;
+    private _iddelivery!: string;
+    private _idpickup!: number;
     private _weight!: number;
     private _height!: number;
-    private _idNode!: number;
-    private _idReturn!: number;
+    private _idnode!: number;
+    private _idreturn!: number;
     private _width!: number;
-    private _length!: number;
+    private _depth!: number;
 
-    private _sourceAddress!: Address;
-    private _destinationAddress!: Address;
+    private _sourceIdaddress!: number;
+    private _destinationIdaddress!: number;
 
     private _priority!: number;
     private _price!: number;
+    private _returnIdaddress!: number;
+    private _externTrackingnumber!: string;
 
     public constructor() {
+    }
+
+    public toJson() {
+        return {
+            packageid: this.packageid,
+            iddelivery: this._iddelivery,
+            idpickup: this.idpickup,
+            weight: this.weight / 1000,
+            height: this.height,
+            idnode: this.idNode,
+            idreturn: this.idReturn,
+            width: this.width,
+            depth: this.depth,
+            sourceIdaddress: this.sourceIdaddress,
+            destinationIdaddress: this.destinationIdaddress,
+            priority: this.priority,
+            price: this.price,
+            returnIdaddress: this.returnIdaddress,
+            externTrackingnumber: this.externTrackingnumber
+        }
     }
 
     get price(): number {
@@ -38,12 +60,12 @@ export class Package {
         this._priority = value;
     }
 
-    get length(): number {
-        return this._length;
+    get depth(): number {
+        return this._depth;
     }
 
-    set length(value: number) {
-        this._length = value;
+    set depth(value: number) {
+        this._depth = value;
     }
 
     get width(): number {
@@ -55,19 +77,19 @@ export class Package {
     }
 
     get idReturn(): number {
-        return this._idReturn;
+        return this._idreturn;
     }
 
     set idReturn(value: number) {
-        this._idReturn = value;
+        this._idreturn = value;
     }
 
     get idNode(): number {
-        return this._idNode;
+        return this._idnode;
     }
 
     set idNode(value: number) {
-        this._idNode = value;
+        this._idnode = value;
     }
 
     get height(): number {
@@ -86,44 +108,57 @@ export class Package {
         this._weight = value;
     }
 
-    get idOrder(): number {
-        return this._idOrder;
-    }
-
-    set idOrder(value: number) {
-        this._idOrder = value;
-    }
-
     get idDelivery(): string {
-        return this._idDelivery;
+        return this._iddelivery;
     }
 
     set idDelivery(value: string) {
-        this._idDelivery = value;
+        this._iddelivery = value;
+    }
+    get externTrackingnumber(): string {
+        return this._externTrackingnumber;
     }
 
-    get destinationAddress(): Address {
-        return this._destinationAddress;
+    set externTrackingnumber(value: string) {
+        this._externTrackingnumber = value;
+    }
+    get returnIdaddress(): number {
+        return this._returnIdaddress;
     }
 
-    set destinationAddress(value: Address) {
-        this._destinationAddress = value;
+    set returnIdaddress(value: number) {
+        this._returnIdaddress = value;
     }
 
-    get sourceAddress(): Address {
-        return this._sourceAddress;
+    get destinationIdaddress(): number {
+        return this._destinationIdaddress;
     }
 
-    set sourceAddress(value: Address) {
-        this._sourceAddress = value;
+    set destinationIdaddress(value: number) {
+        this._destinationIdaddress = value;
     }
 
-    get pickup(): Pickup {
-        return this._pickup;
+    get sourceIdaddress(): number {
+        return this._sourceIdaddress;
     }
 
-    set pickup(value: Pickup) {
-        this._pickup = value;
+    set sourceIdaddress(value: number) {
+        this._sourceIdaddress = value;
     }
 
+    get packageid(): number {
+        return this._packageid;
+    }
+
+    set packageid(value: number) {
+        this._packageid = value;
+    }
+
+    get idpickup(): number {
+        return this._idpickup;
+    }
+
+    set idpickup(value: number) {
+        this._idpickup = value;
+    }
 }

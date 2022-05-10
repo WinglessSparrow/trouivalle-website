@@ -27,7 +27,7 @@ export class AboutUsComponent implements OnInit {
             Validators.min(7),
             Validators.max(60)
         ]),
-        length: new FormControl("", [
+        depth: new FormControl("", [
             Validators.required,
             Validators.min(10),
             Validators.max(120)
@@ -56,7 +56,7 @@ export class AboutUsComponent implements OnInit {
 
       this.package.height = this.packageForm.get("height")?.value;
       this.package.width = this.packageForm.get("width")?.value;
-      this.package.length = this.packageForm.get("length")?.value;
+      this.package.depth = this.packageForm.get("depth")?.value;
       this.package.weight = this.packageForm.get("weight")?.value;
 
       if (this.package.weight > 0 && this.package.weight <= 20) {
