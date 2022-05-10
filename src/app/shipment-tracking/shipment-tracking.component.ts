@@ -31,7 +31,7 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
 
     trackingForm = new FormControl("", [
         Validators.required,
-        Validators.pattern("[0-9]*")
+       // Validators.pattern("[0-9]*")
     ])
 
     constructor(public route: ActivatedRoute, public dialog: MatDialog, private trackingService: TrackingServiceService) {
@@ -51,6 +51,7 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
         this.route.queryParams.subscribe(params => {
             console.log(params);
             this.trackingId = params['trackingId'];
+            this.trackingForm.setValue(this.trackingId);
             this.getDeliveryStatus();
         })
     }
@@ -87,10 +88,18 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
     }
 
     public getDeliveryStatus(): void {
+        this.trackingId = this.trackingForm.value;
         let trackingId = this.trackingId;
         console.log("getDeliveryStatus mit trackingId: " + trackingId);
-        this.openDialog();
-        this.status = PackageStateEnum.DELIVERED;
+
+        this.trackingService.getPackageHistory(this.trackingId.toString()).subscribe(response => {
+            console.log(response);
+            if (response.hasError) {
+                this.openDialog();
+            } else {
+                this.status = response.data[0][response.data[0].length - 1].status;
+            }
+        })
         this.getPackageLocation();
     }
 

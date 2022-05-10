@@ -13,6 +13,8 @@ import {AddressValidationService} from "../../services/address-validation.servic
 import {MatDialog} from "@angular/material/dialog";
 import {TrackingDialogComponent} from "../tracking-dialog/tracking-dialog.component";
 import {MatStepper} from "@angular/material/stepper";
+import {OrderService} from "../../services/order.service";
+import {OrderDto} from "../models/OrderDto";
 
 
 @Component({
@@ -64,7 +66,7 @@ export class OrderComponent implements OnInit {
             Validators.required,
             Validators.minLength(2),
             Validators.maxLength(20),
-            Validators.pattern("[a-zA-ZäöüÄÖÜß]*")
+            Validators.pattern("([a-zA-ZäöüÄÖÜß]+[-]?[ ]?[a-zA-ZäöüÄÖÜß]+)*")
         ]),
         postalCode: new FormControl("", [
             Validators.required,
@@ -113,7 +115,7 @@ export class OrderComponent implements OnInit {
             Validators.required,
             Validators.minLength(2),
             Validators.maxLength(20),
-            Validators.pattern("[a-zA-ZäöüÄÖÜß]*")
+            Validators.pattern("([a-zA-ZäöüÄÖÜß]+[-]?[ ]?[a-zA-ZäöüÄÖÜß]+)*")
         ]),
         postalCode: new FormControl("", [
             Validators.required,
@@ -152,7 +154,7 @@ export class OrderComponent implements OnInit {
             Validators.min(7),
             Validators.max(60)
         ]),
-        length: new FormControl("", [
+        depth: new FormControl("", [
             Validators.required,
             Validators.min(10),
             Validators.max(120)
@@ -171,7 +173,7 @@ export class OrderComponent implements OnInit {
     pickupDate = new FormControl("", Validators.required);
     pickupTime = new FormControl("", Validators.required);
 
-    constructor(public addressValidationService: AddressValidationService, public dialog: MatDialog) {
+    constructor(public addressValidationService: AddressValidationService, public dialog: MatDialog, private orderService: OrderService) {
         this.senderAddress = new Address();
         this.receiverAddress = new Address();
         this.customer = new Customer();
@@ -209,7 +211,7 @@ export class OrderComponent implements OnInit {
 
         this.packageForm.get("height")?.setValue("20");
         this.packageForm.get("width")?.setValue("20");
-        this.packageForm.get("length")?.setValue("20");
+        this.packageForm.get("depth")?.setValue("20");
         this.packageForm.get("weight")?.setValue("20000");
 
 
@@ -309,12 +311,6 @@ export class OrderComponent implements OnInit {
         this.receiver.lastName = this.receiverGroup.get("lastName")?.value;
         this.receiver.email = this.receiverGroup.get("email")?.value;
         this.receiver.idaddress = this.receiverAddress.idAddress;
-
-
-        // todo in DB speichern
-        console.log(this.customer);
-        console.log(this.receiver);
-        // this.setPackage();
     }
 
     public setPackage(): void {
@@ -322,10 +318,7 @@ export class OrderComponent implements OnInit {
         this.package.weight = this.packageForm.get("weight")?.value;
         this.package.height = this.packageForm.get("height")?.value;
         this.package.width = this.packageForm.get("width")?.value;
-        this.package.length = this.packageForm.get("length")?.value;
-
-        this.package.sourceAddress = this.senderAddress;
-        this.package.destinationAddress = this.receiverAddress;
+        this.package.depth = this.packageForm.get("depth")?.value;
 
         console.log(this.package);
         // todo abholung / bringen
@@ -379,25 +372,35 @@ export class OrderComponent implements OnInit {
 
         this.pickup.desiredPickupDate = this.pickupDate.value;
         this.pickup.desiredPickupDate.setHours(Number(this.pickupTime.value.slice(0, 2)), Number(this.pickupTime.value.slice(3, 5)));
-        this.package.pickup = this.pickup;
-
     }
 
     public createNewOrder(): void {
-
+        this.package.price = this.sumCosts;
         this.order.customer = this.receiver;
         this.order.package = this.package;
         this.order.paymentMethod = this.payment.value;
-        console.log('Order ans backend schicken: ');
-        console.log(this.order)
-        // todo call an service Funktion (ans backend schicken)
+
+        let orderToSend: OrderDto = new OrderDto();
+        orderToSend.customer = this.customer;
+        orderToSend.pack = this.package;
+        orderToSend.destAddress = this.receiverAddress;
+        orderToSend.srcAddress = this.senderAddress;
+        orderToSend.paymentMethod = this.payment.value;
+        orderToSend.isPickup = (this.pickupForm.value === 'pickup');
+        orderToSend.pickupDate = this.pickupDate.value;
+        // send order to backend
+        this.orderService.createNewOrder(orderToSend).subscribe( response => {
+            console.log(response);
+        })
 
     }
 
     public validateAddress(stepper: MatStepper): void {
         this.setAddresses();
+        // todo address validation mit korrektem stepper.next platz hinzufügen
+        stepper.next();
         // todo: Absender-Adresse checken
-        this.addressValidationService.validateAddress(this.senderAddress.streetNumber, this.senderAddress.streetName,
+        /*this.addressValidationService.validateAddress(this.senderAddress.streetNumber, this.senderAddress.streetName,
             this.senderAddress.zipCode, this.senderAddress.city, this.senderAddress.country).subscribe(response => {
             response = JSON.parse(response);
             console.log(response);
@@ -418,7 +421,7 @@ export class OrderComponent implements OnInit {
                     width: '30%'
                 })
             }
-        })
+        })*/
     }
 
     public checkPostalCodeForPickUp(): void {

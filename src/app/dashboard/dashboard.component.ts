@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
 
   trackingForm = new FormControl("", [
       Validators.required,
-      Validators.pattern("[0-9]*")
+      //Validators.pattern("[0-9]*")
   ])
 
   constructor(private router: Router) {}

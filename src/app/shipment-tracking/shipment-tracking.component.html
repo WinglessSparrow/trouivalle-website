@@ -30,15 +30,17 @@
 
             <div class="w-100 container-color plr-30">
                 <div class="pt-3">
-                    <p class="text-white">Lieferungsnummer: {{trackingId}}&nbsp;&nbsp;&nbsp;&nbsp;
-                    <ng-container [ngSwitch]="status">
-                       <span class="text-white dot" *ngSwitchCase="'ANNOUNCED'"><span class="dot cFFF500"></span>&nbsp;&nbsp;Im System eingegangen</span>
-                        <span class="text-white" *ngSwitchCase="'IN_CENTRAL'"><span class="dot c2945D8"></span>&nbsp;&nbsp;In Filiale angekommen</span>
-                        <span class="text-white" *ngSwitchCase="'IN_CAR'"><span class="dot c00E0FF"></span>&nbsp;&nbsp;In Auslieferung</span>
-                        <span class="text-white" *ngSwitchCase="'DELIVERED'"><span class="dot c94CF8A"></span>&nbsp;&nbsp;Paket ausgeliefert</span>
-                        <span class="text-white" *ngSwitchCase="'ADDRESS_NOT_FOUND' || 'CANCELED'"><span class="dot cCD8484"></span>&nbsp;&nbsp;Lieferung abgebrochen</span>
-                    </ng-container>
-                    </p>
+                    <div>
+                        <p class="text-white">Lieferungsnummer: {{trackingId}}&nbsp;&nbsp;&nbsp;&nbsp;
+                            <ng-container [ngSwitch]="status">
+                                <span class="text-white" *ngSwitchCase="'ANNOUNCED'"><span class="dot cFFF500"></span>&nbsp;&nbsp;Im System eingegangen</span>
+                                <span class="text-white" *ngSwitchCase="'IN_CENTRAL'"><span class="dot c2945D8"></span>&nbsp;&nbsp;In Filiale angekommen</span>
+                                <span class="text-white" *ngSwitchCase="'IN_CAR'"><span class="dot c00E0FF"></span>&nbsp;&nbsp;In Auslieferung</span>
+                                <span class="text-white" *ngSwitchCase="'DELIVERED'"><span class="dot c94CF8A"></span>&nbsp;&nbsp;Paket ausgeliefert</span>
+                                <span class="text-white" *ngSwitchCase="'ADDRESS_NOT_FOUND' || 'CANCELED'"><span class="dot cCD8484"></span>&nbsp;&nbsp;Lieferung abgebrochen</span>
+                            </ng-container>
+                        </p>
+                    </div>
                     <hr class="text-white">
                     <mat-card class="mt-2">
                         <h3>Liefer-Status</h3>
