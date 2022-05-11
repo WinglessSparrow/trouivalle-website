@@ -1,16 +1,16 @@
 import {TestBed} from '@angular/core/testing';
 
-import {CancellationService} from './cancellation.service';
+import {OrderService} from './order.service';
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 
-describe('CancellationService', () => {
-    let service: CancellationService;
+describe('OrderServiceService', () => {
+    let service: OrderService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule]
         });
-        service = TestBed.inject(CancellationService);
+        service = TestBed.inject(OrderService);
     });
 
     it('should be created', () => {

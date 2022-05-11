@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TrackingDialogComponent } from './tracking-dialog.component';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogModule} from "@angular/material/dialog";
 
 describe('TrackingDialogComponent', () => {
   let component: TrackingDialogComponent;
@@ -8,7 +9,11 @@ describe('TrackingDialogComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TrackingDialogComponent ]
+        imports: [MatDialogModule],
+      declarations: [ TrackingDialogComponent ],
+        providers: [
+            {provide: MAT_DIALOG_DATA, useValue: {}}
+        ]
     })
     .compileComponents();
   });

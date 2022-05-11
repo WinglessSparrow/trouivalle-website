@@ -1,11 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validator, Validators} from "@angular/forms";
-import {MatFormField} from "@angular/material/form-field";
 import {faEnvelope, faBox, faBoxesStacked, faTruckRampBox} from "@fortawesome/free-solid-svg-icons";
 import {Address} from "../models/Address";
 import {Customer} from "../models/Customer";
 import {Package} from "../models/Package";
-import {F} from "@angular/cdk/keycodes";
 import {ICreateOrderRequest, IPayPalConfig} from "ngx-paypal";
 import {Order} from "../models/Order";
 import {Pickup} from "../models/Pickup";
@@ -173,7 +171,7 @@ export class OrderComponent implements OnInit {
     pickupDate = new FormControl("", Validators.required);
     pickupTime = new FormControl("", Validators.required);
 
-    constructor(public addressValidationService: AddressValidationService, public dialog: MatDialog, private orderService: OrderService) {
+    constructor(private addressValidationService: AddressValidationService, private dialog: MatDialog, private orderService: OrderService) {
         this.senderAddress = new Address();
         this.receiverAddress = new Address();
         this.customer = new Customer();
@@ -220,11 +218,11 @@ export class OrderComponent implements OnInit {
     public initPaypalConfig(): void {
         let disabledFundings: string = '';
         switch (this.payment.value) {
-            case 'bankTransfer': {
+            case 'DIRECT_DEBIT': {
                 disabledFundings = 'card,sepa,credit';
                 break;
             }
-            case 'paypal': {
+            case 'PAYPAL': {
                 disabledFundings = 'card,sepa,giropay,sofort';
             }
         }
@@ -294,9 +292,6 @@ export class OrderComponent implements OnInit {
         this.senderAddress.streetNumber = this.sender.get("houseNumber")?.value;
         this.senderAddress.country = this.sender.get("country")?.value;
 
-        // todo Adressen in der DB speichern und neu anfordern (um Adress-ID in setCustomer zu haben)
-        console.log(this.senderAddress);
-        console.log(this.receiverAddress);
         this.setCustomerAndReceiver();
     }
 
@@ -320,9 +315,7 @@ export class OrderComponent implements OnInit {
         this.package.width = this.packageForm.get("width")?.value;
         this.package.depth = this.packageForm.get("depth")?.value;
 
-        console.log(this.package);
         // todo abholung / bringen
-
 
         this.calculateCosts();
     }
@@ -389,7 +382,7 @@ export class OrderComponent implements OnInit {
         orderToSend.isPickup = (this.pickupForm.value === 'pickup');
         orderToSend.pickupDate = this.pickupDate.value;
         // send order to backend
-        this.orderService.createNewOrder(orderToSend).subscribe( response => {
+        this.orderService.createNewOrder(orderToSend).subscribe(response => {
             console.log(response);
         })
 

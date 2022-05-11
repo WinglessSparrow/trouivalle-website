@@ -21,7 +21,6 @@ export class CancellationComponent implements OnInit {
     ngOnInit(): void {
         this.cancelled = true;
         this.route.queryParams.subscribe(params => {
-            console.log(params);
             this.deliveryId = params['deliveryId'];
             this.cancelDelivery();
         })

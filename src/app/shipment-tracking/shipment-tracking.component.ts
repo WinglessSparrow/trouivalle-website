@@ -5,7 +5,7 @@ import {FormControl, Validators} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {TrackingDialogComponent} from "../tracking-dialog/tracking-dialog.component";
-import {TrackingServiceService} from "../../services/tracking-service.service";
+import {TrackingService} from "../../services/tracking.service";
 import {Coordinate} from "../models/Coordinate";
 import {PackageStateEnum} from "../models/PackageStateEnum";
 import {faCheck} from "@fortawesome/free-solid-svg-icons";
@@ -31,10 +31,10 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
 
     trackingForm = new FormControl("", [
         Validators.required,
-       // Validators.pattern("[0-9]*")
+        // Validators.pattern("[0-9]*")
     ])
 
-    constructor(public route: ActivatedRoute, public dialog: MatDialog, private trackingService: TrackingServiceService) {
+    constructor(private route: ActivatedRoute, private dialog: MatDialog, private trackingService: TrackingService) {
     }
 
     ngOnInit(): void {
@@ -49,7 +49,6 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
     ngAfterViewInit(): void {
         this.initMap();
         this.route.queryParams.subscribe(params => {
-            console.log(params);
             this.trackingId = params['trackingId'];
             this.trackingForm.setValue(this.trackingId);
             this.getDeliveryStatus();
@@ -57,7 +56,7 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
     }
 
     private initMap(): void {
-    let iconRetinaUrl = 'assets/marker-icon-2x.png';
+        let iconRetinaUrl = 'assets/marker-icon-2x.png';
         let iconUrl = 'assets/marker-icon.png';
         let shadowUrl = 'assets/marker-shadow.png';
         const iconDefault = icon({
@@ -90,13 +89,13 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
     public getDeliveryStatus(): void {
         this.trackingId = this.trackingForm.value;
         let trackingId = this.trackingId;
-        console.log("getDeliveryStatus mit trackingId: " + trackingId);
 
+        // delivery-status von backend anfordern
         this.trackingService.getPackageHistory(this.trackingId.toString()).subscribe(response => {
-            console.log(response);
             if (response.hasError) {
                 this.openDialog();
             } else {
+                // aktuellsten Status aus dem history-Array rausnehmen
                 this.status = response.data[0][response.data[0].length - 1].status;
             }
         })
@@ -104,7 +103,7 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
     }
 
     public getPackageLocation(): void {
-        // todo backend call
+        // todo backend call für aktuelle Position
 
         // Ausschnitt auf der Karte setzen
         L.marker([47.99, 7.8]).addTo(this.map)
@@ -115,7 +114,7 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
             .bindPopup('Ihre Lieferung', {autoClose: false})
             .openPopup();
 
-        // Add route from start to end to map
+        // Add route (polyline) from start to end to map
         this.trackingService.getRouteFromOsrm(this.headquarter, this.destination).subscribe(jsonRoute => {
             let route = JSON.parse(jsonRoute);
             let polyUtil = require('polyline-encoded');

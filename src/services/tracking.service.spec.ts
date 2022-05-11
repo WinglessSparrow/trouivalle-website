@@ -1,16 +1,16 @@
 import {TestBed} from '@angular/core/testing';
 
-import {CancellationService} from './cancellation.service';
+import {TrackingService} from './tracking.service';
 import {HttpClientTestingModule} from "@angular/common/http/testing";
 
-describe('CancellationService', () => {
-    let service: CancellationService;
+describe('TrackingServiceService', () => {
+    let service: TrackingService;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientTestingModule]
         });
-        service = TestBed.inject(CancellationService);
+        service = TestBed.inject(TrackingService);
     });
 
     it('should be created', () => {

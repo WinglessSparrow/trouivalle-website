@@ -8,7 +8,7 @@ import {environment} from "../environments/environment";
 @Injectable({
     providedIn: 'root'
 })
-export class TrackingServiceService {
+export class TrackingService {
 
     constructor(private httpClient: HttpClient) {
     }

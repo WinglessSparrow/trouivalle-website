@@ -125,7 +125,8 @@
             </div>
             <div class="d-flex justify-content-center">
                 <div class="col-lg-6">
-                    <button class="mt-4" [disabled]="!sender.valid || !receiverGroup.valid" (click)="validateAddress(stepper)"
+                    <button class="mt-4" [disabled]="!sender.valid || !receiverGroup.valid"
+                            (click)="validateAddress(stepper)"
                             mat-raised-button color="primary">Weiter zu den Paketdaten
                     </button>
                 </div>
@@ -203,9 +204,11 @@
                         <h2 class="text-white">Abgabe / Abholung</h2>
                         <mat-radio-group [formControl]="pickupForm">
                             <div class="flex-column">
-                                <mat-radio-button class="w-100 text-white" value="deliver">Sendung bei der Filiale abgeben
+                                <mat-radio-button class="w-100 text-white" value="deliver">Sendung bei der Filiale
+                                    abgeben
                                 </mat-radio-button>
-                                <mat-radio-button class="mt-2 text-white" value="pickup" (click)="checkPostalCodeForPickUp()">Abholung zuhause (+ 5,00€)
+                                <mat-radio-button class="mt-2 text-white" value="pickup"
+                                                  (click)="checkPostalCodeForPickUp()">Abholung zuhause (+ 5,00€)
                                 </mat-radio-button>
                             </div>
                         </mat-radio-group>
@@ -222,7 +225,8 @@
                             <div class="width-50">
                                 <mat-form-field appearance="fill" class="float-end w-95">
                                     <mat-label>Zeit auswählen</mat-label>
-                                    <input type="time" matInput [formControl]="pickupTime" name="week" min="09:00" max="18:00" >
+                                    <input type="time" matInput [formControl]="pickupTime" name="week" min="09:00"
+                                           max="18:00">
                                 </mat-form-field>
                             </div>
                         </div>
@@ -246,7 +250,8 @@
                     <mat-radio-group [formControl]="payment">
                         <div class="flex-column plr-30 mb-4 mt-3">
                             <h2 class="text-white">Bezahloptionen</h2>
-                            <mat-radio-button class="w-100 text-white" value="DIRECT_DEBIT">Banküberweisung</mat-radio-button>
+                            <mat-radio-button class="w-100 text-white" value="DIRECT_DEBIT">Banküberweisung
+                            </mat-radio-button>
                             <mat-radio-button class="mt-2 text-white" value="PAYPAL">Paypal</mat-radio-button>
                         </div>
                     </mat-radio-group>
@@ -254,7 +259,9 @@
             </div>
             <div class="d-flex justify-content-center">
                 <div class="col-lg-6">
-                    <button class="mt-4" mat-raised-button color="primary" (click)="initPaypalConfig()" [disabled]="!payment.valid" matStepperNext>Weiter zur Bestellübersicht</button>
+                    <button class="mt-4" mat-raised-button color="primary" (click)="initPaypalConfig()"
+                            [disabled]="!payment.valid" matStepperNext>Weiter zur Bestellübersicht
+                    </button>
                 </div>
             </div>
         </mat-step>
@@ -308,8 +315,10 @@
                                         </mat-card-title>
                                         <mat-card-content>
                                             <p *ngIf="pickupForm.value === 'deliver'">Ablieferung bei der Filiale</p>
-                                            <p *ngIf="pickupForm.value === 'pickup' && pickupDate.value && pickupTime.value">Abholung bei Ihnen Zuhause <br>
-                                             Tag: {{pickupDate.value.toLocaleDateString()}}<br> Zeit: {{pickupTime.value}} Uhr
+                                            <p *ngIf="pickupForm.value === 'pickup' && pickupDate.value && pickupTime.value">
+                                                Abholung bei Ihnen Zuhause <br>
+                                                Tag: {{pickupDate.value.toLocaleDateString()}}<br>
+                                                Zeit: {{pickupTime.value}} Uhr
                                             </p>
                                             <div class="d-flex justify-content-center">
                                                 <fa-icon class="fs-50" [icon]="faTruckRampBox"></fa-icon>
@@ -322,7 +331,7 @@
                                         Bezahlung mit:
                                     </mat-card-title>
                                     <mat-card-content>
-                                        <p *ngIf="payment.value === 'DIRECT_DEBIT'" >Banküberweisung</p>
+                                        <p *ngIf="payment.value === 'DIRECT_DEBIT'">Banküberweisung</p>
                                         <p *ngIf="payment.value === 'PAYPAL'">Paypal</p>
                                     </mat-card-content>
                                 </mat-card>
@@ -347,12 +356,13 @@
             </div>
             <div class="d-flex justify-content-center mt-3">
                 <div class="col-lg-6">
-                <ngx-paypal [config]="this.paypalConfig"></ngx-paypal>
+                    <ngx-paypal [config]="this.paypalConfig"></ngx-paypal>
                 </div>
             </div>
             <div class="d-flex justify-content-center mt-3">
                 <div class="col-lg-6">
-                    <button mat-raised-button color="primary" (click)="createNewOrder()">Kostenpflichtig Bestellen</button>
+                    <button mat-raised-button color="primary" (click)="createNewOrder()">Kostenpflichtig Bestellen
+                    </button>
                 </div>
             </div>
         </mat-step>

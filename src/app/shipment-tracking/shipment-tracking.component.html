@@ -37,7 +37,8 @@
                                 <span class="text-white" *ngSwitchCase="'IN_CENTRAL'"><span class="dot c2945D8"></span>&nbsp;&nbsp;In Filiale angekommen</span>
                                 <span class="text-white" *ngSwitchCase="'IN_CAR'"><span class="dot c00E0FF"></span>&nbsp;&nbsp;In Auslieferung</span>
                                 <span class="text-white" *ngSwitchCase="'DELIVERED'"><span class="dot c94CF8A"></span>&nbsp;&nbsp;Paket ausgeliefert</span>
-                                <span class="text-white" *ngSwitchCase="'ADDRESS_NOT_FOUND' || 'CANCELED'"><span class="dot cCD8484"></span>&nbsp;&nbsp;Lieferung abgebrochen</span>
+                                <span class="text-white" *ngSwitchCase="'ADDRESS_NOT_FOUND' || 'CANCELED'"><span
+                                    class="dot cCD8484"></span>&nbsp;&nbsp;Lieferung abgebrochen</span>
                             </ng-container>
                         </p>
                     </div>
@@ -48,32 +49,43 @@
                         <!-- Border color für die boxen: border: 2px solid #6043F6>-->
                         <div class="flex">
                             <div class="mr-20 w-80">
-                                <div class="square flex justify-content-center align-items-center cFFF500" [ngClass]="{'border-blue': status === 'ANNOUNCED' || status === 'IN_CENTRAL' || status === 'IN_CAR' || status === 'DELIVERED'}">
-                                    <fa-icon *ngIf="status === 'ANNOUNCED' || status === 'IN_CENTRAL' || status === 'IN_CAR' || status === 'DELIVERED'" [icon]="faCheck" size="4x"></fa-icon>
+                                <div class="square flex justify-content-center align-items-center cFFF500"
+                                     [ngClass]="{'border-blue': status === 'ANNOUNCED' || status === 'IN_CENTRAL' || status === 'IN_CAR' || status === 'DELIVERED'}">
+                                    <fa-icon
+                                        *ngIf="status === 'ANNOUNCED' || status === 'IN_CENTRAL' || status === 'IN_CAR' || status === 'DELIVERED'"
+                                        [icon]="faCheck" size="4x"></fa-icon>
                                 </div>
                                 <p class="text-center">Im System eingegangen</p>
                             </div>
                             <div class="mr-20 w-80">
-                                <div class="square flex justify-content-center align-items-center c2945D8" [ngClass]="{'border-blue': status === 'IN_CENTRAL' || status === 'IN_CAR' || status === 'DELIVERED'}">
-                                    <fa-icon *ngIf="status === 'IN_CENTRAL' ||  status === 'IN_CAR' || status === 'DELIVERED'" [icon]="faCheck" size="4x"></fa-icon>
+                                <div class="square flex justify-content-center align-items-center c2945D8"
+                                     [ngClass]="{'border-blue': status === 'IN_CENTRAL' || status === 'IN_CAR' || status === 'DELIVERED'}">
+                                    <fa-icon
+                                        *ngIf="status === 'IN_CENTRAL' ||  status === 'IN_CAR' || status === 'DELIVERED'"
+                                        [icon]="faCheck" size="4x"></fa-icon>
                                 </div>
                                 <p class="text-center">In Filiale angekommen</p>
                             </div>
                             <div class="mr-20 w-80">
-                                <div class="square flex justify-content-center align-items-center c00E0FF" [ngClass]="{'border-blue': status === 'IN_CAR' || status === 'DELIVERED'}">
-                                    <fa-icon *ngIf="status === 'IN_CAR' || status === 'DELIVERED'" [icon]="faCheck" size="4x"></fa-icon>
+                                <div class="square flex justify-content-center align-items-center c00E0FF"
+                                     [ngClass]="{'border-blue': status === 'IN_CAR' || status === 'DELIVERED'}">
+                                    <fa-icon *ngIf="status === 'IN_CAR' || status === 'DELIVERED'" [icon]="faCheck"
+                                             size="4x"></fa-icon>
                                 </div>
                                 <p class="text-center">In Auslieferung</p>
                             </div>
                             <div class="mr-20 w-80">
-                                <div class="square flex justify-content-center align-items-center c94CF8A" [ngClass]="{'border-blue': status === 'DELIVERED'}">
+                                <div class="square flex justify-content-center align-items-center c94CF8A"
+                                     [ngClass]="{'border-blue': status === 'DELIVERED'}">
                                     <fa-icon *ngIf="status === 'DELIVERED'" [icon]="faCheck" size="4x"></fa-icon>
                                 </div>
                                 <p class="text-center">Paket ausgeliefert</p>
                             </div>
                             <div class="mr-20 w-80">
-                                <div class="square flex justify-content-center align-items-center cCD8484" [ngClass]="{'border-blue': status === 'ADDRESS_NOT_FOUND' || status === 'CANCELED'}">
-                                    <fa-icon *ngIf="status === 'ADDRESS_NOT_FOUND' || status === 'CANCELED'" [icon]="faCheck" size="4x"></fa-icon>
+                                <div class="square flex justify-content-center align-items-center cCD8484"
+                                     [ngClass]="{'border-blue': status === 'ADDRESS_NOT_FOUND' || status === 'CANCELED'}">
+                                    <fa-icon *ngIf="status === 'ADDRESS_NOT_FOUND' || status === 'CANCELED'"
+                                             [icon]="faCheck" size="4x"></fa-icon>
                                 </div>
                                 <p class="text-center">Lieferung abgebrochen</p>
                             </div>
