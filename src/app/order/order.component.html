@@ -126,7 +126,7 @@
             <div class="d-flex justify-content-center">
                 <div class="col-lg-6">
                     <button class="mt-4" [disabled]="!sender.valid || !receiverGroup.valid"
-                            (click)="validateAddress(stepper)"
+                            (click)="validateSenderAddress(stepper)"
                             mat-raised-button color="primary">Weiter zu den Paketdaten
                     </button>
                 </div>
@@ -356,7 +356,7 @@
             </div>
             <div class="d-flex justify-content-center mt-3">
                 <div class="col-lg-6">
-                    <ngx-paypal [config]="this.paypalConfig"></ngx-paypal>
+                    <ngx-paypal [hidden]="hidePaypal" [config]="this.paypalConfig"></ngx-paypal>
                 </div>
             </div>
             <div class="d-flex justify-content-center mt-3">

@@ -4,7 +4,7 @@ import {icon, Marker} from 'leaflet';
 import {FormControl, Validators} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
-import {TrackingDialogComponent} from "../tracking-dialog/tracking-dialog.component";
+import {TrackingDialogComponent} from "../modal/tracking-dialog/tracking-dialog.component";
 import {TrackingService} from "../../services/tracking.service";
 import {Coordinate} from "../models/Coordinate";
 import {PackageStateEnum} from "../models/PackageStateEnum";
@@ -96,7 +96,8 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
                 this.openDialog();
             } else {
                 // aktuellsten Status aus dem history-Array rausnehmen
-                this.status = response.data[0][response.data[0].length - 1].status;
+                console.log(response);
+                this.status = response.data[0][0].status;
             }
         })
         this.getPackageLocation();

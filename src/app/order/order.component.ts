@@ -9,10 +9,11 @@ import {Order} from "../models/Order";
 import {Pickup} from "../models/Pickup";
 import {AddressValidationService} from "../../services/address-validation.service";
 import {MatDialog} from "@angular/material/dialog";
-import {TrackingDialogComponent} from "../tracking-dialog/tracking-dialog.component";
+import {TrackingDialogComponent} from "../modal/tracking-dialog/tracking-dialog.component";
 import {MatStepper} from "@angular/material/stepper";
 import {OrderService} from "../../services/order.service";
 import {OrderDto} from "../models/OrderDto";
+import {SuccessDialogComponent} from "../modal/success-dialog/success-dialog.component";
 
 
 @Component({
@@ -31,6 +32,7 @@ export class OrderComponent implements OnInit {
     public pickup: Pickup;
     public showPickupConfig: boolean = false;
     public freiburgPostalCodes: string[] = ['79098', '79100', '79102', '79104', '79106', '79108', '19110', '79112', '79114'];
+    public hidePaypal = false;
 
     public paypalConfig?: IPayPalConfig;
 
@@ -75,8 +77,8 @@ export class OrderComponent implements OnInit {
         street: new FormControl("", [
             Validators.required,
             Validators.minLength(2),
-            Validators.maxLength(20),
-            Validators.pattern("[a-zA-ZäöüÄÖÜß]*")
+            Validators.maxLength(30),
+            Validators.pattern("([a-zA-ZäöüÄÖÜß]+[-]?[ ]?[a-zA-ZäöüÄÖÜß]+)*")
         ]),
         houseNumber: new FormControl("", [
             Validators.required,
@@ -124,8 +126,8 @@ export class OrderComponent implements OnInit {
         street: new FormControl("", [
             Validators.required,
             Validators.minLength(2),
-            Validators.maxLength(20),
-            Validators.pattern("[a-zA-ZäöüÄÖÜß]*")
+            Validators.maxLength(30),
+            Validators.pattern("([a-zA-ZäöüÄÖÜß]+[-]?[ ]?[a-zA-ZäöüÄÖÜß]+)*")
         ]),
         houseNumber: new FormControl("", [
             Validators.required,
@@ -273,7 +275,7 @@ export class OrderComponent implements OnInit {
             onClientAuthorization: (data) => {
                 console.log('onClientAuthorization --> Server über getätigte Transaktion informieren');
                 this.createNewOrder();
-                //this.showSuccess = true;
+                this.hidePaypal = true;
             }
         }
     }
@@ -384,17 +386,47 @@ export class OrderComponent implements OnInit {
         // send order to backend
         this.orderService.createNewOrder(orderToSend).subscribe(response => {
             console.log(response);
+            if (!response.hasError && response.data.length > 0) {
+                this.dialog.open(SuccessDialogComponent, {
+                    width: '30%'
+                })
+            }
         })
 
     }
 
-    public validateAddress(stepper: MatStepper): void {
+    public validateSenderAddress(stepper: MatStepper): void {
         this.setAddresses();
-        // todo address validation mit korrektem stepper.next platz hinzufügen
-        stepper.next();
-        // todo: Absender-Adresse checken
-        /*this.addressValidationService.validateAddress(this.senderAddress.streetNumber, this.senderAddress.streetName,
+
+        this.addressValidationService.validateAddress(this.senderAddress.streetNumber, this.senderAddress.streetName,
             this.senderAddress.zipCode, this.senderAddress.city, this.senderAddress.country).subscribe(response => {
+            response = JSON.parse(response);
+            console.log(response);
+            if (response.results[0].rank.confidence === 1 && response.results[0].rank.confidence_city_level === 1
+                && response.results[0].rank.confidence_street_level === 1
+                && response.results[0].city.includes(response.query.parsed.city)
+                && response.query.parsed.postcode === response.results[0].postcode) {
+
+                // Adresse in der Theorie gültig --> Empfaenger-Adresse checken
+                this.validateEmpfaengerAddress(stepper);
+            } else {
+                // eingegebene Adresse nicht gültig
+                this.dialog.open(TrackingDialogComponent, {
+                    data: {
+                        title: 'Adresse ungültig',
+                        content: 'Die eingegebene Versender-Adresse konnte keiner realen Adresse zugeordnet werden. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut.'
+                    },
+                    width: '30%'
+                })
+            }
+        })
+    }
+
+    public validateEmpfaengerAddress(stepper: MatStepper): void {
+        this.setAddresses();
+
+        this.addressValidationService.validateAddress(this.receiverAddress.streetNumber, this.receiverAddress.streetName,
+            this.receiverAddress.zipCode, this.receiverAddress.city, this.receiverAddress.country).subscribe(response => {
             response = JSON.parse(response);
             console.log(response);
             if (response.results[0].rank.confidence === 1 && response.results[0].rank.confidence_city_level === 1
@@ -409,12 +441,12 @@ export class OrderComponent implements OnInit {
                 this.dialog.open(TrackingDialogComponent, {
                     data: {
                         title: 'Adresse ungültig',
-                        content: 'Die eingegebene Adresse konnte keiner realen Adresse zugeordnet werden. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut.'
+                        content: 'Die eingegebene Empfänger-Adresse konnte keiner realen Adresse zugeordnet werden. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut.'
                     },
                     width: '30%'
                 })
             }
-        })*/
+        })
     }
 
     public checkPostalCodeForPickUp(): void {

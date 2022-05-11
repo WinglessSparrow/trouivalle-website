@@ -26,13 +26,14 @@ import {MatNativeDateModule} from "@angular/material/core";
 import {ShipmentTrackingComponent} from './shipment-tracking/shipment-tracking.component';
 import {SideHeaderComponent} from './side-header/side-header.component';
 import {NgxPayPalModule} from "ngx-paypal";
-import {TrackingDialogComponent} from './tracking-dialog/tracking-dialog.component';
+import {TrackingDialogComponent} from './modal/tracking-dialog/tracking-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import {HttpClientModule} from "@angular/common/http";
 import {CancellationComponent} from './cancellation/cancellation.component';
+import { SuccessDialogComponent } from './modal/success-dialog/success-dialog.component';
 
 @NgModule({
-    declarations: [AppComponent, DashboardComponent, FooterComponent, OrderComponent, AboutUsComponent, ShipmentTrackingComponent, SideHeaderComponent, TrackingDialogComponent, CancellationComponent],
+    declarations: [AppComponent, DashboardComponent, FooterComponent, OrderComponent, AboutUsComponent, ShipmentTrackingComponent, SideHeaderComponent, TrackingDialogComponent, CancellationComponent, SuccessDialogComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,

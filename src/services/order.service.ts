@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {GlobalResponseModel} from "../app/models/GlobalResponseModel";
 import {OrderDto} from "../app/models/OrderDto";
 import {environment} from "../environments/environment";
@@ -21,7 +21,7 @@ export class OrderService {
     }
 
     public createNewOrder(order: OrderDto): Observable<GlobalResponseModel> {
-        console.log(JSON.stringify(order));
-        return this.httpClient.post<GlobalResponseModel>(`${environment.baseUrl}/api/deliveries/order`, order.toJson(), this.getHttpOptions());
+        return this.httpClient.post<any>(`${environment.baseUrl}/api/deliveries/order`, order.toJson(), this.getHttpOptions())
+            .pipe(map(response => new GlobalResponseModel(JSON.parse(response))));
     }
 }
