@@ -72,7 +72,7 @@ export class OrderComponent implements OnInit {
             Validators.required,
             Validators.maxLength(5),
             Validators.minLength(5),
-            Validators.pattern("[0-9]{5}")
+            Validators.pattern("[1-9][0-9]{4}")
         ]),
         street: new FormControl("", [
             Validators.required,
@@ -84,7 +84,7 @@ export class OrderComponent implements OnInit {
             Validators.required,
             Validators.minLength(1),
             Validators.maxLength(4),
-            Validators.pattern("[0-9]*")
+            Validators.pattern("[1-9][0-9]*")
         ]),
         country: new FormControl("", [
             Validators.required,
