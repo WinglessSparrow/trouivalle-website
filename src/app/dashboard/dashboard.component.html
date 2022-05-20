@@ -1,0 +1,72 @@
+<div class="h-100">
+    <div class="row justify-content-md-center">
+        <div class="trapezoid col-lg-5">
+            <div class="d-flex align-items-center justify-content-center text-white upside">
+                <h1>
+                    <img src="../../assets/Logo_small.png" alt="Trouvaille_Logo">
+                    Trouvaille Deliveries</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <hr>
+        <div class="map-container h-200">
+            <div class="row justify-content-md-center">
+                <div class="trapezoid_small col-lg-4">
+                    <div class="d-flex align-items-center justify-content-center text-white upside">
+                        <h3> Lieferung verfolgen</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="input-group mt-5">
+                        <input class="form-control" type="text" placeholder="Lieferungs-ID"
+                               [formControl]="trackingForm">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary rounded-0" type="button" [disabled]="!trackingForm.valid"
+                                    (click)="openShipmentTracking()">Verfolgen
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="mt-5">
+        <div class="d-flex align-items-center justify-content-center picture w-100 h-200 mt-5">
+            <button class="btn btn-primary rounded-0 text-center" routerLink="/order">
+                <fa-icon [icon]="faBox"></fa-icon>
+                Abholung beantragen
+            </button>
+        </div>
+
+        <hr>
+        <div class="w-100 text-center h-400">
+            <h2 class="text-center text-white text-decoration-underline">Unsere Vorteile</h2>
+            <div class="container mt-5 w-75">
+                <div class="row text-white">
+                    <div class="col-sm text-white">
+                        <fa-icon class="m-3 fs-50" [icon]="faBoxesStacked"></fa-icon>
+                        <p>Effiziente Logistik</p>
+                    </div>
+                    <div class="col-sm">
+                        <fa-icon class="m-3 fs-50" [icon]="faLocationDot"></fa-icon>
+                        <p>Sendungsverfolgung</p>
+                    </div>
+                    <div class="col-sm">
+                        <fa-icon class="m-3 fs-50" [icon]="faTruckRampBox"></fa-icon>
+                        <p>Abholung</p>
+                    </div>
+                    <div class="col-sm">
+                        <fa-icon class="m-3 fs-50" [icon]="faTruckFast"></fa-icon>
+                        <p>Schnelle Lieferung</p>
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary text-center rounded-0 mt-5 w-25" routerLink="/about-us">Mehr erfahren
+            </button>
+        </div>
+    </div>
+</div>

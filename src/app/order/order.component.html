@@ -1,0 +1,370 @@
+<side-header></side-header>
+<div class="container">
+    <h1 class="text-white text-center mt-4">Bestellung aufgeben</h1>
+    <mat-stepper style="background-color: transparent" linear #stepper>
+        <mat-step>
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-6 plr-30 container-color">
+                    <ng-template class="text-white" matStepLabel>Kundendaten</ng-template>
+                    <div>
+                        <h2 class="text-white mt-3">Versender</h2>
+                        <form [formGroup]="sender">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Vorname:</mat-label>
+                                <input matInput type="text" formControlName="firstName">
+                                <mat-error>Kein gültiger Vorname</mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Nachname:</mat-label>
+                                <input matInput type="text" formControlName="lastName">
+                                <mat-error>Kein gültiger Nachname</mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Email:</mat-label>
+                                <input matInput type="email" formControlName="email">
+                                <mat-error>Keine gültige E-Mail Adresse</mat-error>
+                            </mat-form-field>
+                            <div class="flex">
+                                <div class="width-50">
+                                    <mat-form-field appearance="fill" class="w-95">
+                                        <mat-label>Ort:</mat-label>
+                                        <input matInput type="text" formControlName="city">
+                                        <mat-error>Kein gültiger Ort</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="width-50">
+                                    <mat-form-field appearance="fill" class="w-100">
+                                        <mat-label>PLZ:</mat-label>
+                                        <input matInput type="text" formControlName="postalCode">
+                                        <mat-error>Keine reguläre Postleitzahl</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="width-50">
+                                    <mat-form-field appearance="fill" class="w-95">
+                                        <mat-label>Straße:</mat-label>
+                                        <input matInput type="text" formControlName="street">
+                                        <mat-error>Keine gültige Straße</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="width-50">
+                                    <mat-form-field appearance="fill" class="w-100">
+                                        <mat-label>Hausnummer:</mat-label>
+                                        <input matInput type="text" formControlName="houseNumber">
+                                        <mat-error>Keine gültige Hausnummer</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Land:</mat-label>
+                                <input matInput type="text" formControlName="country">
+                                <mat-error>Kein gültiges Land</mat-error>
+                            </mat-form-field>
+                        </form>
+                    </div>
+
+                    <div class="mt-4">
+                        <h2 class="text-white">Empfänger</h2>
+                        <form [formGroup]="receiverGroup">
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Vorname:</mat-label>
+                                <input matInput type="text" formControlName="firstName">
+                                <mat-error>Kein gültiger Vorname</mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Nachname:</mat-label>
+                                <input matInput type="text" formControlName="lastName">
+                                <mat-error>Kein gültiger Nachname</mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Email:</mat-label>
+                                <input matInput type="email" formControlName="email">
+                                <mat-error>Keine gültige E-Mail Adresse</mat-error>
+                            </mat-form-field>
+                            <div class="flex">
+                                <div class="width-50">
+                                    <mat-form-field appearance="fill" class="w-95">
+                                        <mat-label>Ort:</mat-label>
+                                        <input matInput type="text" formControlName="city">
+                                        <mat-error>Kein gültiger Ort</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="width-50">
+                                    <mat-form-field appearance="fill" class="w-100">
+                                        <mat-label>PLZ:</mat-label>
+                                        <input matInput type="text" formControlName="postalCode">
+                                        <mat-error>Keine gültige Postleitzahl</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="flex">
+                                <div class="width-50">
+                                    <mat-form-field appearance="fill" class="w-95">
+                                        <mat-label>Straße:</mat-label>
+                                        <input matInput type="text" formControlName="street">
+                                        <mat-error>Keine gültige Straße</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="width-50">
+                                    <mat-form-field appearance="fill" class="w-100">
+                                        <mat-label>Hausnummer:</mat-label>
+                                        <input matInput type="text" formControlName="houseNumber">
+                                        <mat-error>Keine gültige Hausnummer</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Land:</mat-label>
+                                <input matInput type="text" formControlName="country">
+                                <mat-error>Kein gültiges Land</mat-error>
+                            </mat-form-field>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-6">
+                    <button class="mt-4 start-validation-button" [disabled]="!sender.valid || !receiverGroup.valid"
+                            (click)="validateSenderAddress(stepper)"
+                            mat-raised-button color="primary">Weiter zu den Paketdaten
+                    </button>
+                </div>
+            </div>
+        </mat-step>
+        <mat-step>
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-6 plr-30 container-color">
+                    <ng-template matStepLabel>Paketdaten</ng-template>
+                    <h2 class="text-white mt-3">Dimensionen</h2>
+
+                    <form [formGroup]="packageForm">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Länge (in cm)</mat-label>
+                            <input matInput type="text" formControlName="depth">
+                            <mat-error>Die eingegebene Länge liegt außerhalb der erlaubten Eingaben</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Breite (in cm)</mat-label>
+                            <input matInput type="text" formControlName="width">
+                            <mat-error>Die eingegebene Breite liegt außerhalb der erlaubten Eingaben</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Höhe (in cm)</mat-label>
+                            <input matInput type="text" formControlName="height">
+                            <mat-error>Die eingegebene Höhe liegt außerhalb der erlaubten Eingaben</mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Gewicht (in g)</mat-label>
+                            <input matInput type="text" formControlName="weight">
+                            <mat-error>Das eingegebene Gewicht liegt außerhalb der erlaubten Eingaben</mat-error>
+                        </mat-form-field>
+                    </form>
+
+                    <h2 class="text-white">Information</h2>
+                    <div class="d-flex justify-content-between text-center">
+                        <mat-card class="w-30">
+                            <mat-card-header class="d-block">
+                                <p>Briefe</p>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <div>
+                                    <fa-icon [icon]="faEnvelope" size="4x"></fa-icon>
+                                    <p class="mt-2">0,85€ - 2.75€</p>
+                                    <p>bis 1kg</p>
+                                    <p>bis 35,5 x 25 x 5 cm</p>
+                                </div>
+                            </mat-card-content>
+                        </mat-card>
+                        <mat-card class="w-30">
+                            <mat-card-header class="d-block">
+                                <p>Paket klein</p>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <fa-icon [icon]="faBox" size="4x"></fa-icon>
+                                <p class="mt-2">4,99€ - 8,49€</p>
+                                <p>2kg - 10kg</p>
+                                <p>bis 120 x 60 x 60 cm</p>
+                            </mat-card-content>
+                        </mat-card>
+                        <mat-card class="w-30">
+                            <mat-card-header class="d-block">
+                                <p>Paket groß</p>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <fa-icon [icon]="faBoxesStacked" size="4x"></fa-icon>
+                                <p class="mt-2">16,49€</p>
+                                <p>bis 31,5kg</p>
+                                <p>bis 120 x 60 x 60 cm</p>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+
+                    <div class="mt-3 mb-4">
+                        <h2 class="text-white">Abgabe / Abholung</h2>
+                        <mat-radio-group [formControl]="pickupForm">
+                            <div class="flex-column">
+                                <mat-radio-button class="w-100 text-white" value="deliver">Sendung bei der Filiale
+                                    abgeben
+                                </mat-radio-button>
+                                <mat-radio-button class="mt-2 text-white" value="pickup"
+                                                  (click)="checkPostalCodeForPickUp()">Abholung zuhause (+ 5,00€)
+                                </mat-radio-button>
+                            </div>
+                        </mat-radio-group>
+                    </div>
+                    <div class="mt-3 mb-4 pickup-container" *ngIf="pickupForm.value === 'pickup' && showPickupConfig === true">
+                        <h2 class="text-white">Abholungszeitpunkt festlegen</h2>
+                        <div class="flex">
+                            <mat-form-field appearance="fill" class="width-50">
+                                <mat-label>Datum auswählen</mat-label>
+                                <input matInput [matDatepicker]="picker" [formControl]="pickupDate">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                            <div class="width-50">
+                                <mat-form-field appearance="fill" class="float-end w-95">
+                                    <mat-label>Zeit auswählen</mat-label>
+                                    <input type="time" matInput [formControl]="pickupTime" name="week" min="09:00"
+                                           max="18:00">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-6">
+                    <button class="mt-4 zur-bezahlung-button" mat-raised-button color="primary" (click)="setPackage()"
+                            [disabled]="!packageForm.valid || !pickupForm.valid || (this.pickupForm.value === 'pickup' && (!this.pickupDate.valid || !this.pickupTime.valid))"
+                            matStepperNext>Weiter zur Bezahlung
+                    </button>
+                </div>
+            </div>
+
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Bezahlung</ng-template>
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-6 container-color">
+                    <mat-radio-group [formControl]="payment">
+                        <div class="flex-column plr-30 mb-4 mt-3">
+                            <h2 class="text-white">Bezahloptionen</h2>
+                            <mat-radio-button class="w-100 text-white" value="DIRECT_DEBIT">Banküberweisung
+                            </mat-radio-button>
+                            <mat-radio-button class="mt-2 text-white" value="PAYPAL">Paypal</mat-radio-button>
+                        </div>
+                    </mat-radio-group>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="col-lg-6">
+                    <button class="mt-4" mat-raised-button color="primary" (click)="initPaypalConfig()"
+                            [disabled]="!payment.valid" matStepperNext>Weiter zur Bestellübersicht
+                    </button>
+                </div>
+            </div>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Checkout</ng-template>
+            <div class="flex justify-content-center">
+                <div class="col-lg-6 container-color plr-30">
+                    <h2 class="text-white mt-3">Bestellübersicht:</h2>
+                    <div class="overview-container mb-4">
+                        <div class="flex mb-3">
+                            <mat-card class="width-50 mr-10">
+                                <mat-card-title class="orange">
+                                    An
+                                </mat-card-title>
+                                <mat-card-content>
+                                    <p>{{receiver.firstName}} {{receiver.lastName}}</p>
+                                    <p>{{receiverAddress.streetName}} {{receiverAddress.streetNumber}}</p>
+                                    <p>{{receiverAddress.zipCode}} {{receiverAddress.city}}</p>
+                                    <p>{{receiverAddress.country}}</p>
+                                </mat-card-content>
+                            </mat-card>
+                            <mat-card class="width-50 ml-10">
+                                <mat-card-title class="orange">
+                                    Von
+                                </mat-card-title>
+                                <mat-card-content>
+                                    <p>{{customer.firstName}} {{customer.lastName}}</p>
+                                    <p>{{senderAddress.streetName}} {{senderAddress.streetNumber}}</p>
+                                    <p>{{senderAddress.zipCode}} {{senderAddress.city}}</p>
+                                    <p>{{senderAddress.country}}</p>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                        <div class="flex">
+                            <div class="width-75">
+                                <div class="flex mb-3">
+                                    <mat-card class="mr-10 width-50">
+                                        <mat-card-title class="orange">
+                                            Dimensionen
+                                        </mat-card-title>
+                                        <mat-card-content>
+                                            <p>Länge: {{package.depth}} cm</p>
+                                            <p>Breite: {{package.width}} cm</p>
+                                            <p>Höhe: {{package.height}} cm</p>
+                                            <p>Gewicht: {{package.weight / 1000}} kg</p>
+                                        </mat-card-content>
+                                    </mat-card>
+                                    <mat-card class="ml-10 width-50">
+                                        <mat-card-title class="orange">
+                                            Abholung
+                                        </mat-card-title>
+                                        <mat-card-content>
+                                            <p *ngIf="pickupForm.value === 'deliver'">Ablieferung bei der Filiale</p>
+                                            <p *ngIf="pickupForm.value === 'pickup' && pickupDate.value && pickupTime.value">
+                                                Abholung bei Ihnen Zuhause <br>
+                                                Tag: {{pickupDate.value.toLocaleDateString()}}<br>
+                                                Zeit: {{pickupTime.value}} Uhr
+                                            </p>
+                                            <div class="d-flex justify-content-center">
+                                                <fa-icon class="fs-50" [icon]="faTruckRampBox"></fa-icon>
+                                            </div>
+                                        </mat-card-content>
+                                    </mat-card>
+                                </div>
+                                <mat-card class="w-100 mr-10">
+                                    <mat-card-title class="orange">
+                                        Bezahlung mit:
+                                    </mat-card-title>
+                                    <mat-card-content>
+                                        <p *ngIf="payment.value === 'DIRECT_DEBIT'">Banküberweisung</p>
+                                        <p *ngIf="payment.value === 'PAYPAL'">Paypal</p>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                            <div class="width-25 ml-20 pb-20">
+                                <mat-card class="w-100 h-100">
+                                    <!--todo korrekte Farbe herausfinden-->
+                                    <mat-card-title class="orange">
+                                        Kosten
+                                    </mat-card-title>
+                                    <mat-card-content>
+                                        <p>Paketgröße: {{this.packageCosts}}€</p>
+                                        <p>Lieferung: {{this.shippingCosts}}€</p>
+                                        <br>
+                                        <p>Gesamt: {{this.sumCosts}}€</p>
+                                    </mat-card-content>
+                                </mat-card>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <div class="col-lg-6">
+                    <ngx-paypal [hidden]="hidePaypal" [config]="this.paypalConfig"></ngx-paypal>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <div class="col-lg-6">
+                    <button mat-raised-button color="primary" (click)="createNewOrder()">Kostenpflichtig Bestellen
+                    </button>
+                </div>
+            </div>
+        </mat-step>
+    </mat-stepper>
+</div>

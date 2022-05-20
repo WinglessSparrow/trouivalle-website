@@ -1,0 +1,61 @@
+.h-28 {
+    height: 28px;
+}
+
+.w-45 {
+    width: 45%;
+}
+
+.headquarter-map {
+    width: 100%;
+    height: auto;
+}
+
+.ml-15 {
+    margin-left: 15px;
+}
+
+.vertical-align {
+    display: inline-flex;
+    align-items: center;
+}
+
+.flex {
+    display: flex;
+}
+
+@media  only screen and (max-width: 1000px) {
+    .flex {
+        display: block;
+    }
+    .w-50 {
+        width: 100% !important;
+    }
+    .w-45 {
+        width: 100%;
+    }
+    span {
+        font-size: 13px;
+    }
+    .ml-15 {
+        margin-left: 0;
+    }
+    .headquarter-map {
+        margin-bottom: 15px;
+    }
+}
+
+::ng-deep{
+    .mat-form-field-appearance-fill .mat-form-field-flex {
+        background-color: white !important;
+        opacity: 1;
+        border-radius: 0px !important;
+    }
+}
+
+::ng-deep {
+    .mat-step-text-label {
+        color: white !important;
+        font-size: 20px !important;
+    }
+}

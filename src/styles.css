@@ -1,0 +1,53 @@
+html, body {
+    background-image: linear-gradient(120deg, #9480f9 25%, #836bfc 25%, #836bfc 50%, #9480f9 50%, #9480f9 75%, #836bfc 75%, #836bfc 100%);
+  overflow-x: hidden;
+}
+
+.container-color {
+    background-color: #6043F6;
+}
+
+.flex {
+    display: flex;
+}
+
+.fs-50 {
+  font-size: 50px;
+}
+
+.h-200 {
+  height: 200px;
+}
+
+.h-400 {
+  height: 400px;
+}
+
+.w-30 {
+    width: 30%;
+}
+
+.orange {
+    color: #FFA41D;
+    font-size: 20px;
+}
+
+.plr-30 {
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+@media only screen and (min-width: 1000px) {
+    .modal-container {
+        width: 30%;
+    }
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
