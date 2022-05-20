@@ -388,7 +388,7 @@ export class OrderComponent implements OnInit {
             console.log(response);
             if (!response.hasError && response.data.length > 0) {
                 this.dialog.open(SuccessDialogComponent, {
-                    width: '30%'
+                    panelClass: 'modal-container'
                 })
             }
         })
@@ -416,7 +416,7 @@ export class OrderComponent implements OnInit {
                         title: 'Adresse ungültig',
                         content: 'Die eingegebene Versender-Adresse konnte keiner realen Adresse zugeordnet werden. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut.'
                     },
-                    width: '30%'
+                    panelClass: 'modal-container'
                 })
             }
         })
@@ -443,7 +443,7 @@ export class OrderComponent implements OnInit {
                         title: 'Adresse ungültig',
                         content: 'Die eingegebene Empfänger-Adresse konnte keiner realen Adresse zugeordnet werden. Bitte überprüfen Sie Ihre Eingabe und versuchen Sie es erneut.'
                     },
-                    width: '30%'
+                    panelClass: 'modal-container'
                 })
             }
         })
@@ -461,7 +461,7 @@ export class OrderComponent implements OnInit {
                     content: 'Die Möglichkeit zum Abholen von Paketen besteht nur im Zustellradius der Trouvaille Delivery GmbH,' +
                         ' der die folgenden Postleitzahlen im Raum Freiburg beinhaltet: 79098, 79100, 79102, 79104, 79106, 79108, 19110, 79111, 79112, 79114.'
                 },
-                width: '30%'
+                panelClass: 'modal-container'
             })
         }
     }

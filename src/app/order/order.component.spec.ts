@@ -6,6 +6,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {element} from "protractor";
 import {DebugElement} from "@angular/core";
 import {By} from "@angular/platform-browser";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 describe('OrderComponent', () => {
     let component: OrderComponent;
@@ -17,7 +18,8 @@ describe('OrderComponent', () => {
             declarations: [OrderComponent],
             imports: [
                 HttpClientTestingModule,
-                MatDialogModule
+                MatDialogModule,
+                BrowserAnimationsModule
             ]
         })
             .compileComponents();
@@ -97,8 +99,13 @@ describe('OrderComponent', () => {
         component.packageForm.get("depth")?.setValue("20");
         component.packageForm.get("weight")?.setValue("20000");
 
-        component.senderAddress.zipCode = '79180';
+        component.senderAddress.zipCode = '79108';
+        component.pickupForm.setValue('pickup');
         component.checkPostalCodeForPickUp();
+
+        component.pickupDate.setValue('20.06.2022');
+        console.log(component.pickupDate.value);
+        component.pickupTime.setValue('14:50');
 
         const continueButton = fixture.debugElement.nativeElement.querySelector('.zur-bezahlung-button');
         expect(continueButton.disabled).toBeFalsy();
@@ -109,6 +116,14 @@ describe('OrderComponent', () => {
 
         const pickupDateTimePicker = fixture.debugElement.nativeElement.querySelector('.pickup-container');
         expect(pickupDateTimePicker).toBeNull();
+    })
+
+    it('should not show set pickupConfig when plz is out of delivery-area', () => {
+        component.senderAddress.zipCode = '77815';
+        component.pickupForm.setValue('pickup');
+        component.checkPostalCodeForPickUp();
+
+        expect(component.showPickupConfig).toBeFalsy();
     })
 
 });

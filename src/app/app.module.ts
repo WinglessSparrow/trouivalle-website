@@ -31,9 +31,11 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {HttpClientModule} from "@angular/common/http";
 import {CancellationComponent} from './cancellation/cancellation.component';
 import { SuccessDialogComponent } from './modal/success-dialog/success-dialog.component';
+import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
+import { DataPrivacyComponent } from './data-privacy/data-privacy.component';
 
 @NgModule({
-    declarations: [AppComponent, DashboardComponent, FooterComponent, OrderComponent, AboutUsComponent, ShipmentTrackingComponent, SideHeaderComponent, TrackingDialogComponent, CancellationComponent, SuccessDialogComponent],
+    declarations: [AppComponent, DashboardComponent, FooterComponent, OrderComponent, AboutUsComponent, ShipmentTrackingComponent, SideHeaderComponent, TrackingDialogComponent, CancellationComponent, SuccessDialogComponent, LegalNoticeComponent, DataPrivacyComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
