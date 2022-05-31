@@ -417,6 +417,8 @@ export class OrderComponent implements OnInit {
 
                 dialogRef.afterClosed().subscribe( () => {
                     // create confirmation pdf
+                    // + 2 aus order.service wieder rückgängig machen
+                    orderToSend.pickupDate.setHours(orderToSend.pickupDate.getHours() - 2);
                     this.confirmationService.createConfirmationPDF(this.customer, this.receiver, this.package, orderToSend, deliveryId);
                 })
             }
