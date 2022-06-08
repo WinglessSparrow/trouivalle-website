@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {faTriangleExclamation, faCircleCheck} from "@fortawesome/free-solid-svg-icons";
+import {CancellationService} from "../../services/cancellation.service";
 
 @Component({
     selector: 'cancellation',
@@ -15,10 +16,11 @@ export class CancellationComponent implements OnInit {
     public deliveryId!: number;
     public cancelled!: boolean;
 
-    constructor(private route: ActivatedRoute) {
+    constructor(private route: ActivatedRoute, private cancellationService: CancellationService) {
     }
 
     ngOnInit(): void {
+        // todo this. cancelled = true entfernen, wenn backend call für Stornierung vorhanden ist
         this.cancelled = true;
         this.route.queryParams.subscribe(params => {
             this.deliveryId = params['deliveryId'];
@@ -27,7 +29,10 @@ export class CancellationComponent implements OnInit {
     }
 
     public cancelDelivery(): void {
+        this.cancellationService.cancelDelivery(this.deliveryId);
 
+        // if cancellation went through -> this.cancelled = true
+        // else this.cancelled = false
     }
 
 }

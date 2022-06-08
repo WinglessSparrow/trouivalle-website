@@ -218,7 +218,7 @@
                         <div class="flex">
                             <mat-form-field appearance="fill" class="width-50">
                                 <mat-label>Datum auswählen</mat-label>
-                                <input matInput [matDatepicker]="picker" [formControl]="pickupDate">
+                                <input matInput [matDatepicker]="picker" [matDatepickerFilter]="dateFilter" [min]="minDate" [max]="maxDate" [formControl]="pickupDate">
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
                             </mat-form-field>
@@ -227,6 +227,7 @@
                                     <mat-label>Zeit auswählen</mat-label>
                                     <input type="time" matInput [formControl]="pickupTime" name="week" min="09:00"
                                            max="18:00">
+                                    <mat-error>Die Abholungszeiten liegen zwischen 09:00 Uhr und 18:00 Uhr</mat-error>
                                 </mat-form-field>
                             </div>
                         </div>

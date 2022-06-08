@@ -1,5 +1,6 @@
 export const environment = {
-  production: true,
-  //here you declare services for production
-  IOC: [],
+    production: true,
+    baseUrl: "https://td.vvjm.dev",
+    //here you declare services for production
+    IOC: [],
 };

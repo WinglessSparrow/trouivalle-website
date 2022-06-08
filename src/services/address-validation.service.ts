@@ -7,7 +7,8 @@ import {Observable} from "rxjs";
 })
 export class AddressValidationService {
 
-    private geoapifyApiKey = "8923fefc90c24aa1bbe6bb22b302d39b";
+    //private geoapifyApiKey = "8923fefc90c24aa1bbe6bb22b302d39b";
+    private geoapifyApiKey = "2a50c3b79a1e45c691bc508d8ffc8da8";
 
     constructor(private http: HttpClient) {
     }

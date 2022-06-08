@@ -41,6 +41,9 @@ export class OrderComponent implements OnInit {
     public packageCosts = 0;
     public sumCosts = 0;
 
+    public minDate;
+    public maxDate;
+
     faEnvelope = faEnvelope;
     faBox = faBox;
     faBoxesStacked = faBoxesStacked;
@@ -168,11 +171,24 @@ export class OrderComponent implements OnInit {
         // todo validation mit unseren Maßen festlegen
     });
 
-    payment = new FormControl("", Validators.required);
+    payment = new FormControl("", [
+        Validators.required,
+        Validators.min(new Date().getTime())
+    ]);
     pickupForm = new FormControl("", Validators.required);
 
     pickupDate = new FormControl("", Validators.required);
-    pickupTime = new FormControl("", Validators.required);
+    pickupTime = new FormControl("", [
+        Validators.required,
+        Validators.min(9),
+        Validators.max(18)
+    ]);
+
+    public dateFilter = (d: Date | null): boolean => {
+        const day = (d || new Date()).getDay();
+        // Prevent Saturday and Sunday from being selected.
+        return day !== 0 && day !== 6;
+    };
 
     constructor(private addressValidationService: AddressValidationService, private dialog: MatDialog, private orderService: OrderService, private confirmationService: ConfirmationOrderService) {
         this.senderAddress = new Address();
@@ -182,6 +198,9 @@ export class OrderComponent implements OnInit {
         this.package = new Package();
         this.order = new Order();
         this.pickup = new Pickup();
+
+        this.minDate = new Date();
+        this.maxDate = new Date(new Date().getFullYear(), 12, 31);
     }
 
     // Postleitzahlen Freiburg:

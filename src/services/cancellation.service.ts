@@ -17,7 +17,7 @@ export class CancellationService {
         }
     }
 
-    public cancelDelivery(): Observable<any> {
+    public cancelDelivery(deliveryId: number): Observable<any> {
 
 
         return new Observable<any>();
