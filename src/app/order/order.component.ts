@@ -14,6 +14,7 @@ import {MatStepper} from "@angular/material/stepper";
 import {OrderService} from "../../services/order.service";
 import {OrderDto} from "../models/OrderDto";
 import {SuccessDialogComponent} from "../modal/success-dialog/success-dialog.component";
+import {ConfirmationOrderService} from "../../services/confirmation-order.service";
 
 
 @Component({
@@ -173,7 +174,7 @@ export class OrderComponent implements OnInit {
     pickupDate = new FormControl("", Validators.required);
     pickupTime = new FormControl("", Validators.required);
 
-    constructor(private addressValidationService: AddressValidationService, private dialog: MatDialog, private orderService: OrderService) {
+    constructor(private addressValidationService: AddressValidationService, private dialog: MatDialog, private orderService: OrderService, private confirmationService: ConfirmationOrderService) {
         this.senderAddress = new Address();
         this.receiverAddress = new Address();
         this.customer = new Customer();
@@ -194,20 +195,20 @@ export class OrderComponent implements OnInit {
         this.sender.get("firstName")?.setValue("Tom");
         this.sender.get("lastName")?.setValue("Maier");
         this.sender.get("email")?.setValue("sadfaf@gmail.com");
-        this.sender.get("postalCode")?.setValue("99999");
-        this.sender.get("city")?.setValue("Offenburg");
+        this.sender.get("postalCode")?.setValue("79108");
+        this.sender.get("city")?.setValue("Freiburg");
         this.sender.get("country")?.setValue("Deutschland");
-        this.sender.get("houseNumber")?.setValue("15");
-        this.sender.get("street")?.setValue("Hauptstraße");
+        this.sender.get("houseNumber")?.setValue("5");
+        this.sender.get("street")?.setValue("Tullastraße");
 
         this.receiverGroup.get("firstName")?.setValue("Tim");
         this.receiverGroup.get("lastName")?.setValue("Mayer");
         this.receiverGroup.get("email")?.setValue("ssaf@gmail.com");
-        this.receiverGroup.get("postalCode")?.setValue("99999");
+        this.receiverGroup.get("postalCode")?.setValue("77652");
         this.receiverGroup.get("city")?.setValue("Offenburg");
         this.receiverGroup.get("country")?.setValue("Deutschland");
-        this.receiverGroup.get("houseNumber")?.setValue("20");
-        this.receiverGroup.get("street")?.setValue("Nebenstraße");
+        this.receiverGroup.get("houseNumber")?.setValue("24");
+        this.receiverGroup.get("street")?.setValue("Badstraße");
 
         this.packageForm.get("height")?.setValue("20");
         this.packageForm.get("width")?.setValue("20");
@@ -215,6 +216,27 @@ export class OrderComponent implements OnInit {
         this.packageForm.get("weight")?.setValue("20000");
 
 
+    }
+
+    public createPDF(): void {
+
+        // Zum Testen
+        // todo später entfernen
+        this.package.price = this.sumCosts;
+        this.order.customer = this.receiver;
+        this.order.package = this.package;
+        this.order.paymentMethod = this.payment.value;
+
+        let orderToSend: OrderDto = new OrderDto();
+        orderToSend.customer = this.customer;
+        orderToSend.pack = this.package;
+        orderToSend.destAddress = this.receiverAddress;
+        orderToSend.srcAddress = this.senderAddress;
+        orderToSend.paymentMethod = this.payment.value;
+        orderToSend.isPickup = (this.pickupForm.value === 'pickup');
+        orderToSend.pickupDate = this.pickupDate.value;
+
+        this.confirmationService.createConfirmationPDF(this.customer, this.receiver, this.package, orderToSend, "BLABLAB");
     }
 
     public initPaypalConfig(): void {
@@ -386,9 +408,18 @@ export class OrderComponent implements OnInit {
         // send order to backend
         this.orderService.createNewOrder(orderToSend).subscribe(response => {
             console.log(response);
+            const deliveryId = response.data[0];
+
             if (!response.hasError && response.data.length > 0) {
-                this.dialog.open(SuccessDialogComponent, {
+                let dialogRef = this.dialog.open(SuccessDialogComponent, {
                     panelClass: 'modal-container'
+                })
+
+                dialogRef.afterClosed().subscribe( () => {
+                    // create confirmation pdf
+                    // + 2 aus order.service wieder rückgängig machen
+                    orderToSend.pickupDate.setHours(orderToSend.pickupDate.getHours() - 2);
+                    this.confirmationService.createConfirmationPDF(this.customer, this.receiver, this.package, orderToSend, deliveryId);
                 })
             }
         })
