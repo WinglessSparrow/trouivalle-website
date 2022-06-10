@@ -124,7 +124,7 @@
                             </mat-card-header>
                             <mat-card-content>
                                 <div>
-                                    <fa-icon [icon]="faEnvelope" size="4x"></fa-icon>
+                                    <fa-icon class="icon-color" [icon]="faEnvelope" size="4x"></fa-icon>
                                     <p class="mt-2">0,85€ - 2.75€</p>
                                     <p>bis 1kg</p>
                                     <p>bis 35,5 x 25 x 5 cm</p>
@@ -136,7 +136,7 @@
                                 <p>Paket klein</p>
                             </mat-card-header>
                             <mat-card-content>
-                                <fa-icon [icon]="faBox" size="4x"></fa-icon>
+                                <fa-icon class="icon-color" [icon]="faBox" size="4x"></fa-icon>
                                 <p class="mt-2">4,99€ - 8,49€</p>
                                 <p>2kg - 10kg</p>
                                 <p>bis 120 x 60 x 60 cm</p>
@@ -147,7 +147,7 @@
                                 <p>Paket groß</p>
                             </mat-card-header>
                             <mat-card-content>
-                                <fa-icon [icon]="faBoxesStacked" size="4x"></fa-icon>
+                                <fa-icon class="icon-color" [icon]="faBoxesStacked" size="4x"></fa-icon>
                                 <p class="mt-2">16,49€</p>
                                 <p>bis 31,5kg</p>
                                 <p>bis 120 x 60 x 60 cm</p>
@@ -177,7 +177,7 @@
                             <mat-error>Das eingegebene Gewicht liegt außerhalb der erlaubten Eingaben</mat-error>
                         </mat-form-field>
 
-                        <button mat-raised-button color="primary" (click)="calculatePrice()">Preis ermitteln</button>
+                        <button mat-raised-button color="primary" class="w-100" (click)="calculatePrice()">Preis ermitteln</button>
 
                         <mat-form-field appearance="fill" class="w-100 mt-3">
                             <mat-label>Preis (in €)</mat-label>

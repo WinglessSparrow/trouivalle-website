@@ -104,7 +104,6 @@ describe('OrderComponent', () => {
         component.checkPostalCodeForPickUp();
 
         component.pickupDate.setValue('20.06.2022');
-        console.log(component.pickupDate.value);
         component.pickupTime.setValue('14:50');
 
         const continueButton = fixture.debugElement.nativeElement.querySelector('.zur-bezahlung-button');

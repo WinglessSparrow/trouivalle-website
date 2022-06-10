@@ -168,7 +168,6 @@ export class OrderComponent implements OnInit {
             Validators.min(0.1),
             Validators.max(31500)
         ])
-        // todo validation mit unseren Maßen festlegen
     });
 
     payment = new FormControl("", [
@@ -205,12 +204,11 @@ export class OrderComponent implements OnInit {
 
     // Postleitzahlen Freiburg:
     // 79098, 79100, 79102, 79104, 79106, 79108, 19110, 79111, 79112, 79114
-    // https://www.geoapify.com
-    // https://api.geoapify.com/v1/geocode/search?text=1000%2CBadstra%C3%9Fe%2C77652%2COffenburg%2CDeutschland&lang=de&filter=countrycode:de&apiKey=8923fefc90c24aa1bbe6bb22b302d39b
 
     ngOnInit(): void {
 
         //Testweise
+        // todo entfernen
         this.sender.get("firstName")?.setValue("Tom");
         this.sender.get("lastName")?.setValue("Maier");
         this.sender.get("email")?.setValue("sadfaf@gmail.com");
@@ -235,27 +233,6 @@ export class OrderComponent implements OnInit {
         this.packageForm.get("weight")?.setValue("20000");
 
 
-    }
-
-    public createPDF(): void {
-
-        // Zum Testen
-        // todo später entfernen
-        this.package.price = this.sumCosts;
-        this.order.customer = this.receiver;
-        this.order.package = this.package;
-        this.order.paymentMethod = this.payment.value;
-
-        let orderToSend: OrderDto = new OrderDto();
-        orderToSend.customer = this.customer;
-        orderToSend.pack = this.package;
-        orderToSend.destAddress = this.receiverAddress;
-        orderToSend.srcAddress = this.senderAddress;
-        orderToSend.paymentMethod = this.payment.value;
-        orderToSend.isPickup = (this.pickupForm.value === 'pickup');
-        orderToSend.pickupDate = this.pickupDate.value;
-
-        this.confirmationService.createConfirmationPDF(this.customer, this.receiver, this.package, orderToSend, "BLABLAB");
     }
 
     public initPaypalConfig(): void {
@@ -314,7 +291,6 @@ export class OrderComponent implements OnInit {
                 layout: 'vertical'
             },
             onClientAuthorization: (data) => {
-                console.log('onClientAuthorization --> Server über getätigte Transaktion informieren');
                 this.createNewOrder();
                 this.hidePaypal = true;
             }
@@ -406,8 +382,12 @@ export class OrderComponent implements OnInit {
 
         this.sumCosts = this.packageCosts + this.shippingCosts;
 
-        this.pickup.desiredPickupDate = this.pickupDate.value;
-        this.pickup.desiredPickupDate.setHours(Number(this.pickupTime.value.slice(0, 2)), Number(this.pickupTime.value.slice(3, 5)));
+        debugger;
+
+        if (this.pickupForm.value === 'pickup') {
+            this.pickup.desiredPickupDate = this.pickupDate.value;
+            this.pickup.desiredPickupDate.setHours(Number(this.pickupTime.value.slice(0, 2)), Number(this.pickupTime.value.slice(3, 5)));
+        }
     }
 
     public createNewOrder(): void {
@@ -426,7 +406,6 @@ export class OrderComponent implements OnInit {
         orderToSend.pickupDate = this.pickupDate.value;
         // send order to backend
         this.orderService.createNewOrder(orderToSend).subscribe(response => {
-            console.log(response);
             const deliveryId = response.data[0];
 
             if (!response.hasError && response.data.length > 0) {
@@ -436,8 +415,10 @@ export class OrderComponent implements OnInit {
 
                 dialogRef.afterClosed().subscribe( () => {
                     // create confirmation pdf
-                    // + 2 aus order.service wieder rückgängig machen
-                    orderToSend.pickupDate.setHours(orderToSend.pickupDate.getHours() - 2);
+                    if (orderToSend.isPickup) {
+                        // + 2 aus order.service wieder rückgängig machen
+                        orderToSend.pickupDate.setHours(orderToSend.pickupDate.getHours() - 2);
+                    }
                     this.confirmationService.createConfirmationPDF(this.customer, this.receiver, this.package, orderToSend, deliveryId);
                 })
             }
@@ -451,7 +432,6 @@ export class OrderComponent implements OnInit {
         this.addressValidationService.validateAddress(this.senderAddress.streetNumber, this.senderAddress.streetName,
             this.senderAddress.zipCode, this.senderAddress.city, this.senderAddress.country).subscribe(response => {
             response = JSON.parse(response);
-            console.log(response);
             if (response.results[0].rank.confidence === 1 && response.results[0].rank.confidence_city_level === 1
                 && response.results[0].rank.confidence_street_level === 1
                 && response.results[0].city.includes(response.query.parsed.city)
@@ -478,7 +458,6 @@ export class OrderComponent implements OnInit {
         this.addressValidationService.validateAddress(this.receiverAddress.streetNumber, this.receiverAddress.streetName,
             this.receiverAddress.zipCode, this.receiverAddress.city, this.receiverAddress.country).subscribe(response => {
             response = JSON.parse(response);
-            console.log(response);
             if (response.results[0].rank.confidence === 1 && response.results[0].rank.confidence_city_level === 1
                 && response.results[0].rank.confidence_street_level === 1
                 && response.results[0].city.includes(response.query.parsed.city)
@@ -509,7 +488,7 @@ export class OrderComponent implements OnInit {
                 data: {
                     title: 'Abholung bei Ihnen zuhause nicht möglich',
                     content: 'Die Möglichkeit zum Abholen von Paketen besteht nur im Zustellradius der Trouvaille Delivery GmbH,' +
-                        ' der die folgenden Postleitzahlen im Raum Freiburg beinhaltet: 79098, 79100, 79102, 79104, 79106, 79108, 19110, 79111, 79112, 79114.'
+                        ' welcher die folgenden Postleitzahlen im Raum Freiburg beinhaltet: 79098, 79100, 79102, 79104, 79106, 79108, 19110, 79111, 79112, 79114.'
                 },
                 panelClass: 'modal-container'
             })

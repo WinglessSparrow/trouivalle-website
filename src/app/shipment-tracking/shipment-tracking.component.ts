@@ -96,7 +96,6 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
                 this.openDialog();
             } else {
                 // aktuellsten Status aus dem history-Array rausnehmen
-                console.log(response);
                 this.status = response.data[0][0].status;
             }
         })

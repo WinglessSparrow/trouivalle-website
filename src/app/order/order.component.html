@@ -169,7 +169,7 @@
                             </mat-card-header>
                             <mat-card-content>
                                 <div>
-                                    <fa-icon [icon]="faEnvelope" size="4x"></fa-icon>
+                                    <fa-icon class="icon-color" [icon]="faEnvelope" size="4x"></fa-icon>
                                     <p class="mt-2">0,85€ - 2.75€</p>
                                     <p>bis 1kg</p>
                                     <p>bis 35,5 x 25 x 5 cm</p>
@@ -181,7 +181,7 @@
                                 <p>Paket klein</p>
                             </mat-card-header>
                             <mat-card-content>
-                                <fa-icon [icon]="faBox" size="4x"></fa-icon>
+                                <fa-icon class="icon-color" [icon]="faBox" size="4x"></fa-icon>
                                 <p class="mt-2">4,99€ - 8,49€</p>
                                 <p>2kg - 10kg</p>
                                 <p>bis 120 x 60 x 60 cm</p>
@@ -192,7 +192,7 @@
                                 <p>Paket groß</p>
                             </mat-card-header>
                             <mat-card-content>
-                                <fa-icon [icon]="faBoxesStacked" size="4x"></fa-icon>
+                                <fa-icon class="icon-color" [icon]="faBoxesStacked" size="4x"></fa-icon>
                                 <p class="mt-2">16,49€</p>
                                 <p>bis 31,5kg</p>
                                 <p>bis 120 x 60 x 60 cm</p>
@@ -322,7 +322,7 @@
                                                 Zeit: {{pickupTime.value}} Uhr
                                             </p>
                                             <div class="d-flex justify-content-center">
-                                                <fa-icon class="fs-50" [icon]="faTruckRampBox"></fa-icon>
+                                                <fa-icon class="fs-50 icon-blue" [icon]="faTruckRampBox"></fa-icon>
                                             </div>
                                         </mat-card-content>
                                     </mat-card>
@@ -357,14 +357,8 @@
             </div>
             <div class="d-flex justify-content-center mt-3">
                 <div class="col-lg-6">
+                    <h1 class="text-white">Kostenpflichtig Bestellen:</h1>
                     <ngx-paypal [hidden]="hidePaypal" [config]="this.paypalConfig"></ngx-paypal>
-                </div>
-            </div>
-            <div class="d-flex justify-content-center mt-3">
-                <div class="col-lg-6">
-                    <button (click)="createPDF()">PDF</button>
-                    <button mat-raised-button color="primary" (click)="createNewOrder()">Kostenpflichtig Bestellen
-                    </button>
                 </div>
             </div>
         </mat-step>

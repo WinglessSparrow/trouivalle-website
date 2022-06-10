@@ -21,8 +21,11 @@ export class OrderService {
     }
 
     public createNewOrder(order: OrderDto): Observable<GlobalResponseModel> {
-        // Stunden + 2 weil das Backend durch LocalDateTime wieder 2 Stunden abzieht
-        order.pickupDate.setHours(order.pickupDate.getHours() + 2);
+        debugger;
+        if (order.isPickup) {
+            // Stunden + 2 weil das Backend durch LocalDateTime wieder 2 Stunden abzieht
+            order.pickupDate.setHours(order.pickupDate.getHours() + 2);
+        }
         return this.httpClient.post<any>(`${environment.baseUrl}/api/deliveries/order`, order.toJson(), this.getHttpOptions())
             .pipe(map(response => new GlobalResponseModel(JSON.parse(response))));
     }
