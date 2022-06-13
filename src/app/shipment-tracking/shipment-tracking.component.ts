@@ -135,6 +135,12 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
     public getPackageLocation(): void {
         // todo backend call für aktuelle Position
 
+        // clear map before adding new markers
+        this.map.eachLayer((layer: any) => {
+            if (layer['_latlng'] != undefined)
+                layer.remove();
+        });
+
         // Ausschnitt auf der Karte setzen
         L.marker([47.99, 7.8]).addTo(this.map)
             .bindPopup('Headquarter Trouvaille Deliveries', {autoClose: false})
