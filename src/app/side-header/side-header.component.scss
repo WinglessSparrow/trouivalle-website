@@ -1,7 +1,19 @@
+img {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7492%) hue-rotate(63deg) brightness(98%)
+        contrast(102%);
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
 .trapezoid {
     position: absolute;
     height: 0;
-    border-bottom: 150px solid #6043F6;
+
+    top: 0;
+
+    border-bottom: 150px solid #6043f6;
     //border-left: 30px solid transparent;
     border-right: 85px solid transparent;
     transform: rotate(180deg) scaleX(-1);
@@ -14,14 +26,11 @@
     width: 20%;
 }
 
-@media  only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1000px) {
     .trapezoid {
         position: relative;
         height: 100px;
         width: 100%;
         border-right: 0;
     }
-
 }
-
-

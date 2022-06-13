@@ -1,10 +1,22 @@
-html, body {
-    background-image: linear-gradient(120deg, #9480f9 25%, #836bfc 25%, #836bfc 50%, #9480f9 50%, #9480f9 75%, #836bfc 75%, #836bfc 100%);
-  overflow-x: hidden;
+@import url("https://fonts.googleapis.com/css?family=Questrial&display=swap");
+
+html,
+body {
+    background-image: linear-gradient(
+        120deg,
+        #9480f9 25%,
+        #836bfc 25%,
+        #836bfc 50%,
+        #9480f9 50%,
+        #9480f9 75%,
+        #836bfc 75%,
+        #836bfc 100%
+    );
+    overflow-x: hidden;
 }
 
 .container-color {
-    background-color: #6043F6;
+    background-color: #6043f6;
 }
 
 .flex {
@@ -12,15 +24,15 @@ html, body {
 }
 
 .fs-50 {
-  font-size: 50px;
+    font-size: 50px;
 }
 
 .h-200 {
-  height: 200px;
+    height: 200px;
 }
 
 .h-400 {
-  height: 400px;
+    height: 400px;
 }
 
 .w-30 {
@@ -28,12 +40,12 @@ html, body {
 }
 
 .orange {
-    color: #FFA41D;
+    color: #ffa41d;
     font-size: 20px;
 }
 
 .icon-color {
-    color: #FFA41D;
+    color: #ffa41d;
 }
 
 .plr-30 {
@@ -54,4 +66,7 @@ html {
 body {
     min-height: 100%;
 }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+    font-family: "Questrial", Roboto, "Helvetica Neue", sans-serif;
+    margin: 0;
+}

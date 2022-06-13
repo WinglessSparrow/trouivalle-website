@@ -25,7 +25,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { ShipmentTrackingComponent } from './shipment-tracking/shipment-tracking.component';
 import { SideHeaderComponent } from './side-header/side-header.component';
-import { NgxPayPalModule } from 'ngx-paypal';
 import { TrackingDialogComponent } from './modal/tracking-dialog/tracking-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { HttpClientModule } from '@angular/common/http';
@@ -33,6 +32,7 @@ import { CancellationComponent } from './cancellation/cancellation.component';
 import { SuccessDialogComponent } from './modal/success-dialog/success-dialog.component';
 import { LegalNoticeComponent } from './legal-notice/legal-notice.component';
 import { DataPrivacyComponent } from './data-privacy/data-privacy.component';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 @NgModule({
     declarations: [

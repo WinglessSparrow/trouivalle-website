@@ -1,16 +1,15 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'side-header',
     templateUrl: './side-header.component.html',
-    styleUrls: ['./side-header.component.scss']
+    styleUrls: ['./side-header.component.scss'],
 })
-export class SideHeaderComponent implements OnInit {
+export class SideHeaderComponent {
+    constructor(private router: Router) {}
 
-    constructor() {
+    goHome() {
+        this.router.navigateByUrl('/');
     }
-
-    ngOnInit(): void {
-    }
-
 }
