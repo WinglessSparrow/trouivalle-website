@@ -24,7 +24,7 @@ RUN ng build --configuration development
 ############
 
 # base image
-FROM nginx:1.16.0-alpine
+FROM nginx:stable-alpine
 
 # copy artifact build from the 'build environment'
 COPY --from=build /app/dist/trouvaille-website /usr/share/nginx/html
