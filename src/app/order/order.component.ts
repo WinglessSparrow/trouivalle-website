@@ -382,8 +382,6 @@ export class OrderComponent implements OnInit {
 
         this.sumCosts = this.packageCosts + this.shippingCosts;
 
-        debugger;
-
         if (this.pickupForm.value === 'pickup') {
             this.pickup.desiredPickupDate = this.pickupDate.value;
             this.pickup.desiredPickupDate.setHours(Number(this.pickupTime.value.slice(0, 2)), Number(this.pickupTime.value.slice(3, 5)));

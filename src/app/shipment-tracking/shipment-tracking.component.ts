@@ -8,7 +8,7 @@ import {TrackingDialogComponent} from "../modal/tracking-dialog/tracking-dialog.
 import {TrackingService} from "../../services/tracking.service";
 import {Coordinate} from "../models/Coordinate";
 import {PackageStateEnum} from "../models/PackageStateEnum";
-import {faCheck} from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faXmark} from "@fortawesome/free-solid-svg-icons";
 
 declare var require: any;
 
@@ -21,6 +21,7 @@ declare var require: any;
 export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
 
     faCheck = faCheck;
+    faXmark = faXmark;
 
     private map: any;
 
@@ -28,6 +29,8 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
     public headquarter!: Coordinate;
     public destination!: Coordinate;
     public status!: PackageStateEnum;
+    public isPickup!: boolean;
+    public information = 'NO_PROBLEMS';
 
     trackingForm = new FormControl("", [
         Validators.required,
@@ -87,6 +90,7 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
     }
 
     public getDeliveryStatus(): void {
+        this.isPickup = false;
         this.trackingId = this.trackingForm.value;
         let trackingId = this.trackingId;
 
@@ -95,11 +99,37 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
             if (response.hasError) {
                 this.openDialog();
             } else {
+                if (response.data[0].some((s: { status: PackageStateEnum; }) => s.status === 'REQUESTED_PICKUP') === true || response.data[0].some((s: { status: PackageStateEnum; }) => s.status === 'PICKED_UP') === true) {
+                    this.isPickup = true;
+                }
+
+                this.setInformation(response.data[0][0].status);
                 // aktuellsten Status aus dem history-Array rausnehmen
                 this.status = response.data[0][0].status;
             }
         })
         this.getPackageLocation();
+    }
+
+    public setInformation(status: PackageStateEnum): void {
+        this.information = 'NO_PROBLEMS';
+        switch (status) {
+            case PackageStateEnum.REDIRECTED_TO_DHL:
+                this.information = 'Die Sendungsverfolgung läuft ab jetzt über DHL. Bitte benutzen Sie die von' +
+                    ' uns erhaltene Sendungsverfolgungsnummer auf der folgenden Website: https://www.dhl.de/de/privatkunden/dhl-sendungsverfolgung.html'
+                break;
+            case PackageStateEnum.ADDRESS_NOT_FOUND:
+                this.information = 'Die Lieferadresse konnte nicht gefunden werden. Bitte wenden Sie sich an unseren Support, um weitere Schritte einzuleiten.'
+                break;
+            case PackageStateEnum.PICKUP_FAILED:
+                this.information = 'Die Abholung bei Ihnen zuhause war leider erfolglos. Bitte wenden Sie sich an unseren Support, um einen neuen Termin auszumachen.'
+                    break;
+            case PackageStateEnum.CANCELED:
+                this.information = 'Bitte wenden Sie sich an unseren Support, um weitere Schritte einzuleiten.'
+                break;
+            case PackageStateEnum.DELIVERY_FAILED:
+                this.information = 'Es gab Probleme bei der Auslieferung. Bitte wenden Sie sich an unseren Support, um weitere Schritte einzuleiten.'
+        }
     }
 
     public getPackageLocation(): void {

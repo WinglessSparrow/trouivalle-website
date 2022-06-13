@@ -37,42 +37,63 @@
                                 <span class="text-white" *ngSwitchCase="'IN_CENTRAL'"><span class="dot c2945D8"></span>&nbsp;&nbsp;In Filiale angekommen</span>
                                 <span class="text-white" *ngSwitchCase="'IN_CAR'"><span class="dot c00E0FF"></span>&nbsp;&nbsp;In Auslieferung</span>
                                 <span class="text-white" *ngSwitchCase="'DELIVERED'"><span class="dot c94CF8A"></span>&nbsp;&nbsp;Paket ausgeliefert</span>
-                                <span class="text-white" *ngSwitchCase="'ADDRESS_NOT_FOUND' || 'CANCELED'"><span
-                                    class="dot cCD8484"></span>&nbsp;&nbsp;Lieferung abgebrochen</span>
+                                <span class="text-white" *ngSwitchCase="'REDIRECTED_TO_DHL'"><span class="dot OOFF00"></span>&nbsp;&nbsp;An DHL weitergeleitet</span>
+                                <span class="text-white" *ngSwitchCase="'PICKED_UP'"><span class="dot FF7F00"></span>&nbsp;&nbsp;Paket abgeholt</span>
+                                <span class="text-white" *ngSwitchCase="'REQUESTED_PICKUP'"><span class="dot FF7F00"></span>&nbsp;&nbsp;Abholung angefragt</span>
+                                <span class="text-white" *ngSwitchCase="'ADDRESS_NOT_FOUND'"><span class="dot cCD8484"></span>&nbsp;&nbsp;Lieferung abgebrochen</span>
+                                <span class="text-white" *ngSwitchCase="'CANCELED'"><span class="dot cCD8484"></span>&nbsp;&nbsp;Lieferung abgebrochen</span>
+                                <span class="text-white" *ngSwitchCase="'DELIVERY_FAILED'"><span class="dot cCD8484"></span>&nbsp;&nbsp;Lieferung abgebrochen</span>
+                                <span class="text-white" *ngSwitchCase="'PICKUP_FAILED'"><span class="dot cCD8484"></span>&nbsp;&nbsp;Lieferung abgebrochen</span>
                             </ng-container>
                         </p>
                     </div>
                     <hr class="text-white">
                     <mat-card class="mt-2">
                         <h3>Liefer-Status</h3>
-
-                        <!-- Border color für die boxen: border: 2px solid #6043F6>-->
                         <div class="flex">
                             <div class="mr-20 w-80">
                                 <div class="square flex justify-content-center align-items-center cFFF500"
-                                     [ngClass]="{'border-blue': status === 'ANNOUNCED' || status === 'IN_CENTRAL' || status === 'IN_CAR' || status === 'DELIVERED'}">
+                                     [ngClass]="{'border-blue': status === 'ANNOUNCED' || status === 'REQUESTED_PICKUP' || status === 'PICKED_UP' || status === 'IN_CENTRAL' || status === 'IN_CAR' || status === 'REDIRECTED_TO_DHL' || status === 'DELIVERED'}">
                                     <fa-icon
-                                        *ngIf="status === 'ANNOUNCED' || status === 'IN_CENTRAL' || status === 'IN_CAR' || status === 'DELIVERED'"
+                                        *ngIf="status === 'ANNOUNCED' || status === 'REQUESTED_PICKUP' || status === 'PICKED_UP' || status === 'IN_CENTRAL' || status === 'IN_CAR' || status === 'REDIRECTED_TO_DHL' || status === 'DELIVERED'"
                                         [icon]="faCheck" size="4x"></fa-icon>
                                 </div>
                                 <p class="text-center">Im System eingegangen</p>
                             </div>
+                            <div class="mr-20 w-80" *ngIf="this.isPickup">
+                                <div class="square flex justify-content-center align-items-center FF7F00"
+                                     [ngClass]="{'border-blue': status === 'REQUESTED_PICKUP' || status === 'PICKED_UP' || status === 'IN_CENTRAL' || status === 'IN_CAR' || status === 'REDIRECTED_TO_DHL' || status === 'DELIVERED'}">
+                                    <fa-icon
+                                        *ngIf="status === 'REQUESTED_PICKUP' || status === 'PICKED_UP' || status === 'IN_CENTRAL' || status === 'IN_CAR' || status === 'REDIRECTED_TO_DHL' || status === 'DELIVERED'"
+                                        [icon]="faCheck" size="4x"></fa-icon>
+                                </div>
+                                <p class="text-center" *ngIf="status !== 'REQUESTED_PICKUP'">Paket abgeholt</p>
+                                <p class="text-center" *ngIf="status === 'REQUESTED_PICKUP'">Abholung angefragt</p>
+                            </div>
                             <div class="mr-20 w-80">
                                 <div class="square flex justify-content-center align-items-center c2945D8"
-                                     [ngClass]="{'border-blue': status === 'IN_CENTRAL' || status === 'IN_CAR' || status === 'DELIVERED'}">
+                                     [ngClass]="{'border-blue': status === 'IN_CENTRAL' || status === 'IN_CAR' || status === 'REDIRECTED_TO_DHL' || status === 'DELIVERED'}">
                                     <fa-icon
-                                        *ngIf="status === 'IN_CENTRAL' ||  status === 'IN_CAR' || status === 'DELIVERED'"
+                                        *ngIf="status === 'IN_CENTRAL' ||  status === 'IN_CAR' || status === 'REDIRECTED_TO_DHL' || status === 'DELIVERED'"
                                         [icon]="faCheck" size="4x"></fa-icon>
                                 </div>
                                 <p class="text-center">In Filiale angekommen</p>
                             </div>
                             <div class="mr-20 w-80">
                                 <div class="square flex justify-content-center align-items-center c00E0FF"
-                                     [ngClass]="{'border-blue': status === 'IN_CAR' || status === 'DELIVERED'}">
-                                    <fa-icon *ngIf="status === 'IN_CAR' || status === 'DELIVERED'" [icon]="faCheck"
+                                     [ngClass]="{'border-blue': status === 'IN_CAR' || status === 'REDIRECTED_TO_DHL' || status === 'DELIVERED'}">
+                                    <fa-icon *ngIf="status === 'IN_CAR' || status === 'REDIRECTED_TO_DHL' || status === 'DELIVERED'" [icon]="faCheck"
                                              size="4x"></fa-icon>
                                 </div>
                                 <p class="text-center">In Auslieferung</p>
+                            </div>
+                            <div class="mr-20 w-80">
+                                <div class="square flex justify-content-center align-items-center OOFF00"
+                                     [ngClass]="{'border-blue': status === 'REDIRECTED_TO_DHL'}">
+                                    <fa-icon *ngIf="status === 'REDIRECTED_TO_DHL'" [icon]="faCheck"
+                                             size="4x"></fa-icon>
+                                </div>
+                                <p class="text-center">An DHL weitergeleitet</p>
                             </div>
                             <div class="mr-20 w-80">
                                 <div class="square flex justify-content-center align-items-center c94CF8A"
@@ -83,12 +104,18 @@
                             </div>
                             <div class="mr-20 w-80">
                                 <div class="square flex justify-content-center align-items-center cCD8484"
-                                     [ngClass]="{'border-blue': status === 'ADDRESS_NOT_FOUND' || status === 'CANCELED'}">
-                                    <fa-icon *ngIf="status === 'ADDRESS_NOT_FOUND' || status === 'CANCELED'"
-                                             [icon]="faCheck" size="4x"></fa-icon>
+                                     [ngClass]="{'border-blue': status === 'ADDRESS_NOT_FOUND' || status === 'CANCELED' || status === 'DELIVERY_FAILED' || status === 'PICKUP_FAILED'}">
+                                    <fa-icon *ngIf="status === 'ADDRESS_NOT_FOUND' || status === 'CANCELED' || status === 'DELIVERY_FAILED' || status === 'PICKUP_FAILED'"
+                                             [icon]="faXmark" size="4x"></fa-icon>
                                 </div>
                                 <p class="text-center">Lieferung abgebrochen</p>
                             </div>
+                        </div>
+                        <div class="mt-3" *ngIf="!(this.information === 'NO_PROBLEMS')">
+                            <h3>Hinweise zu Ihrer Lieferung:</h3>
+                            <p>
+                                {{this.information}}
+                            </p>
                         </div>
                     </mat-card>
                 </div>

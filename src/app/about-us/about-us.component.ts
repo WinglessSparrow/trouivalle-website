@@ -38,7 +38,6 @@ export class AboutUsComponent implements OnInit {
             Validators.max(31500)
         ]),
         price: new FormControl("")
-        // todo validation mit unseren Maßen festlegen
     });
 
     constructor() {
