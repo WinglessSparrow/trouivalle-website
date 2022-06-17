@@ -20,8 +20,6 @@ export class CancellationComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // todo this. cancelled = true entfernen, wenn backend call für Stornierung vorhanden ist
-        this.cancelled = true;
         this.route.queryParams.subscribe(params => {
             this.deliveryId = params['deliveryId'];
             this.cancelDelivery();
@@ -29,7 +27,9 @@ export class CancellationComponent implements OnInit {
     }
 
     public cancelDelivery(): void {
-        this.cancellationService.cancelDelivery(this.deliveryId);
+       this.cancellationService.cancelDelivery(this.deliveryId).subscribe(response => {
+            this.cancelled = !response.hasError;
+        })
 
         // if cancellation went through -> this.cancelled = true
         // else this.cancelled = false

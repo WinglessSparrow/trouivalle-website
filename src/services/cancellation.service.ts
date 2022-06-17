@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
+import {environment} from "../environments/environment";
+import {GlobalResponseModel} from "../app/models/GlobalResponseModel";
 
 @Injectable({
     providedIn: 'root'
@@ -18,8 +20,6 @@ export class CancellationService {
     }
 
     public cancelDelivery(deliveryId: number): Observable<any> {
-
-
-        return new Observable<any>();
+        return this.httpClient.put<any>(`${environment.baseUrl}/api/deliveries/cancel/${deliveryId}`, this.getHttpOptions());
     }
 }

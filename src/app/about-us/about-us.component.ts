@@ -20,22 +20,26 @@ export class AboutUsComponent implements OnInit {
         height: new FormControl("", [
             Validators.required,
             Validators.min(0.1),
-            Validators.max(60)
+            Validators.max(60),
+            Validators.pattern("[1-9][0-9]*")
         ]),
         width: new FormControl("", [
             Validators.required,
             Validators.min(7),
-            Validators.max(60)
+            Validators.max(60),
+            Validators.pattern("[1-9][0-9]*")
         ]),
         depth: new FormControl("", [
             Validators.required,
             Validators.min(10),
-            Validators.max(120)
+            Validators.max(120),
+            Validators.pattern("[1-9][0-9]*")
         ]),
         weight: new FormControl("", [
             Validators.required,
             Validators.min(0.1),
-            Validators.max(31500)
+            Validators.max(31500),
+            Validators.pattern("[1-9][0-9]*")
         ]),
         price: new FormControl("")
     });

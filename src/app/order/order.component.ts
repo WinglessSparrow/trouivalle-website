@@ -15,6 +15,7 @@ import {OrderService} from "../../services/order.service";
 import {OrderDto} from "../models/OrderDto";
 import {SuccessDialogComponent} from "../modal/success-dialog/success-dialog.component";
 import {ConfirmationOrderService} from "../../services/confirmation-order.service";
+import {Router, RouterModule} from "@angular/router";
 
 
 @Component({
@@ -151,22 +152,26 @@ export class OrderComponent implements OnInit {
         height: new FormControl("", [
             Validators.required,
             Validators.min(0.1),
-            Validators.max(60)
+            Validators.max(60),
+            Validators.pattern("[1-9][0-9]*")
         ]),
         width: new FormControl("", [
             Validators.required,
             Validators.min(7),
-            Validators.max(60)
+            Validators.max(60),
+            Validators.pattern("[1-9][0-9]*")
         ]),
         depth: new FormControl("", [
             Validators.required,
             Validators.min(10),
-            Validators.max(120)
+            Validators.max(120),
+            Validators.pattern("[1-9][0-9]*")
         ]),
         weight: new FormControl("", [
             Validators.required,
             Validators.min(0.1),
-            Validators.max(31500)
+            Validators.max(31500),
+            Validators.pattern("[1-9][0-9]*")
         ])
     });
 
@@ -189,7 +194,7 @@ export class OrderComponent implements OnInit {
         return day !== 0 && day !== 6;
     };
 
-    constructor(private addressValidationService: AddressValidationService, private dialog: MatDialog, private orderService: OrderService, private confirmationService: ConfirmationOrderService) {
+    constructor(private addressValidationService: AddressValidationService, private dialog: MatDialog, private orderService: OrderService, private confirmationService: ConfirmationOrderService, private router: Router) {
         this.senderAddress = new Address();
         this.receiverAddress = new Address();
         this.customer = new Customer();
@@ -418,6 +423,7 @@ export class OrderComponent implements OnInit {
                         orderToSend.pickupDate.setHours(orderToSend.pickupDate.getHours() - 2);
                     }
                     this.confirmationService.createConfirmationPDF(this.customer, this.receiver, this.package, orderToSend, deliveryId);
+                    this.router.navigate(['/dashboard']);
                 })
             }
         })
