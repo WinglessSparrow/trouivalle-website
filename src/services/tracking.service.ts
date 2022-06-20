@@ -21,7 +21,7 @@ export class TrackingService {
     }
 
     public getRouteFromOsrm(start: Coordinate, end: Coordinate): Observable<any> {
-        
+
         return this.httpClient.get(`https://td.vvjm.dev/osrm/route/v1/driving/${start.longitude},${start.latitude};${end.longitude},${end.latitude}`, this.getHttpOptions());
     }
 

@@ -211,44 +211,18 @@ export class OrderComponent implements OnInit {
     // 79098, 79100, 79102, 79104, 79106, 79108, 19110, 79111, 79112, 79114
 
     ngOnInit(): void {
-
-        //Testweise
-        // todo entfernen
-        this.sender.get("firstName")?.setValue("Tom");
-        this.sender.get("lastName")?.setValue("Maier");
-        this.sender.get("email")?.setValue("sadfaf@gmail.com");
-        this.sender.get("postalCode")?.setValue("79108");
-        this.sender.get("city")?.setValue("Freiburg");
-        this.sender.get("country")?.setValue("Deutschland");
-        this.sender.get("houseNumber")?.setValue("5");
-        this.sender.get("street")?.setValue("Tullastraße");
-
-        this.receiverGroup.get("firstName")?.setValue("Tim");
-        this.receiverGroup.get("lastName")?.setValue("Mayer");
-        this.receiverGroup.get("email")?.setValue("ssaf@gmail.com");
-        this.receiverGroup.get("postalCode")?.setValue("77652");
-        this.receiverGroup.get("city")?.setValue("Offenburg");
-        this.receiverGroup.get("country")?.setValue("Deutschland");
-        this.receiverGroup.get("houseNumber")?.setValue("24");
-        this.receiverGroup.get("street")?.setValue("Badstraße");
-
-        this.packageForm.get("height")?.setValue("20");
-        this.packageForm.get("width")?.setValue("20");
-        this.packageForm.get("depth")?.setValue("20");
-        this.packageForm.get("weight")?.setValue("20000");
-
-
     }
 
     public initPaypalConfig(): void {
         let disabledFundings: string = '';
         switch (this.payment.value) {
             case 'DIRECT_DEBIT': {
-                disabledFundings = 'card,sepa,credit';
+                disabledFundings = 'sofort,giropay,card';
                 break;
             }
             case 'PAYPAL': {
-                disabledFundings = 'card,sepa,giropay,sofort';
+                disabledFundings = 'card,giropay,sofort';
+                break;
             }
         }
 
