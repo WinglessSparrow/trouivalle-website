@@ -24,6 +24,6 @@ export class AddressValidationService {
     public validateAddress(houseNumber: string, street: string, zipCode: string, city: string, country: string,): Observable<any> {
 
         return this.http.get(`https://api.geoapify.com/v1/geocode/search?housenumber=${houseNumber}&street=${street}&postcode=${zipCode}&city=${city}&country=${country}
-                            &lang=de&limit=1&filter=countrycode:de&format=json&apiKey=${this.geoapifyApiKey}`, this.getHttpOptions());
+                            &lang=en&limit=1&format=json&apiKey=${this.geoapifyApiKey}`, this.getHttpOptions());
     }
 }

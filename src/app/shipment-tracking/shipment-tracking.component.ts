@@ -119,16 +119,18 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
         switch (status) {
             case PackageStateEnum.REDIRECTED_TO_DHL:
                 this.information = 'Die Sendungsverfolgung läuft ab jetzt über DHL. Bitte benutzen Sie die von' +
-                    ' uns erhaltene Sendungsverfolgungsnummer auf der folgenden Website: https://www.dhl.de/de/privatkunden/dhl-sendungsverfolgung.html'
+                    ' uns in der Bestellbestätigungs E-Mail erhaltene Sendungsverfolgungsnummer auf der folgenden' +
+                    ' Website: https://www.dhl.de/de/privatkunden/dhl-sendungsverfolgung.html'
                 break;
             case PackageStateEnum.ADDRESS_NOT_FOUND:
-                this.information = 'Die Lieferadresse konnte nicht gefunden werden. Bitte wenden Sie sich an unseren Support, um weitere Schritte einzuleiten.'
+                this.information = 'Die Lieferadresse konnte nicht gefunden werden und das Paket wird an den Absender zurückgeschickt.' +
+                    ' Bitte wenden Sie sich an unseren Support, um weitere Schritte einzuleiten.'
                 break;
             case PackageStateEnum.PICKUP_FAILED:
-                this.information = 'Die Abholung bei Ihnen zuhause war leider erfolglos. Bitte wenden Sie sich an unseren Support, um einen neuen Termin auszumachen.'
+                this.information = 'Die Abholung bei Ihnen zuhause war leider erfolglos. Bitte geben Sie das Paket persönlich bei unserer Filiale ab.'
                     break;
             case PackageStateEnum.CANCELED:
-                this.information = 'Bitte wenden Sie sich an unseren Support, um weitere Schritte einzuleiten.'
+                this.information = 'Ihr Paket wurde storniert. Bitte wenden Sie sich an unseren Support, wenn Sie das Paket nicht storniert haben.'
                 break;
             case PackageStateEnum.DELIVERY_FAILED:
                 this.information = 'Es gab Probleme bei der Auslieferung. Bitte wenden Sie sich an unseren Support, um weitere Schritte einzuleiten.'
