@@ -77,11 +77,6 @@
                                 <input matInput type="text" formControlName="lastName">
                                 <mat-error>Kein gültiger Nachname</mat-error>
                             </mat-form-field>
-                            <mat-form-field appearance="fill" class="w-100">
-                                <mat-label>Email:</mat-label>
-                                <input matInput type="email" formControlName="email">
-                                <mat-error>Keine gültige E-Mail Adresse</mat-error>
-                            </mat-form-field>
                             <div class="flex">
                                 <div class="width-50">
                                     <mat-form-field appearance="fill" class="w-95">
@@ -142,22 +137,22 @@
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Länge (in cm)</mat-label>
                             <input matInput type="text" formControlName="depth">
-                            <mat-error>Die eingegebene Länge liegt außerhalb der erlaubten Eingaben</mat-error>
+                            <mat-error>Nur gerade Zahlen erlaubt (>= 10 & <= 120)</mat-error>
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Breite (in cm)</mat-label>
                             <input matInput type="text" formControlName="width">
-                            <mat-error>Die eingegebene Breite liegt außerhalb der erlaubten Eingaben</mat-error>
+                            <mat-error>Nur gerade Zahlen erlaubt (>= 7 & <= 60)</mat-error>
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Höhe (in cm)</mat-label>
                             <input matInput type="text" formControlName="height">
-                            <mat-error>Die eingegebene Höhe liegt außerhalb der erlaubten Eingaben</mat-error>
+                            <mat-error>Nur gerade Zahlen erlaubt (>= 1 & <= 60)</mat-error>
                         </mat-form-field>
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Gewicht (in g)</mat-label>
                             <input matInput type="text" formControlName="weight">
-                            <mat-error>Das eingegebene Gewicht liegt außerhalb der erlaubten Eingaben</mat-error>
+                            <mat-error>Nur gerade Zahlen erlaubt (>= 1 & <= 31500)</mat-error>
                         </mat-form-field>
                     </form>
 

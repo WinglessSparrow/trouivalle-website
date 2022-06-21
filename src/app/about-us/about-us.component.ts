@@ -19,7 +19,7 @@ export class AboutUsComponent implements OnInit {
     public packageForm = new FormGroup({
         height: new FormControl("", [
             Validators.required,
-            Validators.min(0.1),
+            Validators.min(1),
             Validators.max(60),
             Validators.pattern("[1-9][0-9]*")
         ]),
@@ -37,7 +37,7 @@ export class AboutUsComponent implements OnInit {
         ]),
         weight: new FormControl("", [
             Validators.required,
-            Validators.min(0.1),
+            Validators.min(1),
             Validators.max(31500),
             Validators.pattern("[1-9][0-9]*")
         ]),

@@ -66,18 +66,19 @@ export class OrderComponent implements OnInit {
         email: new FormControl("", [
             Validators.required,
             Validators.email,
+            Validators.pattern(".*[\.][a-z]{2,}")
         ]),
         city: new FormControl("", [
             Validators.required,
             Validators.minLength(2),
-            Validators.maxLength(20),
+            Validators.maxLength(25),
             Validators.pattern("([a-zA-ZäöüÄÖÜß]+[-]?[ ]?[a-zA-ZäöüÄÖÜß]+)*")
         ]),
         postalCode: new FormControl("", [
             Validators.required,
             Validators.maxLength(5),
             Validators.minLength(5),
-            Validators.pattern("[1-9][0-9]{4}")
+            Validators.pattern("[0-9]{5}")
         ]),
         street: new FormControl("", [
             Validators.required,
@@ -112,14 +113,10 @@ export class OrderComponent implements OnInit {
             Validators.maxLength(20),
             Validators.pattern("[a-zA-ZäöüÄÖÜß]*")
         ]),
-        email: new FormControl("", [
-            Validators.required,
-            Validators.email
-        ]),
         city: new FormControl("", [
             Validators.required,
             Validators.minLength(2),
-            Validators.maxLength(20),
+            Validators.maxLength(25),
             Validators.pattern("([a-zA-ZäöüÄÖÜß]+[-]?[ ]?[a-zA-ZäöüÄÖÜß]+)*")
         ]),
         postalCode: new FormControl("", [
@@ -151,7 +148,7 @@ export class OrderComponent implements OnInit {
     public packageForm = new FormGroup({
         height: new FormControl("", [
             Validators.required,
-            Validators.min(0.1),
+            Validators.min(1),
             Validators.max(60),
             Validators.pattern("[1-9][0-9]*")
         ]),
@@ -169,7 +166,7 @@ export class OrderComponent implements OnInit {
         ]),
         weight: new FormControl("", [
             Validators.required,
-            Validators.min(0.1),
+            Validators.min(1),
             Validators.max(31500),
             Validators.pattern("[1-9][0-9]*")
         ])
@@ -302,7 +299,7 @@ export class OrderComponent implements OnInit {
 
         this.receiver.firstName = this.receiverGroup.get("firstName")?.value;
         this.receiver.lastName = this.receiverGroup.get("lastName")?.value;
-        this.receiver.email = this.receiverGroup.get("email")?.value;
+        this.receiver.email = "";
         this.receiver.idaddress = this.receiverAddress.idAddress;
     }
 
