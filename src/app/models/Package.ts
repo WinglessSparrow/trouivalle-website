@@ -29,7 +29,7 @@ export class Package {
             packageid: this.packageid,
             iddelivery: this._iddelivery,
             idpickup: this.idpickup,
-            weight: this.weight / 1000,
+            weight: this.weight,
             height: this.height,
             idnode: this.idNode,
             idreturn: this.idReturn,

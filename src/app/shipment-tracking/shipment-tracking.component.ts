@@ -2,7 +2,7 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import * as L from 'leaflet';
 import {icon, Marker} from 'leaflet';
 import {FormControl, Validators} from "@angular/forms";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {TrackingDialogComponent} from "../modal/tracking-dialog/tracking-dialog.component";
 import {TrackingService} from "../../services/tracking.service";
@@ -37,7 +37,8 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
         Validators.maxLength(40)
     ])
 
-    constructor(private route: ActivatedRoute, private dialog: MatDialog, private trackingService: TrackingService) {
+    constructor(private route: ActivatedRoute, private dialog: MatDialog, private trackingService: TrackingService, private router: Router, private activatedRoute: ActivatedRoute) {
+
     }
 
     ngOnInit(): void {
@@ -53,8 +54,11 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
         this.initMap();
         this.route.queryParams.subscribe(params => {
             this.trackingId = params['trackingId'];
+            if (this.trackingForm.value != this.trackingId) {
+                this.trackingForm.setValue(this.trackingId);
+                this.getDeliveryStatus();
+            }
             this.trackingForm.setValue(this.trackingId);
-            this.getDeliveryStatus();
         })
     }
 
@@ -90,6 +94,14 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
     }
 
     public getDeliveryStatus(): void {
+
+        this.router.navigate(
+            [],
+            {
+                relativeTo: this.activatedRoute,
+                queryParams: {trackingId: this.trackingForm.value}
+            }
+        )
         this.isPickup = false;
         this.trackingId = this.trackingForm.value;
         let trackingId = this.trackingId;
