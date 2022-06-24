@@ -34,7 +34,7 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
 
     trackingForm = new FormControl("", [
         Validators.required,
-        // Validators.pattern("[0-9]*")
+        Validators.maxLength(40)
     ])
 
     constructor(private route: ActivatedRoute, private dialog: MatDialog, private trackingService: TrackingService) {
@@ -81,7 +81,7 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
 
         const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 18,
-            minZoom: 8,
+            minZoom: 4,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         });
         this.map.setZoom(13);
@@ -99,19 +99,22 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
             if (response.hasError) {
                 this.openDialog();
             } else {
-                if (response.data[0].some((s: { status: PackageStateEnum; }) => s.status === 'REQUESTED_PICKUP') === true || response.data[0].some((s: { status: PackageStateEnum; }) => s.status === 'PICKED_UP') === true) {
+                if (response.data[0].historyList.some((s: {status: PackageStateEnum;}) => s.status === 'REQUESTED_PICKUP') === true ||
+                    response.data[0].historyList.some((s: {status: PackageStateEnum;}) => s.status === 'PICKED_UP') === true) {
                     this.isPickup = true;
                 }
 
-                this.setInformation(response.data[0][0].status);
+                this.setInformation(response.data[0].historyList[0].status);
                 // aktuellsten Status aus dem history-Array rausnehmen
-                this.status = response.data[0][0].status;
+                this.status = response.data[0].historyList[0].status;
+
+
+                this.getPackageLocation(response.data[0].currentLongitude, response.data[0].currentLatitude);
             }
         },
             error => {
                 this.openDialog();
             })
-        this.getPackageLocation();
     }
 
     public setInformation(status: PackageStateEnum): void {
@@ -134,29 +137,42 @@ export class ShipmentTrackingComponent implements OnInit, AfterViewInit {
                 break;
             case PackageStateEnum.DELIVERY_FAILED:
                 this.information = 'Es gab Probleme bei der Auslieferung. Bitte wenden Sie sich an unseren Support, um weitere Schritte einzuleiten.'
+                break;
+            case PackageStateEnum.SUPPORT:
+                this.information = "Es gab Probleme bei der Auslieferung. Bitte wenden Sie sich an unseren Support, um weitere Schritte einzuleiten."
+                break;
         }
     }
 
-    public getPackageLocation(): void {
-        // todo backend call für aktuelle Position
+    public getPackageLocation(longitude: number, latitude: number): void {
+        const deliveryPos = new Coordinate();
+        deliveryPos.longitude = longitude;
+        deliveryPos.latitude = latitude;
 
         // clear map before adding new markers
         this.map.eachLayer((layer: any) => {
             if (layer['_latlng'] != undefined)
                 layer.remove();
+
+            if(layer._path != undefined) {
+                layer.remove();
+            }
         });
 
-        // Ausschnitt auf der Karte setzen
-        L.marker([47.99, 7.8]).addTo(this.map)
-            .bindPopup('Headquarter Trouvaille Deliveries', {autoClose: false})
-            .openPopup();
-
-        L.marker([48, 7.85]).addTo(this.map)
+        const marker1 = L.marker([latitude, longitude]).addTo(this.map)
             .bindPopup('Ihre Lieferung', {autoClose: false})
             .openPopup();
 
+        // Ausschnitt auf der Karte setzen
+        const marker2 = L.marker([47.99, 7.8]).addTo(this.map)
+            .bindPopup('Headquarter Trouvaille Deliveries', {autoClose: false})
+            .openPopup();
+
+        let group = L.featureGroup([marker1, marker2]);
+        this.map.fitBounds(group.getBounds().pad(0.5));
+
         // Add route (polyline) from start to end to map
-        this.trackingService.getRouteFromOsrm(this.headquarter, this.destination).subscribe(jsonRoute => {
+        this.trackingService.getRouteFromOsrm(this.headquarter, deliveryPos).subscribe(jsonRoute => {
             let route = JSON.parse(jsonRoute);
             let polyUtil = require('polyline-encoded');
             const latlngs = polyUtil.decode(route.routes[0].geometry, 5);

@@ -16,7 +16,7 @@
                         <mat-form-field class="id-input" appearance="fill">
                             <mat-label>Lieferungs-ID</mat-label>
                             <input matInput type="text" [formControl]="trackingForm">
-                            <mat-error>Nur Ziffern erlaubt</mat-error>
+                            <mat-error>Keine gültige Verfolgunsnummer</mat-error>
                         </mat-form-field>
                         <div class="">
                             <button class="tracking-button rounded-0" mat-raised-button color="primary"
@@ -44,6 +44,7 @@
                                 <span class="text-white" *ngSwitchCase="'CANCELED'"><span class="dot cCD8484"></span>&nbsp;&nbsp;Lieferung abgebrochen</span>
                                 <span class="text-white" *ngSwitchCase="'DELIVERY_FAILED'"><span class="dot cCD8484"></span>&nbsp;&nbsp;Lieferung abgebrochen</span>
                                 <span class="text-white" *ngSwitchCase="'PICKUP_FAILED'"><span class="dot cCD8484"></span>&nbsp;&nbsp;Lieferung abgebrochen</span>
+                                <span class="text-white" *ngSwitchCase="'SUPPORT'"><span class="dot cCD8484"></span>&nbsp;&nbsp;Lieferung abgebrochen</span>
                             </ng-container>
                         </p>
                     </div>
@@ -104,8 +105,8 @@
                             </div>
                             <div class="mr-20 w-80">
                                 <div class="square flex justify-content-center align-items-center cCD8484"
-                                     [ngClass]="{'border-blue': status === 'ADDRESS_NOT_FOUND' || status === 'CANCELED' || status === 'DELIVERY_FAILED' || status === 'PICKUP_FAILED'}">
-                                    <fa-icon *ngIf="status === 'ADDRESS_NOT_FOUND' || status === 'CANCELED' || status === 'DELIVERY_FAILED' || status === 'PICKUP_FAILED'"
+                                     [ngClass]="{'border-blue': status === 'ADDRESS_NOT_FOUND' || status === 'CANCELED' || status === 'DELIVERY_FAILED' || status === 'PICKUP_FAILED' || status === 'SUPPORT'}">
+                                    <fa-icon *ngIf="status === 'ADDRESS_NOT_FOUND' || status === 'CANCELED' || status === 'DELIVERY_FAILED' || status === 'PICKUP_FAILED' || status === 'SUPPORT'"
                                              [icon]="faXmark" size="4x"></fa-icon>
                                 </div>
                                 <p class="text-center">Lieferung abgebrochen</p>

@@ -27,9 +27,13 @@ export class CancellationComponent implements OnInit {
     }
 
     public cancelDelivery(): void {
-       this.cancellationService.cancelDelivery(this.deliveryId).subscribe(response => {
-            this.cancelled = !response.hasError;
-        })
+        this.cancellationService.cancelDelivery(this.deliveryId).subscribe(response => {
+                this.cancelled = !response.hasError;
+            }
+            ,
+            error => {
+                this.cancelled = false;
+            })
 
         // if cancellation went through -> this.cancelled = true
         // else this.cancelled = false
